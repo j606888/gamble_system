@@ -1,0 +1,8 @@
+<h1>新房間</h1>
+
+<%= simple_form_for @room do |f| %>
+
+  <%= f.input :name, label: '房間名稱' %>
+  <%= f.input :public, as: :boolean, label: '是否公開？' %>
+  <%= f.button :submit, class: 'btn btn-secondary', label: '繼續' %>
+<% end %>

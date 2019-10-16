@@ -10,6 +10,11 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="d-flex" id="wrapper">
+      <%= render 'layouts/navbar' %>
+      <div class="page-content-wrapper container">
+        <%= yield %>
+      </div>
+    <end>
   </body>
 </html>

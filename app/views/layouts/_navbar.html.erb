@@ -1,0 +1,27 @@
+
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="sidebar-heading">麻將小幫手 V2.0</div>
+      <div class="list-group list-group-flush">
+      <% if user_signed_in? %>
+        
+        <div class="list-group-item list-group-item-action bg-light">Hi, <%= current_user.email %></div>
+        <%= link_to '登出', destroy_user_session_path, method: 'delete', class:"list-group-item list-group-item-action bg-light" %>
+      <% else %>
+        <%= link_to '登入', new_user_session_path, class:"list-group-item list-group-item-action bg-light" %>
+      <% end %>
+        <%= link_to '房間', rooms_path, class:"list-group-item list-group-item-action bg-light" %>
+        
+        <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
+      </div>
+    </div>
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+  </script>

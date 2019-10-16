@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_16_142354) do
+ActiveRecord::Schema.define(version: 2019_10_16_151157) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -20,6 +20,14 @@ ActiveRecord::Schema.define(version: 2019_10_16_142354) do
   enable_extension "postgis"
   enable_extension "postgis_tiger_geocoder"
   enable_extension "postgis_topology"
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "name"
+    t.string "invite_token"
+    t.boolean "public"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "spatial_ref_sys", primary_key: "srid", id: :integer, default: nil, force: :cascade do |t|
     t.string "auth_name", limit: 256
