@@ -24,6 +24,10 @@ h1 {
   margin-bottom: 40px;
 }
 
+a:hover {
+    text-decoration: none
+}
+
 .container {
   margin-top: 40px;
 }
@@ -34,4 +38,19 @@ h1 {
 
 .card {
   width: 300px;
+}
+
+input[type=text] {
+  padding:5px; border:2px solid #ccc; 
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+
+input[type=text]:focus {
+  border-color:#333; 
+}
+
+a {
+  @extend .btn;
+  @extend .btn-secondary;
 }

@@ -1,1 +1,28 @@
 <h1><%= @room.name %></h1>
+
+<%= link_to '新增玩家', new_player_path(room_id: @room.id), method: :get %>
+<hr>
+<table>
+  <% @players.each do |player| %>
+  <tr>
+    <td>ID：<%= player.id %></td>
+    <td>姓名：<%= player.name %></td>
+    <td>暱稱：<%= player.nickname %></td>
+  </tr>
+  <% end %>
+</table>
+<hr>
+<h4>快速紀錄</h4>
+
+<%= form_tag records_path do %>
+  <%= hidden_field_tag "room_id", @room.id %><br>
+  <% @players.each do |player| %>
+    <%= hidden_field_tag "records[]player_id", player.id %>
+    <%= player.name %>:
+    <%= text_field_tag "records[]score" %><br>
+  <% end %>
+  <%= submit_tag 'send' %>
+<% end %>
+
+<hr>
+<h4>戰績表</h4>

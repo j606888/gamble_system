@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_16_151157) do
+ActiveRecord::Schema.define(version: 2019_10_17_145557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -20,6 +20,29 @@ ActiveRecord::Schema.define(version: 2019_10_16_151157) do
   enable_extension "postgis"
   enable_extension "postgis_tiger_geocoder"
   enable_extension "postgis_topology"
+
+  create_table "games", force: :cascade do |t|
+    t.integer "room_id"
+    t.datetime "recorded_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.string "name"
+    t.string "nickname"
+    t.integer "room_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "records", force: :cascade do |t|
+    t.integer "score"
+    t.integer "game_id"
+    t.integer "player_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "rooms", force: :cascade do |t|
     t.string "name"
