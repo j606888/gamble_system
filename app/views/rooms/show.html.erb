@@ -5,6 +5,7 @@
 <table>
   <% @players.each do |player| %>
   <tr>
+    <td><%= link_to '編輯', player_path(player.id) %></td>
     <td>ID：<%= player.id %></td>
     <td>姓名：<%= player.name %></td>
     <td>暱稱：<%= player.nickname %></td>

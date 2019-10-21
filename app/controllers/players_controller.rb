@@ -10,6 +10,16 @@ class PlayersController < ApplicationController
     redirect_to room
   end
 
+  def show
+    @player = Player.find(params[:id])
+  end
+
+  def update
+    @player = Player.find(params[:id])
+    @player.update(player_params)
+    redirect_to @player.room
+  end
+
   private
   def player_params
     params.require(:player).permit(:name, :nickname, :room_id)

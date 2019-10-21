@@ -1,7 +1,7 @@
 class RecordsController < ApplicationController
   def create
     room = Record.fast_create(record_params)
-    redirect_to room
+    redirect_to Room.find(params[:room_id])
   end
 
   private

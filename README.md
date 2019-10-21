@@ -1,24 +1,37 @@
-# README
+### Todo List
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## User
 
-Things you may want to cover:
+* cancancan
 
-* Ruby version
+* rolify
 
-* System dependencies
+## Player
 
-* Configuration
+* invisible some user
 
-* Database creation
+* Change order
 
-* Database initialization
+* set default score
 
-* How to run the test suite
+## Room
 
-* Services (job queues, cache servers, search engines, etc.)
+* CRUD
 
-* Deployment instructions
+* private / public
 
-* ...
+* admin
+
+## Record
+
+* CRUD
+
+## Game
+
+* flash notice success or failed
+
+## Data Analysis
+
+* To be continue...
+
+
