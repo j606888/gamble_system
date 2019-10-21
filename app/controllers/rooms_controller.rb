@@ -14,7 +14,7 @@ class RoomsController < ApplicationController
 
   def show
     @room = Room.find(params[:id])
-    @players = @room.players.normal_order
+    @players = @room.players.avaliable
     @headers = @room.player_array
     @all_records = @room.array_records
   end

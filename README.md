@@ -8,11 +8,7 @@
 
 ## Player
 
-* invisible some user
-
 * Change order
-
-* set default score
 
 ## Room
 

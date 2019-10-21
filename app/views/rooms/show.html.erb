@@ -9,6 +9,8 @@
     <td>ID：<%= player.id %></td>
     <td>姓名：<%= player.name %></td>
     <td>暱稱：<%= player.nickname %></td>
+    <td>東錢：<%= player.primary %></td>
+    <td><%= link_to '隱藏', triggle_hidden_player_path(player.id), method: :post %></td>
   </tr>
   <% end %>
 </table>

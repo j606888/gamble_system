@@ -20,8 +20,14 @@ class PlayersController < ApplicationController
     redirect_to @player.room
   end
 
+  def triggle_hidden
+    player = Player.find(params[:id])
+    player.update(hidden: !player.hidden)
+    redirect_to player.room
+  end
+
   private
   def player_params
-    params.require(:player).permit(:name, :nickname, :room_id)
+    params.require(:player).permit(:name, :nickname, :room_id, :primary)
   end
 end

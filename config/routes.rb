@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   root 'home#index'
 
   resources :rooms
-  resources :players
+  resources :players do
+    member do
+      post 'triggle_hidden'
+    end
+  end
   resources :games
   resources :records
 end
