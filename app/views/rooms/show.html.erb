@@ -26,3 +26,20 @@
 
 <hr>
 <h4>戰績表</h4>
+
+<table class="table table-bordered">
+  <% @headers.each do |header| %>
+    <tr>
+      <% header.each do |h| %>
+        <th><%= h %></th>
+      <% end %>
+    </tr>
+  <% end %>
+  <% @all_records.each do |records| %>
+    <tr>
+      <% records.each do |record| %>
+        <td><%= record %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

@@ -15,7 +15,8 @@ class RoomsController < ApplicationController
   def show
     @room = Room.find(params[:id])
     @players = @room.players
-    @all_records = @room.all_records
+    @headers = @room.player_array
+    @all_records = @room.array_records
   end
 
   private
