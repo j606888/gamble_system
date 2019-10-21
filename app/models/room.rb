@@ -12,12 +12,27 @@ class Room < ApplicationRecord
 
   def array_records
     hash_table = hash_records
-    
-    result = games.order(recorded_at: :desc).map do |game|
-      r = players.avaliable.map do |player|
-        hash_table[game.id][player.id]
+    result = {
+      winner: [],
+      loser: [],
+      counter: []
+    }
+    games.order(recorded_at: :desc).each do |game|
+      winner_game = players.avaliable.winner.map do |p|
+        hash_table[game.id][p.id]
       end
-      [game.recorded_at.strftime("%F %I:%M %P") ] + r
+
+      loser_game = players.avaliable.loser.map do |p|
+        hash_table[game.id][p.id]
+      end
+
+      counter_game = players.avaliable.counter.map do |p|
+        hash_table[game.id][p.id]
+      end
+
+      result[:winner] << [game.recorded_at.strftime("%F %I:%M %P")] + winner_game
+      result[:loser] << [game.recorded_at.strftime("%F %I:%M %P")] + loser_game
+      result[:counter] << [game.recorded_at.strftime("%F %I:%M %P")] + counter_game
     end
 
     result
