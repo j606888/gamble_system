@@ -16,7 +16,7 @@
 <hr>
 <h4>快速紀錄</h4>
 
-<%= form_tag records_path do %>
+<%= form_tag(records_path, remote: true) do %>
   <%= hidden_field_tag "room_id", @room.id %><br>
   <% @players.each do |player| %>
     <%= hidden_field_tag "records[]player_id", player.id %>
@@ -25,6 +25,8 @@
   <% end %>
   <%= submit_tag 'send' %>
 <% end %>
+
+<div id="valid_result"></div>
 
 <hr>
 <h4>戰績表</h4>

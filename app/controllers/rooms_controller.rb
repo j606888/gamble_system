@@ -17,7 +17,6 @@ class RoomsController < ApplicationController
     @players = @room.players.avaliable
     @headers = @room.header_array(record_type)
     @bodys = @room.body_array(record_type)
-    flash[:success] = "Woohoo!"
   end
 
   private
