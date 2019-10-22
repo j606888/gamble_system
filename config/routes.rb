@@ -3,12 +3,14 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'home#index'
 
-  resources :rooms
-  resources :players do
-    member do
-      post 'triggle_hidden'
+  resources :rooms do
+    resources :players do
+      member do
+        post 'triggle_hidden'
+      end
     end
   end
+  
   resources :games
   resources :records
 end

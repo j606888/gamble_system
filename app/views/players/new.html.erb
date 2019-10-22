@@ -1,6 +1,8 @@
-<%= simple_form_for @player do |f| %>
-  <%= f.input :name, label: '玩家名稱' %>
-  <%= f.input :nickname, label: '暱稱' %>
-  <%= f.hidden_field :room_id, value: @player.room_id %>
-  <%= f.button :submit, class: 'btn btn-secondary', label: '繼續' %>
-<% end %>
+<table>
+  <%= simple_form_for(@player, url: room_players_path(@room, @player)) do |f| %>
+    <%= f.input :name, label: '玩家名稱' %>
+    <%= f.input :nickname, label: '暱稱' %>
+    <%= f.hidden_field :room_id, value: @player.room_id %>
+    <%= f.button :submit, class: 'btn btn-secondary', label: '繼續' %>
+  <% end %>
+</table>

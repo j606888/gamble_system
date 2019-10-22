@@ -1,4 +1,9 @@
 class PlayersController < ApplicationController
+  def index
+    @room = Room.find(params[:room_id])
+    @players = @room.players
+  end
+
   def new
     @room = Room.find(params[:room_id])
     @player = @room.players.new
@@ -10,7 +15,8 @@ class PlayersController < ApplicationController
     redirect_to room
   end
 
-  def show
+  def edit
+    @room = Room.find(params[:room_id])
     @player = Player.find(params[:id])
   end
 
@@ -28,6 +34,6 @@ class PlayersController < ApplicationController
 
   private
   def player_params
-    params.require(:player).permit(:name, :nickname, :room_id, :primary)
+    params.require(:player).permit(:name, :nickname, :room_id, :hidden)
   end
 end

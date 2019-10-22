@@ -1,15 +1,16 @@
 <h1><%= @room.name %></h1>
 
-<%= link_to '新增玩家', new_player_path(room_id: @room.id), method: :get %>
+<%= link_to '編輯所有玩家', room_players_path(@room.id), method: :get %>
+<%= link_to '新增玩家', new_room_player_path(@room.id), method: :get %>
 <hr>
 <table>
   <% @players.each do |player| %>
   <tr>
-    <td><%= link_to '編輯', player_path(player.id) %></td>
+    <td><%= link_to '編輯', edit_room_player_path(@room.id, player.id) %></td>
     <td>ID：<%= player.id %></td>
     <td>姓名：<%= player.name %></td>
     <td>暱稱：<%= player.nickname %></td>
-    <td><%= link_to '隱藏', triggle_hidden_player_path(player.id), method: :post %></td>
+    <td><%= link_to '隱藏', triggle_hidden_room_player_path(@room.id, player.id), method: :post %></td>
   </tr>
   <% end %>
 </table>

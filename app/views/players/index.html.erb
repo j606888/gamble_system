@@ -1,0 +1,12 @@
+<table>
+  <% @players.each do |player| %>
+  <tr>
+    <td><%= link_to '編輯', edit_room_player_path(@room.id, player.id) %></td>
+    <td>ID：<%= player.id %></td>
+    <td>姓名：<%= player.name %></td>
+    <td>暱稱：<%= player.nickname %></td>
+    <td>隱藏：<%= player.hidden %></td>
+    <td><%= link_to '隱藏', triggle_hidden_room_player_path(@room.id, player.id), method: :post %></td>
+  </tr>
+  <% end %>
+</table>
