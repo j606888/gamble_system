@@ -15,8 +15,9 @@ class RoomsController < ApplicationController
   def show
     @room = Room.find(params[:id])
     @players = @room.players.avaliable
-    @headers = @room.player_array(record_type)
-    @all_records = @room.record_array(record_type)
+    @headers = @room.header_array(record_type)
+    @bodys = @room.body_array(record_type)
+    flash[:success] = "Woohoo!"
   end
 
   private

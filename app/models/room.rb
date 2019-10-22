@@ -10,7 +10,7 @@ class Room < ApplicationRecord
     hash
   end
 
-  def record_array(type)
+  def body_array(type)
     hash_table = hash_records
     player_hash = players.avaliable.send(type)
 
@@ -20,7 +20,7 @@ class Room < ApplicationRecord
     end
   end
 
-  def player_array(type)
+  def header_array(type)
     date_array = ['遊戲時間']
     score_array = ['分數']
 

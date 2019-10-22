@@ -12,7 +12,13 @@
   <body>
     <div class="d-flex" id="wrapper">
       <%= render 'layouts/navbar' %>
-      <div class="page-content-wrapper container">    
+      <div class="page-content-wrapper container">
+        <% flash.each do |key, value| %>
+          <div class="<%= flash_class(key) %>">
+            <%= value %>
+          </div>
+        <% end %>
+
         <%= yield %>
       </div>
     <end>

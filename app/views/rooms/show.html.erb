@@ -9,7 +9,6 @@
     <td>ID：<%= player.id %></td>
     <td>姓名：<%= player.name %></td>
     <td>暱稱：<%= player.nickname %></td>
-    <td>東錢：<%= player.primary %></td>
     <td><%= link_to '隱藏', triggle_hidden_player_path(player.id), method: :post %></td>
   </tr>
   <% end %>
@@ -38,7 +37,7 @@
       <% end %>
     </tr>
   <% end %>
-  <% @all_records.each do |records| %>
+  <% @bodys.each do |records| %>
     <tr>
       <% records.each do |record| %>
         <td><%= record %></td>
