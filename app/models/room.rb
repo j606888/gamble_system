@@ -10,38 +10,25 @@ class Room < ApplicationRecord
     hash
   end
 
-  def array_records
+  def record_array(type)
     hash_table = hash_records
-    result = {
-      winner: [],
-      loser: [],
-      counter: []
-    }
+    player_hash = players.avaliable.send(type)
 
-    winner_hash = players.avaliable.winner
-    loser_hash = players.avaliable.loser
-    counter_hash = players.avaliable.counter
-
-    games.order(recorded_at: :desc).each do |game|
-      winner_game = winner_hash.map { |p| hash_table[game.id][p.id] }
-      loser_game = loser_hash.map { |p| hash_table[game.id][p.id] }
-      counter_game = counter_game.map { |p| hash_table[game.id][p.id] }
-
-      result[:winner] << [game.recorded_at.strftime("%F %I:%M %P")] + winner_game
-      result[:loser] << [game.recorded_at.strftime("%F %I:%M %P")] + loser_game
-      result[:counter] << [game.recorded_at.strftime("%F %I:%M %P")] + counter_game
+    games.order(recorded_at: :desc).map do |game|
+      single_game = player_hash.map { |p| hash_table[game.id][p.id] }
+      [game.recorded_at.strftime("%F %I:%M %P")] + single_game
     end
-
-    result
   end
 
-  def player_array
-    result = {}
-    result[:winner] = scope_player(:winner)
-    result[:loser] = scope_player(:loser)
-    result[:counter] = scope_player(:winner)
+  def player_array(type)
+    date_array = ['遊戲時間']
+    score_array = ['分數']
 
-    result
+    players.avaliable.send(type).each do |p|
+      date_array << p.name
+      score_array << p.total_score
+    end
+    [date_array, score_array]
   end
 
   def records
@@ -55,16 +42,5 @@ class Room < ApplicationRecord
   private
   def set_invite_token
     self.invite_token = SecureRandom.hex(3)
-  end
-
-  def scope_player(type)
-    date_array = ['遊戲時間']
-    score_array = ['分數']
-
-    players.avaliable.send(type).each do |p|
-      date_array << p.name
-      score_array << p.total_score
-    end
-    [date_array, score_array]
   end
 end

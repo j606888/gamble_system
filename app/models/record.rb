@@ -8,7 +8,10 @@ class Record < ApplicationRecord
 
     return unless check_is_zero?(records)
     game = Game.create(room_id: room_id, recorded_at: Time.now)
-    game.records.create(records)
+    records.each do |record|
+      next if record['score'].empty?
+      game.records.create(record)
+    end
     game.room
   end
 

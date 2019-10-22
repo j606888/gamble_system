@@ -5,7 +5,7 @@ class Player < ApplicationRecord
   scope :avaliable, -> { where(hidden: false).order(:id) }
   scope :winner, -> { all.includes(:records).sort_by(&:total_score).reverse! }
   scope :loser, -> { all.includes(:records).sort_by(&:total_score) }
-  scope :counter, -> { all.includes(:records).sort_by(&:records_count) }
+  scope :counter, -> { all.includes(:records).sort_by(&:records_count).reverse! }
 
   def total_score
     scores = records.map(&:score)
