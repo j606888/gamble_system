@@ -10,7 +10,11 @@
 
 ## Room
 
-* admin
+* should have a admin
+
+* permission to CRUD (player, game, record)
+
+* can't see if not public
 
 ## Record
 
