@@ -3,33 +3,7 @@ class Room < ApplicationRecord
   has_many :games
   before_save :set_invite_token
 
-  def hash_records    
-    hash = Hash.new { |hash,key| hash[key] = {} }
-    records.each { |r| hash[r.game_id][r.player_id] = r.score }
-
-    hash
-  end
-
-  def body_array(type)
-    hash_table = hash_records
-    player_hash = players.avaliable.send(type)
-
-    games.order(recorded_at: :desc).map do |game|
-      single_game = player_hash.map { |p| hash_table[game.id][p.id] }
-      [game.recorded_at.strftime("%F %I:%M %P")] + single_game
-    end
-  end
-
-  def header_array(type)
-    date_array = ['遊戲時間']
-    score_array = ['分數']
-
-    players.avaliable.send(type).each do |p|
-      date_array << p.name
-      score_array << p.total_score
-    end
-    [date_array, score_array]
-  end
+  ALLOW_REPORT_TYPE = %w[winner loser counter]
 
   def records
     arrays = []
@@ -39,7 +13,36 @@ class Room < ApplicationRecord
     arrays
   end
 
+  def report(type='winner')
+    raise 'not allow type' if ALLOW_REPORT_TYPE.exclude?(type)
+    hash = {}
+    hash[:header] = header_maker(type)
+    hash[:body] = body_maker
+    hash
+  end
+
   private
+  def header_maker(type='winner')
+    select_players = players.avaliable.send(type)
+    {
+      name: ['遊戲時間'] + select_players.map(&:name),
+      money: ['分數'] + select_players.map(&:total_score),
+      id: select_players.map(&:id)
+    }
+  end
+
+  def body_maker
+    hash = {}
+    games.order(id: :desc).includes(:records).each do |game|
+      game_hash = { id: game.id }
+      game.records.each do |record|
+        game_hash[record.player_id] = record.score
+      end
+      hash[game.display_time] = game_hash
+    end
+    hash
+  end
+
   def set_invite_token
     self.invite_token = SecureRandom.hex(3)
   end

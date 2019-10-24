@@ -15,8 +15,7 @@ class RoomsController < ApplicationController
   def show
     @room = Room.find(params[:id])
     @players = @room.players.avaliable
-    @headers = @room.header_array(record_type)
-    @bodys = @room.body_array(record_type)
+    @report = @room.report(record_type)
   end
 
   def edit
@@ -43,6 +42,6 @@ class RoomsController < ApplicationController
   end
 
   def record_type
-    params[:record_type] || :winner
+    params[:record_type] || 'winner'
   end
 end

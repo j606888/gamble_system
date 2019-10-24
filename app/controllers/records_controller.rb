@@ -9,8 +9,6 @@ class RecordsController < ApplicationController
     if @result == :success
       redirect_to Room.find(params[:room_id])
       flash[:success] = "記錄成功"
-    else
-      flash[:alert] = "記錄失敗，總結不為0"
     end
   end
 

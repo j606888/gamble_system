@@ -22,17 +22,24 @@
 <h4>戰績表</h4>
 
 <table class="table table-bordered">
-  <% @headers.each do |header| %>
+  <tr>
+    <% @report[:header][:name].each do |name| %>
+      <th><%= name %></th>
+    <% end %>
+  </tr>
+  <tr>
+    <% @report[:header][:money].each do |money| %>
+      <th><%= money %></th>
+    <% end %>
+  </tr>
+  <% @report[:body].each do |date, value| %>
     <tr>
-      <% header.each do |h| %>
-        <th><%= h %></th>
-      <% end %>
-    </tr>
-  <% end %>
-  <% @bodys.each do |records| %>
-    <tr>
-      <% records.each do |record| %>
-        <td><%= record %></td>
+      <td>
+        <%= date %>
+        <%= link_to '編輯', edit_room_game_path(@room.id, value[:id])%>
+      </td>
+      <% @report[:header][:id].each do |id| %>
+        <td><%= value[id] %></td>
       <% end %>
     </tr>
   <% end %>
