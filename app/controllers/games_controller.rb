@@ -22,6 +22,14 @@ class GamesController < ApplicationController
     end
   end
 
+  def destroy
+    @room = Room.find(params[:room_id])
+    @game = Game.find(params[:id])
+    @game.destroy
+    flash[:success] = "刪除成功"
+    redirect_to @room
+  end
+
   private
   def record_params
     params.permit(records: [:player_id, :score])

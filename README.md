@@ -14,11 +14,9 @@
 
 ## Record
 
-* CRUD
 
 ## Game
 
-* flash notice success or failed
 
 ## Data Analysis
 

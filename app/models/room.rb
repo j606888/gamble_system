@@ -1,6 +1,6 @@
 class Room < ApplicationRecord
-  has_many :players
-  has_many :games
+  has_many :players, dependent: :destroy
+  has_many :games, dependent: :destroy
   before_save :set_invite_token
 
   ALLOW_REPORT_TYPE = %w[winner loser counter]

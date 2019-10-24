@@ -1,6 +1,6 @@
 class Game < ApplicationRecord
   belongs_to :room
-  has_many :records
+  has_many :records, dependent: :destroy
 
   def display_time
     recorded_at.strftime("%F %T %P")

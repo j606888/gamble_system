@@ -37,6 +37,7 @@
       <td>
         <%= date %>
         <%= link_to '編輯', edit_room_game_path(@room.id, value[:id])%>
+        <%= link_to '刪除', room_game_path(@room.id, value[:id]), method: :delete %>
       </td>
       <% @report[:header][:id].each do |id| %>
         <td><%= value[id] %></td>

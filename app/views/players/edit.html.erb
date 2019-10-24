@@ -6,3 +6,5 @@
   <%= f.input :hidden, label: '隱藏'%>
   <%= f.button :submit, class: 'btn btn-secondary', label: '繼續' %>
 <% end %>
+
+<%= link_to '返回', room_players_path(@player.room) %>

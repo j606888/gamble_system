@@ -1,6 +1,6 @@
 class Player < ApplicationRecord
   belongs_to :room
-  has_many :records
+  has_many :records, dependent: :destroy
 
   scope :avaliable, -> { where(hidden: false).order(:id) }
   scope :winner, -> { all.includes(:records).sort_by(&:total_score).reverse! }
