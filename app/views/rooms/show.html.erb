@@ -1,4 +1,5 @@
 <h1><%= @room.name %></h1>
+<%= link_to '編輯房間', edit_room_path(@room) %>
 
 <%= link_to '編輯所有玩家', room_players_path(@room.id), method: :get %>
 <%= link_to '新增玩家', new_room_player_path(@room.id), method: :get %>
@@ -36,3 +37,6 @@
     </tr>
   <% end %>
 </table>
+
+
+<%= link_to '刪除此房間', room_path(@room), method: :delete %>

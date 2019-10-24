@@ -6,7 +6,7 @@
       <% if user_signed_in? %>
         
         <div class="list-group-item list-group-item-action bg-light">Hi, <%= current_user.email %></div>
-        <%= link_to '登出', destroy_user_session_path, method: 'delete', class:"list-group-item list-group-item-action bg-light" %>
+        <%= link_to '編輯用戶', edit_user_registration_path, class:"list-group-item list-group-item-action bg-light" %>
       <% else %>
         <%= link_to '登入', new_user_session_path, class:"list-group-item list-group-item-action bg-light" %>
       <% end %>
@@ -16,6 +16,10 @@
         <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
         <a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
       </div>
+
+      <% if user_signed_in? %>
+        <%= link_to '登出', destroy_user_session_path, method: 'delete', class:"list-group-item list-group-item-action bg-light" %>
+      <% end %>
     </div>
 
   <!-- Menu Toggle Script -->

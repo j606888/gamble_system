@@ -1,0 +1,19 @@
+<h1>編輯房間</h1>
+
+<%= simple_form_for @room do |f| %>
+
+  <%= f.input :name, label: '房間名稱' %>
+  <%= f.input :public, as: :boolean, label: '公開' %>
+  <%= f.button :submit, class: 'btn btn-secondary', label: '繼續' %>
+<% end %>
+
+
+
+<h3>房間資訊<h3>
+<hr>
+<p>遊戲次數：<%= @room.games.count %></p>
+<p>玩家數量：<%= @room.players.count %></p>
+<p>建立日期：<%= @room.created_at %></p>
+
+
+<%= link_to '返回', room_path(@room) %>
