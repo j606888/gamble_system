@@ -1,7 +1,7 @@
 class PlayersController < ApplicationController
   def index
     @room = Room.find(params[:room_id])
-    @players = @room.players
+    @players = @room.players.order(:id)
   end
 
   def new
@@ -29,7 +29,7 @@ class PlayersController < ApplicationController
   def triggle_hidden
     player = Player.find(params[:id])
     player.update(hidden: !player.hidden)
-    redirect_to player.room
+    redirect_to room_players_path(player.room)
   end
 
   private
