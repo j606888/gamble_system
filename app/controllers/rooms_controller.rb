@@ -36,6 +36,10 @@ class RoomsController < ApplicationController
     redirect_to rooms_path
   end
 
+  def control
+    @room = Room.find(params[:id])
+  end
+
   private
   def rooms_params
     params.require(:room).permit(:name, :public)

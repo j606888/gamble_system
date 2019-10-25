@@ -11,6 +11,9 @@ Rails.application.routes.draw do
         post 'triggle_hidden'
       end
     end
+    member do
+      get 'control'
+    end
   end
   
   resources :records

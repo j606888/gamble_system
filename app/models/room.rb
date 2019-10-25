@@ -1,4 +1,5 @@
 class Room < ApplicationRecord
+  resourcify
   has_many :players, dependent: :destroy
   has_many :games, dependent: :destroy
   before_save :set_invite_token

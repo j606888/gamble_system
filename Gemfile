@@ -18,6 +18,7 @@ gem 'simple_form'
 gem 'devise'
 gem 'jquery-rails'
 gem 'rails_admin', '~> 2.0'
+gem "rolify"
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

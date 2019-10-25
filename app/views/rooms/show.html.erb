@@ -1,8 +1,9 @@
 <h1><%= @room.name %></h1>
 <%= link_to '編輯房間', edit_room_path(@room) %>
 
-<%= link_to '編輯所有玩家', room_players_path(@room.id), method: :get %>
-<%= link_to '新增玩家', new_room_player_path(@room.id), method: :get %>
+<%= link_to '編輯所有玩家', room_players_path(@room.id) %>
+<%= link_to '新增玩家', new_room_player_path(@room.id) %>
+<%= link_to '用戶權限', control_room_path(@room.id) %>
 <hr>
 <h4>快速紀錄</h4>
 
