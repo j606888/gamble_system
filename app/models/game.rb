@@ -2,6 +2,8 @@ class Game < ApplicationRecord
   belongs_to :room
   has_many :records, dependent: :destroy
 
+  before_create :setup_default_time
+
   def display_time
     recorded_at.strftime("%F %T %P")
   end
@@ -23,5 +25,9 @@ class Game < ApplicationRecord
       sum += record.to_i
     end
     sum
+  end
+
+  def setup_default_time
+    self.recorded_at ||= Time.now
   end
 end

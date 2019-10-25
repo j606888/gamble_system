@@ -9,7 +9,7 @@ class Record < ApplicationRecord
     return '全為0' if all_zero?(records)
     
     return check_is_zero?(records) unless check_is_zero?(records) == 0
-    game = Game.create(room_id: room_id, recorded_at: Time.now)
+    game = Game.create(room_id: room_id)
     records.each do |record|
       next if record['score'].empty?
       game.records.create(record)

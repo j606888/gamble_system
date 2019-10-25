@@ -34,6 +34,4 @@ class GamesController < ApplicationController
   def record_params
     params.permit(records: [:player_id, :score])
   end
-
-  
 end
