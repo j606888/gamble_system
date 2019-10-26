@@ -2,10 +2,16 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root 'home#index'
+  root 'rooms#index'
 
   resources :rooms do
-    resources :games
+    member do
+      get 'control'
+      post 'join'
+      post 'left'
+    end
+
+    resources :games, only: [:edit, :update, :destroy]
     resources :players do
       post 'triggle_hidden', on: :member
     end
@@ -13,13 +19,7 @@ Rails.application.routes.draw do
     resources :roles, only: [:show] do
       post 'bash_update', on: :collection
     end
-
-    member do
-      get 'control'
-      post 'join'
-      post 'left'
-    end
   end
   
-  resources :records
+  resources :records, only: :create
 end
