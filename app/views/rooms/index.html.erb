@@ -17,4 +17,8 @@
     <% end %>
   </div>
 <% end %>
-<%= button_to '創建新房間', new_room_path, method: 'get', class: 'btn btn-secondary' %>
+<% if user_signed_in? %>
+  <%= button_to '創建新房間', new_room_path, method: 'get', class: 'btn btn-secondary' %>
+<% else %>
+  <p><%= t('hint') %>請先登入再創間房間！</p>
+<% end %>
