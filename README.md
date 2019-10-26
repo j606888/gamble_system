@@ -4,15 +4,11 @@
 
 * cancancan
 
-* rolify
-
 ## Player
 
 ## Room
 
 * ability: Add player, Add record, Visit Room
-
-* Role Page(Admin): setup role for player inside room
 
 * Invite email to come inside(or using room_token)
 

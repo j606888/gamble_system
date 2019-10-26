@@ -1,4 +1,7 @@
 class RecordsController < ApplicationController
+  before_action :set_current_room
+  before_action :check_admin_authorize!
+
   def create
     respond_to do |format|
       format.html { render :index }

@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
   before_action :set_current_room
+  before_action :check_admin_authorize!
   before_action :set_current_game
 
   def edit
@@ -28,10 +29,6 @@ class GamesController < ApplicationController
   private
   def record_params
     params.permit(records: [:player_id, :score])
-  end
-
-  def set_current_room
-    @room = Room.find(params[:room_id])
   end
 
   def set_current_game

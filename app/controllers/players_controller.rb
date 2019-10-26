@@ -1,5 +1,6 @@
 class PlayersController < ApplicationController
-  before_action :set_current_room, except: :create
+  before_action :set_current_room
+  before_action :check_admin_authorize!
   before_action :set_current_player, only: [:edit, :update, :triggle_hidden]
 
   def index
@@ -11,9 +12,8 @@ class PlayersController < ApplicationController
   end
 
   def create
-    room = Room.find params[:player][:room_id]
-    Player.create(player_params)
-    redirect_to room
+    @room.players.create(player_params)
+    redirect_to @room
   end
 
   def edit
@@ -32,10 +32,6 @@ class PlayersController < ApplicationController
   private
   def player_params
     params.require(:player).permit(:name, :nickname, :room_id, :hidden)
-  end
-
-  def set_current_room
-    @room = Room.find(params[:room_id])
   end
 
   def set_current_player

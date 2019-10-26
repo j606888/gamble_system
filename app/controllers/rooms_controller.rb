@@ -1,6 +1,7 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_current_room, except: [:index, :new, :create]
+  before_action :check_admin_authorize!, only: [:edit, :update, :destroy, :control]
 
   def index
     @rooms = Room.all
@@ -17,6 +18,7 @@ class RoomsController < ApplicationController
   end
   
   def show
+    authorize! :read, @room if @room.is_private?
     @players = @room.players.avaliable
     @report = @room.report(record_type)
   end
@@ -68,9 +70,5 @@ class RoomsController < ApplicationController
 
   def record_type
     params[:record_type] || 'winner'
-  end
-
-  def set_current_room
-    @room = Room.find(params[:id])
   end
 end

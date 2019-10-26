@@ -38,6 +38,10 @@ class Room < ApplicationRecord
     end
   end
 
+  def is_private?
+    !public
+  end
+
   private
   def header_maker(type='winner')
     select_players = players.avaliable.send(type)
