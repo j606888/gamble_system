@@ -10,10 +10,6 @@
 
 ## Room
 
-* After create room, add admin role
-
-* Role: Admin, Member, Vistor
-
 * ability: Add player, Add record, Visit Room
 
 * Role Page(Admin): setup role for player inside room

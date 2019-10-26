@@ -10,7 +10,8 @@ class RoomsController < ApplicationController
   end
 
   def create
-    Room.create(rooms_params)
+    room = Room.create(rooms_params)
+    current_user.add_role(:admin, room)
     redirect_to rooms_path
   end
   
@@ -40,6 +41,42 @@ class RoomsController < ApplicationController
 
   def control
     @room = Room.find(params[:id])
+    @roles_map = @room.roles_map
+
+    @admin = User.with_role(:admin, @room)
+  end
+
+  def toggle_role
+    @room = Room.find(params[:id])
+    add_role = @room.toggle_role(current_user, params[:role])
+    if add_role
+      flash[:success] = "加入角色！"
+    else
+      flash[:success] = "刪除角色！"
+    end
+    redirect_to @room
+  end
+
+  def join
+    @room = Room.find(params[:id])
+    if current_user.has_role?(:member, @room)
+      flash[:warning] = "你已經在房間內了！"
+    else
+      current_user.add_role(:member, @room)
+      flash[:success] = "加入房間成功！"
+    end
+    redirect_to @room
+  end
+
+  def left
+    @room = Room.find(params[:id])
+    if current_user.has_role?(:member, @room)
+      current_user.remove_role(:member, @room)
+      flash[:success] = "退出房間成功！"
+    else
+      flash[:warning] = "你本來就不在房間內了！"
+    end
+    redirect_to @room
   end
 
   private

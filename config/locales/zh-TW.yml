@@ -2,3 +2,4 @@ zh-TW:
   hint: '提示: '
   hello: '哈囉哈囉'
   say_hi: "Hello %{name}"
+  add_role: ""

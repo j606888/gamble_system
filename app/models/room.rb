@@ -5,6 +5,7 @@ class Room < ApplicationRecord
   before_save :set_invite_token
 
   ALLOW_REPORT_TYPE = %w[winner loser counter]
+  ROLES = %w[admin helper member]
 
   def records
     arrays = []
@@ -20,6 +21,45 @@ class Room < ApplicationRecord
     hash[:header] = header_maker(type)
     hash[:body] = body_maker
     hash
+  end
+
+  def roles_map
+    hash = {}
+    User.with_role(:member, self).preload(:roles).each do |user|
+      hash[user.id] = {
+        email: user.email,
+        name: user.name,
+        admin: user.has_cached_role?(:admin, self),
+        helper: user.has_cached_role?(:helper, self),
+        member: user.has_cached_role?(:member, self)
+      }
+    end
+    hash
+  end
+
+  def bash_update_roles(roles_params)
+    # binding.pry
+    roles_params.each do |roles|
+      user = User.find(roles['user_id'])
+      ROLES.each do |role|
+        if roles[role].present?
+          user.add_role(role, self)
+        else
+          user.remove_role(role, self)
+        end
+      end
+    end
+  end
+
+  # false: remove_role, true: add_role
+  def toggle_role(user, role)
+    if user.has_role?(role, self)
+      user.remove_role(role, self)
+      return false
+    else
+      user.add_role(role, self)
+      return true
+    end
   end
 
   private
