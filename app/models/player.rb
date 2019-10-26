@@ -8,8 +8,7 @@ class Player < ApplicationRecord
   scope :counter, -> { all.includes(:records).sort_by(&:game_times).reverse! }
 
   def total_score
-    scores = records.map(&:score)
-    scores.compact.reduce(:+) || 0
+    records.map(&:score).compact.sum
   end
 
   def game_times

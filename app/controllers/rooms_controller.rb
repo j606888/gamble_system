@@ -41,16 +41,6 @@ class RoomsController < ApplicationController
     @admin = User.with_role(:admin, @room)
   end
 
-  def toggle_role
-    add_role = @room.toggle_role(current_user, params[:role])
-    if add_role
-      flash[:success] = "加入角色！"
-    else
-      flash[:success] = "刪除角色！"
-    end
-    redirect_to @room
-  end
-
   def join
     if current_user.has_role?(:member, @room)
       flash[:warning] = "你已經在房間內了！"

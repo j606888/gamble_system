@@ -5,15 +5,7 @@ class Room < ApplicationRecord
   before_save :set_invite_token
 
   ALLOW_REPORT_TYPE = %w[winner loser counter]
-  ROLES = %w[admin helper member]
-
-  def records
-    arrays = []
-    games.includes(:records).each do |g|
-      arrays += g.records
-    end
-    arrays
-  end
+  ALLOW_ROLES = %w[admin helper member]
 
   def report(type='winner')
     raise 'not allow type' if ALLOW_REPORT_TYPE.exclude?(type)
@@ -37,28 +29,12 @@ class Room < ApplicationRecord
     hash
   end
 
-  def bash_update_roles(roles_params)
-    # binding.pry
-    roles_params.each do |roles|
-      user = User.find(roles['user_id'])
-      ROLES.each do |role|
-        if roles[role].present?
-          user.add_role(role, self)
-        else
-          user.remove_role(role, self)
-        end
+  def bash_update_roles(roles_array)
+    roles_array.each do |hash|
+      user = User.find(hash['user_id'])
+      ALLOW_ROLES.each do |role|
+        hash[role].present? ? user.add_role(role, self) : user.remove_role(role, self)
       end
-    end
-  end
-
-  # false: remove_role, true: add_role
-  def toggle_role(user, role)
-    if user.has_role?(role, self)
-      user.remove_role(role, self)
-      return false
-    else
-      user.add_role(role, self)
-      return true
     end
   end
 

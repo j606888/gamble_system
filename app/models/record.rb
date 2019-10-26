@@ -7,24 +7,19 @@ class Record < ApplicationRecord
     records = record_params[:records]
 
     return '全為0' if all_zero?(records)
-    
-    return check_is_zero?(records) unless check_is_zero?(records) == 0
+
+    sum = records.map{|r| r['score'].to_i}.compact.sum
+    return sum if sum != 0
+
     game = Game.create(room_id: room_id)
-    records.each do |record|
-      next if record['score'].empty?
-      game.records.create(record)
+    records.each do |r|
+      next if r['score'].empty?
+      game.records.create(r)
     end
     :success
   end
 
   private
-  def self.check_is_zero?(records)
-    sum = 0
-    records.each do |record|
-      sum += record['score'].to_i
-    end
-    sum
-  end
 
   def self.all_zero?(records)
     records.each do |record|

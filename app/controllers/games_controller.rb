@@ -12,7 +12,7 @@ class GamesController < ApplicationController
       format.js
     end
 
-    @result = @game.update_by_records(record_params)
+    @result = @game.update_by_records(record_params['records'])
     if @result == :success
       flash[:success] = "更新成功"
       redirect_to @room
