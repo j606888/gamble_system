@@ -7,8 +7,6 @@ Rails.application.routes.draw do
   resources :rooms do
     member do
       get 'control'
-      post 'join'
-      post 'left'
       get 'password'
     end
 
@@ -22,9 +20,13 @@ Rails.application.routes.draw do
     end
 
     resources :roles, only: [:show] do
-      post 'bash_update', on: :collection
-      post 'ask', on: :collection
-      post 'reply_ask', on: :collection
+      collection do
+        post 'join'
+        post 'left'
+        post 'bash_update'
+        post 'ask'
+        post 'reply_ask'
+      end
     end
   end
   
