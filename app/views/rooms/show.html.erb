@@ -43,15 +43,15 @@
       <th><%= money %></th>
     <% end %>
   </tr>
-  <% @report[:body].each do |date, value| %>
+  <% @report[:body].each do |record| %>
     <tr>
       <td>
-        <%= date %>
-        <%= link_to '編輯', edit_room_game_path(@room.id, value[:id])%>
-        <%= link_to '刪除', room_game_path(@room.id, value[:id]), method: :delete %>
+        <%= record[:date] %>
+        <%= link_to '編輯', edit_room_game_path(@room.id, record[:id])%>
+        <%= link_to '刪除', room_game_path(@room.id, record[:id]), method: :delete %>
       </td>
       <% @report[:header][:id].each do |id| %>
-        <td><%= value[id] %></td>
+        <td><%= record[id] %></td>
       <% end %>
     </tr>
   <% end %>

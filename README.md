@@ -2,11 +2,11 @@
 
 ## User
 
-* cancancan
-
 ## Player
 
 ## Room
+
+* Searchable, password
 
 * ability: Add player, Add record, Visit Room
 

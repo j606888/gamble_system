@@ -5,7 +5,7 @@ class Game < ApplicationRecord
   before_create :setup_default_time
 
   def display_time
-    recorded_at.strftime("%F %T %P")
+    recorded_at.strftime("%F %I:%M %P")
   end
 
   def update_by_records(records_hash)

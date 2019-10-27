@@ -53,15 +53,16 @@ class Room < ApplicationRecord
   end
 
   def body_maker
-    hash = {}
-    games.order(id: :desc).includes(:records).each do |game|
-      game_hash = { id: game.id }
+    games.order(id: :desc).includes(:records).map do |game|
+      hash = {
+        id: game.id,
+        date: game.display_time
+      }
       game.records.each do |record|
-        game_hash[record.player_id] = record.score
+        hash[record.player_id] = record.score
       end
-      hash[game.display_time] = game_hash
+      hash
     end
-    hash
   end
 
   def set_invite_token

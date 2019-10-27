@@ -9,7 +9,7 @@
       <% else %>
         <%= link_to '登入', new_user_session_path, class:"list-group-item list-group-item-action bg-light" %>
       <% end %>
-        <%= link_to '房間', rooms_path, class:"list-group-item list-group-item-action bg-light" %>
+        <%= link_to '所有房間', rooms_path, class:"list-group-item list-group-item-action bg-light" %>
       </div>
 
       <% if user_signed_in? %>
