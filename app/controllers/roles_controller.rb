@@ -48,6 +48,11 @@ class RolesController < ApplicationController
     redirect_to control_room_path(@room)
   end
 
+  def remove_ask
+    current_user.remove_role(:ask, @room)
+    redirect_to like_rooms_path(@room)
+  end
+
   private
   def roles_params
     params.permit(roles: [:user_id, :admin, :member, :helper])

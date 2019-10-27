@@ -4,6 +4,9 @@
 <% if current_user.has_role?(:member, @room) %>
   <h4>在房間內</h4>
   <%= link_to '離開房間', left_room_roles_path(@room), method: :post %>
+  <hr>
+  <p>管理用戶權限：<%= current_user.has_role?(:admin, @room) %></p>
+  <p>新增玩家與紀錄：<%= current_user.has_role?(:helper, @room) %></p>
 <% else%>
   <h4>沒在房間內</h4>
   <%= link_to '加入房間', join_room_roles_path(@room), method: :post %>

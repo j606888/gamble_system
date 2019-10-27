@@ -1,6 +1,6 @@
 class PlayersController < ApplicationController
   before_action :set_current_room
-  before_action :check_admin_authorize!
+  before_action :check_helper_authorize!
   before_action :set_current_player, only: [:edit, :update, :triggle_hidden]
 
   def index

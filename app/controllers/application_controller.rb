@@ -26,4 +26,8 @@ class ApplicationController < ActionController::Base
   def check_admin_authorize!
     authorize! :admin, @room
   end
+
+  def check_helper_authorize!
+    authorize! :helper, @room
+  end
 end

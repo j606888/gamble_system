@@ -26,6 +26,7 @@ Rails.application.routes.draw do
         post 'bash_update'
         post 'ask'
         post 'reply_ask'
+        post 'remove_ask'
       end
     end
   end

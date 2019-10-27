@@ -9,6 +9,7 @@ class RoomsController < ApplicationController
 
   def like
     @rooms = Room.with_roles([:member], current_user).order(:id)
+    @ask_rooms = Room.with_role(:ask, current_user).order(:id)
   end
 
   def new
