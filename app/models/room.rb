@@ -5,7 +5,8 @@ class Room < ApplicationRecord
   before_save :set_invite_token
 
   ALLOW_REPORT_TYPE = %w[winner loser counter]
-  ALLOW_ROLES = %w[admin helper member]
+  ALLOW_ROLES = %w[admin helper member ask]
+  ALLOW_ANSWER = %w[accept deny]
 
   def report(type='winner')
     raise 'not allow type' if ALLOW_REPORT_TYPE.exclude?(type)
@@ -38,11 +39,29 @@ class Room < ApplicationRecord
     end
   end
 
+  def join(user, password)
+    return :failed if is_private? && !password_valid?(password)
+    user.add_role(:member, self)
+    :success
+  end
+
   def is_private?
     !public
   end
 
+  def reply_ask(user, answer)
+    raise 'not allow answer' if ALLOW_ANSWER.exclude?(answer)
+
+    user.add_role(:member, self) if answer == 'accept'
+    user.remove_role(:ask, self)
+  end
+
   private
+  def password_valid?(password)
+    return true if password == invite_token
+    return false
+  end
+
   def header_maker(type='winner')
     select_players = players.avaliable.send(type)
     {

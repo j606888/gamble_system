@@ -9,6 +9,11 @@ Rails.application.routes.draw do
       get 'control'
       post 'join'
       post 'left'
+      get 'password'
+    end
+
+    collection do
+      get 'like'
     end
 
     resources :games, only: [:edit, :update, :destroy]
@@ -18,6 +23,8 @@ Rails.application.routes.draw do
 
     resources :roles, only: [:show] do
       post 'bash_update', on: :collection
+      post 'ask', on: :collection
+      post 'reply_ask', on: :collection
     end
   end
   

@@ -21,4 +21,22 @@
     <tr><td><%= submit_tag 'send' %></td></tr>
   </table>
 <% end %>
+<hr>
+<h4>要求加入的</h4>
+<table class="table table-hover">
+  <tr>
+    <th>姓名</th>
+    <th>Email</th>
+    <th colspan="2">功能</th>
+  </tr>
+  <tr>
+    <% @user_ask.each do |user| %>
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+      <td><%= link_to '批准', reply_ask_room_roles_path(@room, user_id: user.id, answer: 'accept'), method: :post %></td>
+      <td><%= link_to '拒絕', reply_ask_room_roles_path(@room, user_id: user.id, answer: 'deny'), method: :post %></td>
+    <% end %>
+  </tr>
+</table>
+
 <%= link_to '返回', room_path(@room) %>

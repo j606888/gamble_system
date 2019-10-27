@@ -4,9 +4,8 @@
 <% else %>
   <div class="card-deck">
     <% @rooms.each do |room| %>
-      <%= link_to room_path(room.id) do %>
+      <%= link_to password_room_path(room.id), {remote: true, 'data-toggle' => 'modal', 'data-target' => '#modal-window' } do %>
         <div class="card bg-mygray">
-        
           <div class="card-body text-center">
             <h3 class="card-text">房名：<%= room.name %></h3>
             <p>邀請碼：<%= room.invite_token %></p>
@@ -22,3 +21,9 @@
 <% else %>
   <p><%= t('hint') %>請先登入再創間房間！</p>
 <% end %>
+
+<div class="modal hide fade" id="modal-window" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"></div>
+  </div>
+</div>

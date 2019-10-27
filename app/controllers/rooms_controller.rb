@@ -1,10 +1,14 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_current_room, except: [:index, :new, :create]
+  before_action :set_current_room, except: [:index, :new, :create, :like]
   before_action :check_admin_authorize!, only: [:edit, :update, :destroy, :control]
 
   def index
-    @rooms = Room.all
+    @rooms = Room.all.order(:id)
+  end
+
+  def like
+    @rooms = Room.with_roles([:member], current_user).order(:id)
   end
 
   def new
@@ -14,6 +18,7 @@ class RoomsController < ApplicationController
   def create
     room = Room.create(rooms_params)
     current_user.add_role(:admin, room)
+    current_user.add_role(:member, room)
     redirect_to rooms_path
   end
   
@@ -40,17 +45,19 @@ class RoomsController < ApplicationController
 
   def control
     @roles_map = @room.roles_map
+    @user_ask = User.with_role(:ask, @room)
     @admin = User.with_role(:admin, @room)
   end
 
   def join
-    if current_user.has_role?(:member, @room)
-      flash[:warning] = "你已經在房間內了！"
-    else
-      current_user.add_role(:member, @room)
+    result = @room.join(current_user, params[:password])
+    if result == :success
       flash[:success] = "加入房間成功！"
+      redirect_to @room
+    else
+      flash[:error] = "密碼錯誤！"
+      redirect_to rooms_path
     end
-    redirect_to @room
   end
 
   def left
@@ -61,6 +68,12 @@ class RoomsController < ApplicationController
       flash[:warning] = "你本來就不在房間內了！"
     end
     redirect_to @room
+  end
+
+  def password
+    if current_user.has_role?(:member, @room) || @room.public
+      render :js => "window.location = '#{room_path(@room)}'"
+    end
   end
 
   private

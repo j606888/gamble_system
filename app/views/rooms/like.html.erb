@@ -1,0 +1,21 @@
+<h1>喜愛的房間</h1>
+<% if @rooms.empty? %>
+  <p>尚未有任何房間</p>
+<% else %>
+  <div class="card-deck">
+    <% @rooms.each do |room| %>
+      <%= link_to room_path(room.id) do %>
+        <div class="card bg-mygray">
+        
+          <div class="card-body text-center">
+            <h3 class="card-text">房名：<%= room.name %></h3>
+            <p>邀請碼：<%= room.invite_token %></p>
+            <p>公開？：<%= room.public %></p>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+
+<%= button_to '創建新房間', new_room_path, method: 'get', class: 'btn btn-secondary' %>
