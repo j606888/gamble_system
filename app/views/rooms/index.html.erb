@@ -1,32 +1,7 @@
-<h1>所有房間</h1>
-<% if @rooms.empty? %>
-  <p>尚未有任何房間</p>
-<% else %>
-  <div class="card-deck">
-    <% @rooms.each do |room| %>
-      <%= link_to password_room_path(room.id), {remote: true, 'data-toggle' => 'modal', 'data-target' => '#modal-window' } do %>
-        <div class="card bg-mygray">
-          <div class="card-body text-center">
-            <h3 class="card-text"><%= room.name %></h3>
-            <p>邀請碼：<%= room.invite_token %></p>
-            <% if room.public %>
-              公開
-            <% else %>
-              不公開
-            <% end %>
-          </div>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
-<% end %>
-<% if user_signed_in? %>
-  <%= button_to '創建新房間', new_room_path, method: 'get', class: 'btn btn-secondary' %>
-<% else %>
-  <p><%= t('hint') %>請先登入再創間房間！</p>
-<% end %>
+<%= link_to '創建房間', new_room_path, class: 'btn btn-secondary btn-lg' %>
+<%= link_to '加入房間', join_rooms_path, {class: 'btn btn-secondary btn-lg', remote: true, 'data-toggle' => 'modal', 'data-target' => '#modal-join' } %>
 
-<div class="modal hide fade" id="modal-window" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal hide fade" id="modal-join" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content"></div>
   </div>

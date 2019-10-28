@@ -1,0 +1,13 @@
+<div class="modal-header">
+  <h4>輸入Invite Code來加入房間</h4>
+  <button type="button" class="close" data-dismiss="modal">x</button>
+</div>
+
+<div class="modal-body">
+  <div id="error_message"></div>
+  <div class="error_message"></div>
+  <%= form_tag verify_rooms_path, remote: true do %>  
+    <%= text_field_tag 'invite_code' %>
+    <%= submit_tag '送出', class: 'btn btn-secondary' %>
+  <% end %>
+</div>

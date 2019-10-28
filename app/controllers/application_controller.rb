@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_join_rooms
 
   rescue_from CanCan::AccessDenied do |exception|
     flash[:warning] = exception.message
@@ -19,6 +20,9 @@ class ApplicationController < ActionController::Base
   end
 
   private
+  def set_join_rooms
+    @join_rooms = Room.with_role(:member, current_user) if current_user
+  end
   def set_current_room
     @room = Room.find(params[:room_id] || params[:id])
   end

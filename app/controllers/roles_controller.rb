@@ -28,31 +28,6 @@ class RolesController < ApplicationController
     redirect_to @room
   end
 
-  def ask
-    current_user.add_role(:ask, @room)
-    flash[:success] = "已送出要求"
-    redirect_to rooms_path
-  end
-
-  def reply_ask
-    user = User.find(params[:user_id])
-    answer = params[:answer]
-    @room.reply_ask(user, answer)
-
-    if answer == 'accept'
-      flash[:success] = '已批准請求'
-    else
-      flash[:success] = '已移除請求'
-    end
-
-    redirect_to control_room_path(@room)
-  end
-
-  def remove_ask
-    current_user.remove_role(:ask, @room)
-    redirect_to like_rooms_path(@room)
-  end
-
   private
   def roles_params
     params.permit(roles: [:user_id, :admin, :member, :helper])

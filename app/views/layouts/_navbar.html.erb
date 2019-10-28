@@ -5,13 +5,14 @@
       <div class="list-group list-group-flush">
       <% if user_signed_in? %>
         <div class="list-group-item list-group-item-action bg-light">Hi, <%= current_user.email %></div>
+        <%= link_to '+', rooms_path, class:"list-group-item list-group-item-action bg-light" %>
+        <% @join_rooms.each do |room| %>
+         <%= link_to room.name, room_path(room), class: "list-group-item list-group-item-action bg-light" %>
+        <% end %>
         <%= link_to '編輯用戶', edit_user_registration_path, class:"list-group-item list-group-item-action bg-light" %>
-        <%= link_to '喜愛的房間', like_rooms_path, class:"list-group-item list-group-item-action bg-light" %>
-
       <% else %>
         <%= link_to '登入', new_user_session_path, class:"list-group-item list-group-item-action bg-light" %>
       <% end %>
-        <%= link_to '所有房間', rooms_path, class:"list-group-item list-group-item-action bg-light" %>
       </div>
 
       <% if user_signed_in? %>

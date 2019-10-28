@@ -19,13 +19,3 @@
 <% end %>
 
 <%= button_to '創建新房間', new_room_path, method: 'get', class: 'btn btn-secondary' %>
-
-<hr>
-
-<h4>等待接受中</h4>
-<% @ask_rooms.each do |room| %>
-  <p>
-    房名：<%= room.name %>
-    <%= link_to '取消等待', remove_ask_room_roles_path(room), method: :post %>
-  </p>
-<% end %>

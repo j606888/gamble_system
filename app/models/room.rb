@@ -5,7 +5,7 @@ class Room < ApplicationRecord
   before_save :set_invite_token
 
   ALLOW_REPORT_TYPE = %w[winner loser counter]
-  ALLOW_ROLES = %w[admin helper member ask]
+  ALLOW_ROLES = %w[admin helper member]
   ALLOW_ANSWER = %w[accept deny]
 
   def report(type='winner')
@@ -47,13 +47,6 @@ class Room < ApplicationRecord
 
   def is_private?
     !public
-  end
-
-  def reply_ask(user, answer)
-    raise 'not allow answer' if ALLOW_ANSWER.exclude?(answer)
-
-    user.add_role(:member, self) if answer == 'accept'
-    user.remove_role(:ask, self)
   end
 
   private

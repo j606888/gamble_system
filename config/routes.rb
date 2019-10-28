@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
     collection do
       get 'like'
+      get 'join'
+      post 'verify'
     end
 
     resources :games, only: [:edit, :update, :destroy]
@@ -24,9 +26,6 @@ Rails.application.routes.draw do
         post 'join'
         post 'left'
         post 'bash_update'
-        post 'ask'
-        post 'reply_ask'
-        post 'remove_ask'
       end
     end
   end
