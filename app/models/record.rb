@@ -2,7 +2,7 @@ class Record < ApplicationRecord
   belongs_to :game
   belongs_to :player
 
-  def self.fast_create(record_params)
+  def self.fast_create(record_params, user_id)
     room_id = record_params[:room_id]
     records = record_params[:records]
 
@@ -11,7 +11,7 @@ class Record < ApplicationRecord
     sum = records.map{|r| r['score'].to_i}.compact.sum
     return sum if sum != 0
 
-    game = Game.create(room_id: room_id)
+    game = Game.create(room_id: room_id, user_id: user_id)
     records.each do |r|
       next if r['score'].empty?
       game.records.create(r)

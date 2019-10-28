@@ -1,5 +1,6 @@
 class Game < ApplicationRecord
   belongs_to :room
+  belongs_to :user
   has_many :records, dependent: :destroy
 
   before_create :setup_default_time

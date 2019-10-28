@@ -65,8 +65,8 @@ class Room < ApplicationRecord
   def header_maker(type='winner')
     select_players = players.avaliable.send(type)
     {
-      name: ['遊戲時間'] + select_players.map(&:name),
-      money: ['分數'] + select_players.map(&:total_score),
+      name: ['遊戲時間'] + select_players.map(&:name) + ['記錄者'],
+      money: ['分數'] + select_players.map(&:total_score) + [''],
       id: select_players.map(&:id)
     }
   end
@@ -75,7 +75,8 @@ class Room < ApplicationRecord
     games.order(id: :desc).includes(:records).map do |game|
       hash = {
         id: game.id,
-        date: game.display_time
+        date: game.display_time,
+        email: game.user&.email
       }
       game.records.each do |record|
         hash[record.player_id] = record.score

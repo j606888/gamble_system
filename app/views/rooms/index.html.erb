@@ -7,9 +7,13 @@
       <%= link_to password_room_path(room.id), {remote: true, 'data-toggle' => 'modal', 'data-target' => '#modal-window' } do %>
         <div class="card bg-mygray">
           <div class="card-body text-center">
-            <h3 class="card-text">房名：<%= room.name %></h3>
+            <h3 class="card-text"><%= room.name %></h3>
             <p>邀請碼：<%= room.invite_token %></p>
-            <p>公開？：<%= room.public %></p>
+            <% if room.public %>
+              公開
+            <% else %>
+              不公開
+            <% end %>
           </div>
         </div>
       <% end %>

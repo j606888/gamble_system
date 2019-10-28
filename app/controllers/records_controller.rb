@@ -7,7 +7,7 @@ class RecordsController < ApplicationController
       format.html { render :index }
       format.js
     end
-    @result = Record.fast_create(record_params)
+    @result = Record.fast_create(record_params, current_user.id)
 
     if @result == :success
       redirect_to Room.find(params[:room_id])
