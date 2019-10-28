@@ -58,7 +58,7 @@ class RoomsController < ApplicationController
 
   private
   def rooms_params
-    params.require(:room).permit(:name, :public)
+    params.require(:room).permit(:name, :public, :helper_on)
   end
 
   def record_type

@@ -28,6 +28,6 @@ class ApplicationController < ActionController::Base
   end
 
   def check_helper_authorize!
-    authorize! :helper, @room
+    authorize! :helper, @room if @room.helper_on
   end
 end

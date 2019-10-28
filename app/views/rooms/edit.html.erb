@@ -3,6 +3,7 @@
 <%= simple_form_for @room do |f| %>
 
   <%= f.input :name, label: '房間名稱' %>
+  <%= f.input :helper_on, as: :boolean, label: 'Helper啟用（擁有Helper權限的用戶才能新增紀錄)' %>
   <%= f.input :public, as: :boolean, label: '公開' %>
   <%= f.button :submit, class: 'btn btn-secondary', label: '繼續' %>
 <% end %>

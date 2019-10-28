@@ -7,30 +7,33 @@
   <hr>
   <p>管理用戶權限：<%= current_user.has_role?(:admin, @room) %></p>
   <p>新增玩家與紀錄：<%= current_user.has_role?(:helper, @room) %></p>
-<% else%>
+<% else %>
   <h4>沒在房間內</h4>
   <%= link_to '加入房間', join_room_roles_path(@room), method: :post %>
 <% end %>
 <hr>
-<%= link_to '編輯房間', edit_room_path(@room) %>
+<% if can?(:helper, @room) || !@room.helper_on %>
+  <%= link_to '編輯房間', edit_room_path(@room) %>
 
-<%= link_to '編輯所有玩家', room_players_path(@room.id) %>
-<%= link_to '新增玩家', new_room_player_path(@room.id) %>
-<%= link_to '用戶權限', control_room_path(@room.id) %>
-<hr>
-<h4>快速紀錄</h4>
+  <%= link_to '編輯所有玩家', room_players_path(@room.id) %>
+  <%= link_to '新增玩家', new_room_player_path(@room.id) %>
+  <%= link_to '用戶權限', control_room_path(@room.id) %>
 
-<%= form_tag(records_path, remote: true) do %>
-  <%= hidden_field_tag "room_id", @room.id %><br>
-  <% @players.each do |player| %>
-    <%= hidden_field_tag "records[]player_id", player.id %>
-    <%= player.name %>:
-    <%= text_field_tag "records[]score" %><br>
+  <hr>
+  <h4>快速紀錄</h4>
+
+  <%= form_tag(records_path, remote: true) do %>
+    <%= hidden_field_tag "room_id", @room.id %><br>
+    <% @players.each do |player| %>
+      <%= hidden_field_tag "records[]player_id", player.id %>
+      <%= player.name %>:
+      <%= text_field_tag "records[]score" %><br>
+    <% end %>
+    <%= submit_tag 'send' %>
   <% end %>
-  <%= submit_tag 'send' %>
-<% end %>
 
-<div id="valid_result"></div>
+  <div id="valid_result"></div>
+<% end %>
 
 <hr>
 <h4>戰績表</h4>
@@ -50,8 +53,10 @@
     <tr>
       <td>
         <%= record[:date] %>
-        <%= link_to '編輯', edit_room_game_path(@room.id, record[:id])%>
-        <%= link_to '刪除', room_game_path(@room.id, record[:id]), method: :delete %>
+        <% if can?(:helper, @room) || !@room.helper_on %>
+          <%= link_to '編輯', edit_room_game_path(@room.id, record[:id])%>
+          <%= link_to '刪除', room_game_path(@room.id, record[:id]), method: :delete %>
+        <% end %>
       </td>
       <% @report[:header][:id].each do |id| %>
         <td><%= record[id] %></td>
