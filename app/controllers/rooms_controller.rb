@@ -18,7 +18,7 @@ class RoomsController < ApplicationController
   end
   
   def show
-    authorize! :read, @room if @room.is_private?
+    authorize! :read, @room
     @players = @room.players.avaliable
     @report = @room.report(record_type)
   end
