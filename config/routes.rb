@@ -9,8 +9,13 @@ Rails.application.routes.draw do
       get 'join'
       post 'verify'
     end
-    post 'left', on: :member
-    get 'users', on: :member
+
+    member do
+      post 'left'
+      get 'users'
+      get 'chart'
+      post 'chart'
+    end
 
     resources :games, only: [:edit, :update, :destroy]
     resources :players do

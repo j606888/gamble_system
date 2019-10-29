@@ -1,0 +1,10 @@
+<h2>This is Chart</h2>
+<%= form_tag chart_room_path do %>
+  <%= select_tag(:type, options_for_select([['Score', 'score'], ['Steve', 2], ['Job', 3]])) %>
+  <%= submit_tag 'ok' %>
+<% end %>
+
+<canvas id="myChart" width="400" height="400"></canvas>
+<% if @chart.present? %>
+  <%= render 'chart', locals: { chart: @chart } %>
+<% end %>

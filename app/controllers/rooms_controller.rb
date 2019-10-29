@@ -21,6 +21,7 @@ class RoomsController < ApplicationController
     authorize! :read, @room
     @players = @room.players.avaliable
     @report = @room.report(record_type)
+    @data = [12, 19, 13, 15, 20, 30]
   end
 
   def edit
@@ -59,6 +60,12 @@ class RoomsController < ApplicationController
 
   def users
     @users = User.with_role(:member, @room)
+  end
+
+  def chart
+    if params[:type].present?
+      @chart = ChartMaker.new(@room).export(params[:type])
+    end 
   end
 
   private

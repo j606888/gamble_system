@@ -6,6 +6,7 @@ class Room < ApplicationRecord
 
   ALLOW_REPORT_TYPE = %w[winner loser counter]
   ALLOW_ROLES = %w[admin member]
+  CHART_TYPE = %w[score]
 
   def report(type='winner')
     raise 'not allow type' if ALLOW_REPORT_TYPE.exclude?(type)

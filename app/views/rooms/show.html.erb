@@ -10,6 +10,7 @@
 <%= link_to '編輯所有玩家', room_players_path(@room) %>
 <%= link_to '新增玩家', new_room_player_path(@room) %>
 <%= link_to '查看房間用戶', users_room_path(@room) %>
+<%= link_to 'Chart', chart_room_path(@room) %>
 <hr>
 <h4>快速紀錄</h4>
 <%= form_tag(records_path, remote: true) do %>
@@ -57,6 +58,4 @@
     </tr>
   <% end %>
 </table>
-
-
 <%= link_to '刪除此房間', room_path(@room), method: :delete %>
