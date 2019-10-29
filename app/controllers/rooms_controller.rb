@@ -1,13 +1,9 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show, :join, :verify]
-  before_action :set_current_room, except: [:index, :new, :create, :like, :join, :verify]
+  before_action :set_current_room, except: [:index, :new, :create, :join, :verify]
   before_action :check_admin_authorize!, only: [:edit, :update, :destroy, :control]
 
   def index
-  end
-
-  def like
-    @rooms = Room.with_roles([:member], current_user).order(:id)
   end
 
   def new
@@ -46,18 +42,13 @@ class RoomsController < ApplicationController
   end
 
   def verify
-    @room = Room.find_by(invite_token: params[:invite_code])
+    @room = Room.find_by(invite_code: params[:invite_code])
     if @room.present?
       current_user.add_role(:member, @room)
 
       flash[:success] = "加入成功！"
       redirect_to @room
     end
-  end
-
-  def control
-    @roles_map = @room.roles_map
-    @admin = User.with_role(:admin, @room)
   end
 
   def password
@@ -68,7 +59,7 @@ class RoomsController < ApplicationController
 
   private
   def rooms_params
-    params.require(:room).permit(:name, :public, :helper_on)
+    params.require(:room).permit(:name, :public)
   end
 
   def record_type

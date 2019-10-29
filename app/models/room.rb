@@ -2,11 +2,10 @@ class Room < ApplicationRecord
   resourcify
   has_many :players, dependent: :destroy
   has_many :games, dependent: :destroy
-  before_save :set_invite_token
+  before_save :set_invite_code
 
   ALLOW_REPORT_TYPE = %w[winner loser counter]
-  ALLOW_ROLES = %w[admin helper member]
-  ALLOW_ANSWER = %w[accept deny]
+  ALLOW_ROLES = %w[admin member]
 
   def report(type='winner')
     raise 'not allow type' if ALLOW_REPORT_TYPE.exclude?(type)
@@ -23,20 +22,10 @@ class Room < ApplicationRecord
         email: user.email,
         name: user.name,
         admin: user.has_cached_role?(:admin, self),
-        helper: user.has_cached_role?(:helper, self),
         member: user.has_cached_role?(:member, self)
       }
     end
     hash
-  end
-
-  def bash_update_roles(roles_array)
-    roles_array.each do |hash|
-      user = User.find(hash['user_id'])
-      ALLOW_ROLES.each do |role|
-        hash[role].present? ? user.add_role(role, self) : user.remove_role(role, self)
-      end
-    end
   end
 
   def join(user, password)
@@ -51,7 +40,7 @@ class Room < ApplicationRecord
 
   private
   def password_valid?(password)
-    return true if password == invite_token
+    return true if password == invite_code
     return false
   end
 
@@ -78,7 +67,7 @@ class Room < ApplicationRecord
     end
   end
 
-  def set_invite_token
-    self.invite_token = SecureRandom.hex(3)
+  def set_invite_code
+    self.invite_code = SecureRandom.hex(3)
   end
 end

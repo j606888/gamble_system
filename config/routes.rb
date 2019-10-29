@@ -6,12 +6,10 @@ Rails.application.routes.draw do
 
   resources :rooms do
     member do
-      get 'control'
       get 'password'
     end
 
     collection do
-      get 'like'
       get 'join'
       post 'verify'
     end
@@ -25,7 +23,6 @@ Rails.application.routes.draw do
       collection do
         post 'join'
         post 'left'
-        post 'bash_update'
       end
     end
   end

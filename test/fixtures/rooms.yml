@@ -2,10 +2,10 @@
 
 one:
   name: MyString
-  invite_token: MyString
+  invite_code: MyString
   public: false
 
 two:
   name: MyString
-  invite_token: MyString
+  invite_code: MyString
   public: false
