@@ -3,10 +3,10 @@ user1 = User.create(email: 'test1@test.com', password: 'testtest', name: 'Test1'
 user2 = User.create(email: 'test2@test.com', password: 'testtest', name: 'Test2')
 user3 = User.create(email: 'test3@test.com', password: 'testtest', name: 'Test3')
 
-room = Room.create(name: '丁之家(公開)', public: true)
-Room.create(name: '隱藏版(不公開))', public: false)
-Room.create(name: '別人的(公開)', public: true)
-Room.create(name: '看不到(不公開)', public: false)
+room = Room.create(name: '丁之家', public: true)
+Room.create(name: '黑鮪魚', public: false)
+Room.create(name: '要你命3000', public: true)
+Room.create(name: 'Australia Show', public: false)
 
 p1 = Player.create(name: 'James', nickname: 'J', hidden: false, room: room)
 p2 = Player.create(name: 'Steve', nickname: 'S', hidden: false, room: room)

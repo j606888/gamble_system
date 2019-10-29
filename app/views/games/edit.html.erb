@@ -1,13 +1,20 @@
 <h1>編輯遊戲</h1>
 
+<h4><%= @game.display_time %></h4>
 <%= form_tag(room_game_path, method: :put, remote: true) do %>
   <%= hidden_field_tag "game_id", @game.id %><br>
-  <% @game.records.each do |record| %>
-    <%= hidden_field_tag "records[]player_id", record.player_id%>
-    <%= record.player.name %>:    
-    <%= text_field_tag "records[]score", record.score %><br>
-  <% end %>
-  <%= submit_tag 'send' %>
+  <table>
+    <% @game.records.each do |record| %>
+      <%= hidden_field_tag "records[]player_id", record.player_id%>
+      <tr>
+        <td><%= record.player.name %></td>
+        <td><%= text_field_tag "records[]score", record.score %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td><%= submit_tag 'send' %></td>
+      <td><%= link_to '返回', room_path(@room) %></td>
+    </tr>
+  </table>
 <% end %>
 <div id="valid_result"></div>
-<%= link_to '返回', room_path(@room) %>

@@ -4,8 +4,6 @@
 <% if current_user.has_role?(:member, @room) %>
   <h4>在房間內</h4>
   <%= link_to '離開房間', left_room_roles_path(@room), method: :post %>
-  <hr>
-  <p>管理用戶權限：<%= current_user.has_role?(:admin, @room) %></p>
 <% else %>
   <h4>沒在房間內</h4>
   <%= link_to '加入房間', join_room_roles_path(@room), method: :post %>
@@ -16,15 +14,19 @@
 <%= link_to '新增玩家', new_room_player_path(@room.id) %>
 <hr>
 <h4>快速紀錄</h4>
-
 <%= form_tag(records_path, remote: true) do %>
   <%= hidden_field_tag "room_id", @room.id %><br>
-  <% @players.each do |player| %>
-    <%= hidden_field_tag "records[]player_id", player.id %>
-    <%= player.name %>:
-    <%= text_field_tag "records[]score" %><br>
-  <% end %>
-  <%= submit_tag 'send' %>
+  <table>
+    <% @players.each do |player| %>
+      <tr>
+        <td><%= hidden_field_tag "records[]player_id", player.id %></td>
+        <td><%= player.name %></td>
+        <td><%= text_field_tag "records[]score" %></td>
+      </tr>
+    <% end %>
+    <tr><td colspan="3"><%= submit_tag 'send' %></td></tr>
+    
+  </table>
 <% end %>
 
 <div id="valid_result"></div>
