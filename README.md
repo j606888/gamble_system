@@ -2,13 +2,9 @@
 
 ## User
 
-* Show User in room
-
 ## Player
 
 ## Room
-
-* EveryOne have same power
 
 * Own setting
 

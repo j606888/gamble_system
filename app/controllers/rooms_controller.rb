@@ -57,6 +57,10 @@ class RoomsController < ApplicationController
     redirect_to @room
   end
 
+  def users
+    @users = User.with_role(:member, @room)
+  end
+
   private
   def rooms_params
     params.require(:room).permit(:name, :public)

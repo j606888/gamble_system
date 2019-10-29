@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       post 'verify'
     end
     post 'left', on: :member
+    get 'users', on: :member
 
     resources :games, only: [:edit, :update, :destroy]
     resources :players do
