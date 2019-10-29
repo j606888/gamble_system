@@ -7,11 +7,6 @@ class GamesController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      format.html
-      format.js
-    end
-
     @result = @game.update_by_records(record_params['records'])
     if @result == :success
       flash[:success] = "更新成功"

@@ -5,25 +5,15 @@ Rails.application.routes.draw do
   root 'rooms#index'
 
   resources :rooms do
-    member do
-      get 'password'
-    end
-
     collection do
       get 'join'
       post 'verify'
     end
+    post 'left', on: :member
 
     resources :games, only: [:edit, :update, :destroy]
     resources :players do
       post 'triggle_hidden', on: :member
-    end
-
-    resources :roles, only: [:show] do
-      collection do
-        post 'join'
-        post 'left'
-      end
     end
   end
   

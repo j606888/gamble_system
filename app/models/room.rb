@@ -28,21 +28,11 @@ class Room < ApplicationRecord
     hash
   end
 
-  def join(user, password)
-    return :failed if is_private? && !password_valid?(password)
-    user.add_role(:member, self)
-    :success
-  end
-
   def is_private?
     !public
   end
 
   private
-  def password_valid?(password)
-    return true if password == invite_code
-    return false
-  end
 
   def header_maker(type='winner')
     select_players = players.avaliable.send(type)

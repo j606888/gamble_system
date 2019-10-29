@@ -1,7 +1,7 @@
 class RoomsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show, :join, :verify]
-  before_action :set_current_room, except: [:index, :new, :create, :join, :verify]
-  before_action :check_admin_authorize!, only: [:edit, :update, :destroy, :control]
+  before_action :authenticate_user!
+  before_action :set_current_room, except: [:index, :new, :join, :verify]
+  before_action :check_admin_authorize!, only: [:edit, :update, :destroy]
 
   def index
   end
@@ -51,10 +51,10 @@ class RoomsController < ApplicationController
     end
   end
 
-  def password
-    if current_user.has_role?(:member, @room) || @room.public
-      render :js => "window.location = '#{room_path(@room)}'"
-    end
+  def left
+    current_user.remove_role(:member, @room)
+    flash[:success] = "退出房間成功！"
+    redirect_to @room
   end
 
   private
