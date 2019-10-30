@@ -1,0 +1,28 @@
+development: &development
+  basic_color:
+    - "#f44336"
+    - "#9C27B0"
+    - "#3F51B5"
+    - "#00BCD4"
+    - "#4CAF50"
+    - "#CDDC39"
+    - "#FFC107"
+    - "#9E9E9E"
+    - "#607D8B"
+    - "#E91E63"
+    - "#673AB7"
+    - "#2196F3"
+    - "#009688"
+    - "#8BC34A"
+    - "#FFEB3B"
+    - "#FF5722"
+    - "#795548"
+
+test:
+  <<: *development
+
+preparing:
+  <<: *development
+
+production:
+  <<: *development

@@ -21,6 +21,7 @@ gem 'rails_admin', '~> 2.0'
 gem 'rolify'
 gem 'cancancan'
 gem 'chart-js-rails'
+gem 'settingslogic'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

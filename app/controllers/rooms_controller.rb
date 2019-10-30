@@ -65,6 +65,7 @@ class RoomsController < ApplicationController
   def chart
     if params[:type].present?
       @chart = ChartMaker.new(@room).export(params[:type])
+      @line = ChartMaker.new(@room).export('line')
     end 
   end
 

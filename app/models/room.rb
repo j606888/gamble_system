@@ -33,6 +33,20 @@ class Room < ApplicationRecord
     !public
   end
 
+  def hash_map
+    hash = {}
+    games.order(id: :desc).includes(:records).map do |game|
+      game_hash = {
+        date: game.display_time,
+      }
+      game.records.each do |record|
+        game_hash[record.player_id] = record.score
+      end
+      hash[game.id] = game_hash
+    end
+    hash
+  end
+
   private
 
   def header_maker(type='winner')
