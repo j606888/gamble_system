@@ -5,6 +5,7 @@
 <% end %>
 
 <canvas id="myChart" width="400" height="400"></canvas>
+<canvas id="myLine" width="400" height="400"></canvas>
 <% if @chart.present? %>
   <%= render 'chart', locals: { chart: @chart } %>
 <% end %>
