@@ -1,11 +1,84 @@
-<h2>This is Chart</h2>
-<%= form_tag chart_room_path do %>
-  <%= select_tag(:type, options_for_select([['Score', 'score'], ['Steve', 2], ['Job', 3]])) %>
-  <%= submit_tag 'ok' %>
-<% end %>
+<div id="accordion">
+  <div class>
+    <a class="collapsed card-link" data-toggle="collapse" href="#score">總金額</a>
+    <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">歷史走向</a>
+    <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">還沒定</a>
+  </div>
+  <div id="score" class="collapse" data-parent="#accordion" width="80%">
 
-<canvas id="myChart" width="400" height="400"></canvas>
-<canvas id="myLine" width="400" height="400"></canvas>
-<% if @chart.present? %>
-  <%= render 'chart', locals: { chart: @chart } %>
-<% end %>
+    <canvas id="myChart"></canvas>
+
+  </div>
+  <div id="collapseTwo" class="collapse" data-parent="#accordion">
+  <div width="70%">
+  <canvas id="myLine"></canvas>
+  </div>
+  
+
+  </div>
+  <div id="collapseThree" class="collapse" data-parent="#accordion">
+    <div class="card-body">
+      not yes.
+    </div>
+  </div>
+</div>
+
+
+
+
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: <%= raw(@chart[:labels]) %>,
+        datasets: [{
+            barThickness: 12,
+            label: '總金額',
+            data: <%= raw(@chart[:data]) %>,
+            backgroundColor: <%= raw(@chart[:bg_color]) %>,
+            borderWidth: 1
+        }]
+    },
+    options: {
+        maintainAspectRatio: true,
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+var li = document.getElementById('myLine').getContext('2d');
+var myLineChart = new Chart(li, {
+    type: 'line',
+    data: {
+        labels: <%= raw(@line[:dates]) %>,
+        datasets: [
+            <% @line[:datasets].each do |dataset| %>
+                {
+                    data: <%= raw(dataset[:data]) %>,
+                    borderColor: "<%= raw(dataset[:color]) %>",
+                    fill: false,
+                    label: "<%= raw(dataset[:name]) %>"
+                },
+            <% end %>
+        ]
+    },
+    options: {
+        maintainAspectRatio: true,
+        elements: {
+            line: {
+                tension: 0.1
+            }
+        },
+      title: {
+          display: true,
+          text: '金額走向'
+      }
+    }
+});
+</script>

@@ -1,5 +1,5 @@
-<%= link_to '創建房間', new_room_path, class: 'btn btn-secondary btn-lg' %>
 <%= link_to '加入房間', join_rooms_path, {class: 'btn btn-secondary btn-lg', remote: true, 'data-toggle' => 'modal', 'data-target' => '#modal-join' } %>
+<%= link_to '創建房間', new_room_path, class: 'btn btn-secondary btn-lg' %>
 
 <div class="modal hide fade" id="modal-join" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">

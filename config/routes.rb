@@ -14,7 +14,6 @@ Rails.application.routes.draw do
       post 'left'
       get 'users'
       get 'chart'
-      post 'chart'
     end
 
     resources :games, only: [:edit, :update, :destroy]

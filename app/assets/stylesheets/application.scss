@@ -54,3 +54,9 @@ a {
   @extend .btn;
   @extend .btn-secondary;
 }
+
+.collapsing {
+    -webkit-transition: none;
+    transition: none;
+    display: none;
+}
