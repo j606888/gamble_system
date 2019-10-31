@@ -1,0 +1,14 @@
+<div class="modal-header">
+  <h4>你確定要刪除此房間嗎？</h4>
+  <button type="button" class="close" data-dismiss="modal">x</button>
+</div>
+
+<div class="modal-body">
+  <div id="error_message"></div>
+  <div class="error_message"></div>
+  <p>請輸入此房間名稱<font color="red"><%= @room.name %></font>來完成刪除</p>
+  <%= form_tag room_path(@room), method: :delete, remote: true do %>  
+    <%= text_field_tag 'room_name' %>
+    <%= submit_tag '送出', class: 'btn btn-secondary' %>
+  <% end %>
+</div>

@@ -8,12 +8,14 @@ Rails.application.routes.draw do
     collection do
       get 'join'
       post 'verify'
+      post 'sample'
     end
 
     member do
       post 'left'
       get 'users'
       get 'chart'
+      post 'destroy_protect'
     end
 
     resources :games, only: [:edit, :update, :destroy]

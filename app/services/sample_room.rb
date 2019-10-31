@@ -4,6 +4,7 @@ class SampleRoom
     setup_player!
     setup_game!
     setup_record!
+    @room
   end
 
   private

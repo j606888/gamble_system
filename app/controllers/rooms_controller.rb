@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_current_room, except: [:index, :new, :join, :verify]
+  before_action :set_current_room, except: [:index, :create, :new, :join, :verify, :sample]
   before_action :check_admin_authorize!, only: [:edit, :update, :destroy]
 
   def index
@@ -12,6 +12,13 @@ class RoomsController < ApplicationController
 
   def create
     room = Room.create(rooms_params)
+    current_user.add_role(:admin, room)
+    current_user.add_role(:member, room)
+    redirect_to room
+  end
+
+  def sample
+    room = SampleRoom.new.call
     current_user.add_role(:admin, room)
     current_user.add_role(:member, room)
     redirect_to room
@@ -33,10 +40,15 @@ class RoomsController < ApplicationController
     redirect_to @room
   end
 
+  def destroy_protect
+  end
+
   def destroy
-    @room.destroy
-    flash[:success] = "刪除房間成功"
-    redirect_to rooms_path
+    if @room.name == params[:room_name]
+      @room.destroy
+      flash[:success] = "刪除房間成功"
+      redirect_to rooms_path
+    end
   end
 
   def join
@@ -63,10 +75,8 @@ class RoomsController < ApplicationController
   end
 
   def chart
-    
-      @chart = ChartMaker.new(@room).export('score')
-      @line = ChartMaker.new(@room).export('line')
-    
+    @chart = ChartMaker.new(@room).export('score')
+    @line = ChartMaker.new(@room).export('line')
   end
 
   private
