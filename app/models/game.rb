@@ -1,12 +1,29 @@
 class Game < ApplicationRecord
   belongs_to :room
-  belongs_to :user
   has_many :records, dependent: :destroy
 
   before_create :setup_default_time
 
-  def display_time
-    recorded_at.strftime("%F %I:%M %P")
+  DISPLAY_TYPE = {
+    'month' => "%Y-%m",
+    'date' => "%F",
+    'hour' => "%F %I:%M %P",
+    'second' => "%F %T"
+  }
+
+  def self.fast_create(records, email)
+    return '全為0' if all_zero?(records)
+
+    sum = records.map{|r| r['score'].to_i}.compact.sum
+    return sum if sum != 0
+
+    game = create(recorder: email)
+    records.each do |r|
+      next if r['score'].empty?
+      game.records.create(r)
+    end
+
+    :success
   end
 
   def update_by_records(records_hash)
@@ -20,9 +37,21 @@ class Game < ApplicationRecord
     :success
   end
 
+  def display_time(type='date')
+    raise 'not allow type' if DISPLAY_TYPE[type].nil?
+    recorded_at.strftime(DISPLAY_TYPE[type])
+  end
+
   private
 
   def setup_default_time
     self.recorded_at ||= Time.now
+  end
+
+  def self.all_zero?(records)
+    records.each do |record|
+      return false if record['score'] != ""
+    end
+    true
   end
 end

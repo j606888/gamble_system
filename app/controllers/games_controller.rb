@@ -1,9 +1,22 @@
 class GamesController < ApplicationController
   before_action :set_current_room
-  before_action :set_current_game
+  before_action :set_current_game, except: :create
 
   def edit
     # only update exist record, no create
+  end
+
+  def create
+    respond_to do |format|
+      format.html { render :index }
+      format.js
+    end
+    @result = @room.games.fast_create(record_params, current_user.email)
+
+    if @result == :success
+      redirect_to Room.find(params[:room_id])
+      flash[:success] = "記錄成功"
+    end
   end
 
   def update
@@ -21,11 +34,11 @@ class GamesController < ApplicationController
   end
 
   private
-  def record_params
-    params.permit(records: [:player_id, :score])
-  end
-
   def set_current_game
     @game = Game.find(params[:id])
+  end
+
+  def record_params
+    params.permit(records: [:player_id, :score])['records']
   end
 end

@@ -29,10 +29,6 @@ class Room < ApplicationRecord
     hash
   end
 
-  def is_private?
-    !public
-  end
-
   def hash_map
     hash = {}
     games.order(id: :desc).includes(:records).map do |game|
@@ -63,7 +59,7 @@ class Room < ApplicationRecord
       hash = {
         id: game.id,
         date: game.display_time,
-        email: game.user&.email
+        email: game.recorder
       }
       game.records.each do |record|
         hash[record.player_id] = record.score

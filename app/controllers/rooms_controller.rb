@@ -28,7 +28,6 @@ class RoomsController < ApplicationController
     authorize! :read, @room
     @players = @room.players.avaliable
     @report = @room.report(record_type)
-    @data = [12, 19, 13, 15, 20, 30]
   end
 
   def edit
@@ -81,7 +80,7 @@ class RoomsController < ApplicationController
 
   private
   def rooms_params
-    params.require(:room).permit(:name, :public)
+    params.require(:room).permit(:name)
   end
 
   def record_type
