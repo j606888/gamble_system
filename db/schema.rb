@@ -10,17 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_29_050436) do
+ActiveRecord::Schema.define(version: 2019_10_28_102444) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "citext"
+  enable_extension "fuzzystrmatch"
+  enable_extension "hstore"
   enable_extension "plpgsql"
+  enable_extension "postgis"
+  enable_extension "postgis_tiger_geocoder"
+  enable_extension "postgis_topology"
 
   create_table "games", force: :cascade do |t|
     t.integer "room_id"
     t.datetime "recorded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.string "recorder"
   end
 
   create_table "players", force: :cascade do |t|
@@ -29,7 +35,6 @@ ActiveRecord::Schema.define(version: 2019_10_29_050436) do
     t.integer "room_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "primary"
     t.boolean "hidden", default: false
   end
 
@@ -54,10 +59,8 @@ ActiveRecord::Schema.define(version: 2019_10_29_050436) do
   create_table "rooms", force: :cascade do |t|
     t.string "name"
     t.string "invite_code"
-    t.boolean "public"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "helper_on", default: true
   end
 
   create_table "users", force: :cascade do |t|
