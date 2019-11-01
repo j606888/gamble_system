@@ -13,13 +13,7 @@
 ActiveRecord::Schema.define(version: 2019_10_28_102444) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "citext"
-  enable_extension "fuzzystrmatch"
-  enable_extension "hstore"
   enable_extension "plpgsql"
-  enable_extension "postgis"
-  enable_extension "postgis_tiger_geocoder"
-  enable_extension "postgis_topology"
 
   create_table "games", force: :cascade do |t|
     t.integer "room_id"

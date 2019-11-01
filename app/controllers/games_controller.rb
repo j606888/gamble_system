@@ -42,12 +42,11 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
   end
 
-<<<<<<< HEAD
   def record_type
     params[:type] || 'winner'
-=======
+  end
+
   def record_params
     params.permit(records: [:player_id, :score])['records']
->>>>>>> b6675cf2379efa6850b5594fe5a63babf0eac8e2
   end
 end
