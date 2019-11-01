@@ -6,7 +6,7 @@
   <%= link_to '離開房間', left_room_path(@room), method: :post %>
 <% end %>
 <hr>
-<%= link_to '編輯房間', edit_room_path(@room) %>
+<%= link_to '設定', edit_room_path(@room) %>
 <%= link_to '編輯所有玩家', room_players_path(@room) %>
 <%= link_to '新增玩家', new_room_player_path(@room) %>
 <%= link_to '查看房間用戶', users_room_path(@room) %>
@@ -57,10 +57,3 @@
     </tr>
   <% end %>
 </table>
-
-<%= link_to '刪除此房間', destroy_protect_room_path(@room), method: :post, remote: true %>
-<div class="modal hide fade" id="modal-protect" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content"></div>
-  </div>
-</div>

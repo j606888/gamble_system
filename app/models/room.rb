@@ -4,6 +4,8 @@ class Room < ApplicationRecord
   has_many :games, dependent: :destroy
   before_save :set_invite_code
 
+  enum date_format: [:month, :date, :hour, :sec]
+
   ALLOW_REPORT_TYPE = %w[winner loser counter]
   ALLOW_ROLES = %w[admin member]
   CHART_TYPE = %w[score]
@@ -40,7 +42,7 @@ class Room < ApplicationRecord
     hash = {}
     games.order(id: :desc).includes(:records).map do |game|
       game_hash = {
-        date: game.display_time,
+        date: game.display_time(date_format),
       }
       game.records.each do |record|
         game_hash[record.player_id] = record.score
@@ -77,7 +79,7 @@ class Room < ApplicationRecord
   def inside_maker(game)
     hash = {
       id: game.id,
-      date: game.display_time,
+      date: game.display_time(date_format),
       email: game.recorder
     }
     game.records.each do |record|

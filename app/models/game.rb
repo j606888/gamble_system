@@ -8,7 +8,7 @@ class Game < ApplicationRecord
     'month' => "%Y-%m",
     'date' => "%F",
     'hour' => "%F %I:%M %P",
-    'second' => "%F %T"
+    'sec' => "%F %T"
   }
 
   def self.fast_create(records, email)
@@ -37,9 +37,9 @@ class Game < ApplicationRecord
     :success
   end
 
-  def display_time(type='date')
-    raise 'not allow type' if DISPLAY_TYPE[type].nil?
-    recorded_at.strftime(DISPLAY_TYPE[type])
+  def display_time(date_format)
+    raise 'not allow date_format' if DISPLAY_TYPE[date_format].nil?
+    recorded_at.strftime(DISPLAY_TYPE[date_format])
   end
 
   private

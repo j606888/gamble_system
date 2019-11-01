@@ -81,7 +81,9 @@ class RoomsController < ApplicationController
 
   private
   def rooms_params
-    params.require(:room).permit(:name)
+    params.require(:room).permit(:name, :date_format)
+    # hash[:date_format] = hash[:date_format].to_i
+    # hash
   end
 
   def record_type
