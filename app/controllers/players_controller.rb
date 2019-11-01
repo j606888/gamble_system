@@ -20,7 +20,7 @@ class PlayersController < ApplicationController
 
   def update
     @player.update(player_params)
-    redirect_to @room
+    redirect_to room_players_path(@room)
   end
 
   def triggle_hidden

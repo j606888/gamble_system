@@ -1,0 +1,26 @@
+<h1>戰績表</h1>
+<%= link_to '返回', room_path(@room) %>
+<table class="table table-bordered">
+  <tr>
+    <% @report[:header][:name].each do |name| %>
+      <th><%= name %></th>
+    <% end %>
+  </tr>
+  <tr>
+    <% @report[:header][:money].each do |money| %>
+      <th><%= money %></th>
+    <% end %>
+  </tr>
+  <% @report[:body].each do |record| %>
+    <tr>
+      <td>
+        <%= record[:date] %>
+        <%= link_to '編輯', edit_room_game_path(@room.id, record[:id])%>
+      </td>
+      <% @report[:header][:id].each do |id| %>
+        <td><%= record[id] %></td>
+      <% end %>
+      <td><%= record[:email] %></td>
+    </tr>
+  <% end %>
+</table>

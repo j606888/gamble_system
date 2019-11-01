@@ -26,4 +26,6 @@
 
 ## Game
 
+* set time range
+
 ## Data Analysis

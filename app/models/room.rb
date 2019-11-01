@@ -62,7 +62,7 @@ class Room < ApplicationRecord
     games.order(id: :desc).includes(:records).map do |game|
       hash = {
         id: game.id,
-        date: game.display_time,
+        date: game.recorded_at.strftime("%F"),
         email: game.user&.email
       }
       game.records.each do |record|

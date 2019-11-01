@@ -11,6 +11,7 @@
 <%= link_to '新增玩家', new_room_player_path(@room) %>
 <%= link_to '查看房間用戶', users_room_path(@room) %>
 <%= link_to '圖表', chart_room_path(@room) %>
+<%= link_to '全部戰機', room_games_path(@room) %> 
 <hr>
 <h4>快速紀錄</h4>
 <%= form_tag(records_path, remote: true) do %>
@@ -48,8 +49,6 @@
     <tr>
       <td>
         <%= record[:date] %>
-        <%= link_to '編輯', edit_room_game_path(@room.id, record[:id])%>
-        <%= link_to '刪除', room_game_path(@room.id, record[:id]), method: :delete %>        
       </td>
       <% @report[:header][:id].each do |id| %>
         <td><%= record[id] %></td>

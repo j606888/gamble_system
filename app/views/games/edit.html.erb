@@ -18,3 +18,5 @@
   </table>
 <% end %>
 <div id="valid_result"></div>
+
+<%= link_to '刪除', room_game_path(@room.id, @game.id), method: :delete, data: {confirm: "Are you sure?"} %>        
