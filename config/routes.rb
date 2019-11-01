@@ -13,7 +13,6 @@ Rails.application.routes.draw do
 
     member do
       post 'left'
-      get 'users'
       get 'chart'
       post 'destroy_protect'
     end

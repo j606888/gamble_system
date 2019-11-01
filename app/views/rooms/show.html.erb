@@ -7,9 +7,7 @@
 <% end %>
 <hr>
 <%= link_to '設定', edit_room_path(@room) %>
-<%= link_to '編輯所有玩家', room_players_path(@room) %>
-<%= link_to '新增玩家', new_room_player_path(@room) %>
-<%= link_to '查看房間用戶', users_room_path(@room) %>
+<%= link_to '管理玩家', room_players_path(@room) %>
 <%= link_to '圖表', chart_room_path(@room) %>
 <%= link_to '全部戰機', room_games_path(@room) %> 
 <hr>

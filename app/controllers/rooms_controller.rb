@@ -68,10 +68,6 @@ class RoomsController < ApplicationController
     redirect_to @room
   end
 
-  def users
-    @users = User.with_role(:member, @room)
-  end
-
   def chart
     @chart = ChartMaker.new(@room).export('score')
     @line = ChartMaker.new(@room).export('line')

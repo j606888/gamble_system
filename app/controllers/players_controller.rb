@@ -4,15 +4,12 @@ class PlayersController < ApplicationController
 
   def index
     @players = @room.players.order(:id)
-  end
-
-  def new
     @player = @room.players.new
   end
 
   def create
     @room.players.create(player_params)
-    redirect_to @room
+    redirect_to room_players_path(@room)
   end
 
   def edit
