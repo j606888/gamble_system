@@ -20,3 +20,5 @@
 * set time range
 
 ## Data Analysis
+
+Chart & Date

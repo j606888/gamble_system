@@ -52,7 +52,11 @@ class Room < ApplicationRecord
     hash
   end
 
-  #private
+  def players_analyse
+    players.winner.map { |p| p.analyse }
+  end
+
+  private
 
   def header_maker(type='winner')
     select_players = players.avaliable.send(type)
