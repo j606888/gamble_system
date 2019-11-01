@@ -14,8 +14,8 @@
 <%= link_to '全部戰機', room_games_path(@room) %> 
 <hr>
 <h4>快速紀錄</h4>
-<%= form_tag(records_path, remote: true) do %>
-  <%= hidden_field_tag "room_id", @room.id %><br>
+
+<%= form_tag(room_games_path(@room), remote: true) do %>
   <table>
     <% @players.each do |player| %>
       <tr>

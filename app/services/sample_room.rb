@@ -22,7 +22,7 @@ class SampleRoom
 
   def setup_game!
     sample_data[:games].map do |recorded_at|
-      @room.games.create(recorded_at: recorded_at, user_id: User.first.id)
+      @room.games.create(recorded_at: recorded_at, recorder: 'sample@test.com')
     end
     @game_ids = @room.games.pluck(:id)
   end

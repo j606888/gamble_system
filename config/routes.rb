@@ -18,11 +18,9 @@ Rails.application.routes.draw do
       post 'destroy_protect'
     end
 
-    resources :games, only: [:edit, :update, :destroy, :index]
+    resources :games, only: [:edit, :update, :destroy, :index, :create]
     resources :players do
       post 'triggle_hidden', on: :member
     end
   end
-  
-  resources :records, only: :create
 end
