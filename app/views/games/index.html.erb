@@ -1,4 +1,10 @@
 <h1>戰績表</h1>
+
+<%= form_tag room_games_path(@room) do %>
+  <%= text_field_tag 'date_start', Date.today, data: { provide: 'datepicker' } %><br>
+  <%= text_field_tag 'date_end', 2.days.ago.to_date, data: { provide: 'datepicker' }  %><br>
+  <%= submit_tag '送出' %>
+<% end %>
 <%= link_to '返回', room_path(@room) %>
 <table class="table table-bordered">
   <tr>

@@ -27,7 +27,8 @@ class RoomsController < ApplicationController
   def show
     authorize! :read, @room
     @players = @room.players.avaliable
-    @report = @room.report(record_type)
+    # @report = @room.report(record_type)
+    @report = @room.recent_report
   end
 
   def edit

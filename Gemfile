@@ -22,6 +22,7 @@ gem 'rolify'
 gem 'cancancan'
 gem 'chart-js-rails'
 gem 'settingslogic'
+gem 'bootstrap-datepicker-rails'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

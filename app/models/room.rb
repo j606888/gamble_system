@@ -16,6 +16,13 @@ class Room < ApplicationRecord
     hash
   end
 
+  def recent_report
+    hash = {}
+    hash[:header] = header_maker('winner')
+    hash[:body] = recent_body_maker
+    hash
+  end
+
   def roles_map
     hash = {}
     User.with_role(:member, self).preload(:roles).each do |user|
@@ -43,7 +50,7 @@ class Room < ApplicationRecord
     hash
   end
 
-  private
+  #private
 
   def header_maker(type='winner')
     select_players = players.avaliable.send(type)
@@ -54,18 +61,29 @@ class Room < ApplicationRecord
     }
   end
 
+  # 近5場
+  def recent_body_maker
+    games.order(id: :desc).limit(5).includes(:records).map do |game|
+      inside_maker(game)
+    end
+  end
+
   def body_maker
     games.order(id: :desc).includes(:records).map do |game|
-      hash = {
-        id: game.id,
-        date: game.display_time,
-        email: game.recorder
-      }
-      game.records.each do |record|
-        hash[record.player_id] = record.score
-      end
-      hash
+      inside_maker(game)
     end
+  end
+
+  def inside_maker(game)
+    hash = {
+      id: game.id,
+      date: game.display_time,
+      email: game.recorder
+    }
+    game.records.each do |record|
+      hash[record.player_id] = record.score
+    end
+    hash
   end
 
   def set_invite_code

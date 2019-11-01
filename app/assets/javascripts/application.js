@@ -18,3 +18,4 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require Chart.min
+//= require bootstrap-datepicker/core
