@@ -27,7 +27,6 @@ class RoomsController < ApplicationController
   def show
     authorize! :read, @room
     @players = @room.players.avaliable
-    # @report = @room.report(record_type)
     @report = @room.recent_report
   end
 
@@ -58,7 +57,6 @@ class RoomsController < ApplicationController
     @room = Room.find_by(invite_code: params[:invite_code])
     if @room.present?
       current_user.add_role(:member, @room)
-
       flash[:success] = "加入成功！"
       redirect_to @room
     end
@@ -82,11 +80,5 @@ class RoomsController < ApplicationController
   private
   def rooms_params
     params.require(:room).permit(:name, :date_format)
-    # hash[:date_format] = hash[:date_format].to_i
-    # hash
-  end
-
-  def record_type
-    params[:record_type] || 'winner'
   end
 end
