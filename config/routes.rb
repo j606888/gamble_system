@@ -14,7 +14,6 @@ Rails.application.routes.draw do
     member do
       post 'left'
       get 'chart'
-      post 'destroy_protect'
     end
 
     resources :games, only: [:edit, :update, :destroy, :index, :create]

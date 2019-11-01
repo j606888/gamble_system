@@ -2,7 +2,7 @@ class Room < ApplicationRecord
   resourcify
   has_many :players, dependent: :destroy
   has_many :games, dependent: :destroy
-  before_save :set_invite_code
+  before_save :set_default_setting
 
   enum date_format: [:month, :date, :hour, :sec]
 
@@ -88,7 +88,8 @@ class Room < ApplicationRecord
     hash
   end
 
-  def set_invite_code
+  def set_default_setting
     self.invite_code = SecureRandom.hex(3)
+    self.date_format = :date
   end
 end

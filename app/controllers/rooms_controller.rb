@@ -1,7 +1,6 @@
 class RoomsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_current_room, except: [:index, :create, :new, :join, :verify, :sample]
-  before_action :check_admin_authorize!, only: [:edit, :update, :destroy]
 
   def index
   end
@@ -37,17 +36,6 @@ class RoomsController < ApplicationController
     @room.update(rooms_params)
     flash[:success] = "更新成功"
     redirect_to @room
-  end
-
-  def destroy_protect
-  end
-
-  def destroy
-    if @room.name == params[:room_name]
-      @room.destroy
-      flash[:success] = "刪除房間成功"
-      redirect_to rooms_path
-    end
   end
 
   def join

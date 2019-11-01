@@ -1,26 +1,10 @@
-<h1>編輯房間</h1>
-
+<h1>設定</h1>
 <%= simple_form_for @room do |f| %>
   <%= f.input :name, label: '房間名稱' %>
   <%= f.input :date_format, collection: date_format_select, selected: @room.date_format, label: "時間顯示格式" %>
-  
-  <%= f.button :submit, class: 'btn btn-secondary', label: '繼續' %>
+  <%= f.button :submit, class: 'btn btn-secondary', label: '更新' %>
+  <%= link_to '返回', room_path(@room) %>
+  <h3>邀請碼：<%= @room.invite_code %></h3>
 <% end %>
 
-
-
-<h3>房間資訊<h3>
-<hr>
-<p>遊戲次數：<%= @room.games.count %></p>
-<p>玩家數量：<%= @room.players.count %></p>
-<p>建立日期：<%= @room.created_at %></p>
-
-
-<%= link_to '返回', room_path(@room) %>
-
-<%= link_to '刪除此房間', destroy_protect_room_path(@room), method: :post, remote: true %>
-<div class="modal hide fade" id="modal-protect" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content"></div>
-  </div>
-</div>
+<%= link_to '離開房間', left_room_path(@room), method: :post %>

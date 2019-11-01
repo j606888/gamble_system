@@ -1,16 +1,4 @@
 <h1><%= @room.name %></h1>
-
-<hr>
-<% if current_user.has_role?(:member, @room) %>
-  <h4>在房間內</h4>
-  <%= link_to '離開房間', left_room_path(@room), method: :post %>
-<% end %>
-<hr>
-<%= link_to '設定', edit_room_path(@room) %>
-<%= link_to '管理玩家', room_players_path(@room) %>
-<%= link_to '圖表', chart_room_path(@room) %>
-<%= link_to '全部戰機', room_games_path(@room) %> 
-<hr>
 <h4>快速紀錄</h4>
 
 <%= form_tag(room_games_path(@room), remote: true) do %>
@@ -23,14 +11,13 @@
       </tr>
     <% end %>
     <tr><td colspan="3"><%= submit_tag 'send' %></td></tr>
-    
   </table>
 <% end %>
 
 <div id="valid_result"></div>
 
 <hr>
-<h4>近期對戰</h4>
+<h4>近期對戰（近5場）</h4>
 
 <table class="table table-bordered">
   <tr>
@@ -55,3 +42,8 @@
     </tr>
   <% end %>
 </table>
+
+<%= link_to '設定', edit_room_path(@room) %>
+<%= link_to '管理玩家', room_players_path(@room) %>
+<%= link_to '圖表', chart_room_path(@room) %>
+<%= link_to '全部戰機', room_games_path(@room) %> 
