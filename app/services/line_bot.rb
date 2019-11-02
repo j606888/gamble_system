@@ -1,34 +1,28 @@
 class LineBot
-  LINE_URI = "https://api.line.me/v2/bot/message/reply"
-
   def initialize(event)
     @type = event['type']
-    @replyToken = event['replyToken']
-    @userId = event['source']['userId']
-    @groupId = event['source']['groupId']
+    @reply_token = event['replyToken']
+    @user_id = event['source']['userId']
+    @group_id = event['source']['groupId']
     @type = event['source']['type']
     @message_type = event['message']['type']
-    @message_text = event['message']['text']
+    @message_text = event['message']['text'].downcase.strip
   end
 
   def call
-    reply_it
+    setup_line_group!
+    message_eater = MessageEater.call(@line_group, @message_text)
+    LineReplyer.call(message_eater.result, @reply_token)
   end
 
-  def reply_it
-    body = {
-      replyToken: @replyToken,
-      messages: [
-        type: @message_type,
-        text: @message_text
-      ]
-    }
+  private
 
-    conn = Faraday.new(LINE_URI)
-    conn.post do |req|
-      req.headers['Content-Type'] = 'application/json'
-      req.headers['Authorization'] = "Bearer #{Rails.application.credentials.line_api[:access_token]}"
-      req.body = body.to_json
-    end
+  def setup_line_group!
+    @line_group = LineGroup.find_or_create_by(group_id: @group_id)
+  end
+
+  def bind_room?
+    @room ||= @line_group.room
+    @room.present?
   end
 end 

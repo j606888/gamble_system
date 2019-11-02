@@ -2,6 +2,7 @@ class Room < ApplicationRecord
   resourcify
   has_many :players, dependent: :destroy
   has_many :games, dependent: :destroy
+  has_one :line_group
   before_save :set_default_setting
 
   ALLOW_REPORT_TYPE = %w[winner loser counter]
@@ -65,6 +66,6 @@ class Room < ApplicationRecord
   end
 
   def set_default_setting
-    self.invite_code = SecureRandom.hex(3)
+    self.invite_code = rand(100000..1000000)
   end
 end
