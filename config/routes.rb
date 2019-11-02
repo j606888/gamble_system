@@ -21,4 +21,8 @@ Rails.application.routes.draw do
       post 'triggle_hidden', on: :member
     end
   end
+
+  namespace :api do
+    post 'line_callback', to: 'line_callback#index'
+  end
 end
