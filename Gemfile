@@ -23,6 +23,7 @@ gem 'cancancan'
 gem 'chart-js-rails'
 gem 'settingslogic'
 gem 'bootstrap-datepicker-rails'
+gem 'omniauth-google-oauth2'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
