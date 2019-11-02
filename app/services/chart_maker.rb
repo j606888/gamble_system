@@ -30,7 +30,7 @@ class ChartMaker
 
     hash_map = @room.hash_map
     @room.games.each do |game|
-      dates << game.display_time(@room.date_format)
+      dates << game.display_time
       data = []
       player_ids.each_with_index do |player_id, index|
         current_score[player_id] = hash_map[game.id][player_id] || 0

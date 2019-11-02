@@ -10,8 +10,4 @@ module ApplicationHelper
         else "alert alert-info"
     end
   end
-
-  def date_format_select
-    [["2019/03", 'month'], ["2019-03-12", 'date'], ["2019-03-12 08:30 PM", 'hour'], ["2019-03-12 16:30:02", 'sec']]
-  end
 end

@@ -22,17 +22,17 @@
   <% @report[:body].each do |record| %>
     <tr>
       <td>
-        <%= record[:date] %>
+        <%= record['display_time'] %>
         <% if params[:edit].present? %>
-          <%= link_to '編輯', edit_room_game_path(@room.id, record[:id])%>
-          <%= link_to '刪除', room_game_path(@room.id, record[:id]), method: :delete, data: {confirm: "Are you sure?"} %>
+          <%= link_to '編輯', edit_room_game_path(@room.id, record['id'])%>
+          <%= link_to '刪除', room_game_path(@room.id, record['id']), method: :delete, data: {confirm: "Are you sure?"} %>
         <% end %>
       </td>
       <% @report[:header][:id].each do |id| %>
         <td><%= record[id] %></td>
       <% end %>
       <% if params[:edit].present? %>
-        <td><%= record[:email] %></td>
+        <td><%= record['recorder'] %></td>
       <% end %>
     </tr>
   <% end %>

@@ -37,9 +37,14 @@ class Game < ApplicationRecord
     :success
   end
 
-  def display_time(date_format)
-    raise 'not allow date_format' if DISPLAY_TYPE[date_format].nil?
-    recorded_at.strftime(DISPLAY_TYPE[date_format])
+  def display_time
+    recorded_at.strftime("%F")
+  end
+
+  def detail
+    hash = as_json(only:[:id, :recorder], methods: [:display_time])
+    records.each { |r| hash[r.player_id] = r.score }
+    hash
   end
 
   private
