@@ -1,3 +1,4 @@
+<%= render 'rooms/concerns/room_bar'%>
 <h1><%= @room.name %></h1>
 <h4>快速紀錄</h4>
 
@@ -24,34 +25,4 @@
 
 <div id="valid_result"></div>
 
-<hr>
-<h4>近期對戰（近5場）</h4>
-
-<table class="table table-bordered">
-  <tr>
-    <% @report[:header][:name].each do |name| %>
-      <th><%= name %></th>
-    <% end %>
-  </tr>
-  <tr>
-    <% @report[:header][:money].each do |money| %>
-      <th><%= money %></th>
-    <% end %>
-  </tr>
-  <% @report[:body].each do |record| %>
-    <tr>
-      <td><%= record[:date] %></td>
-      <% @report[:header][:id].each do |id| %>
-        <td><%= record[id] %></td>
-      <% end %>
-      <td><%= record[:email] %></td>
-    </tr>
-  <% end %>
-</table>
-
 <%= render 'rooms/concerns/players_analyse' %>
-
-<%= link_to '設定', edit_room_path(@room) %>
-<%= link_to '管理玩家', room_players_path(@room) %>
-<%= link_to '圖表', chart_room_path(@room) %>
-<%= link_to '全部戰機', room_games_path(@room) %> 

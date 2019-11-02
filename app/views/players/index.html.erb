@@ -1,3 +1,4 @@
+<%= render 'rooms/concerns/room_bar'%>
 <table>
   <% @players.each do |player| %>
     <tr>
@@ -15,5 +16,3 @@
 </table>
 
 <%= render 'new' %>
-
-<%= link_to '返回', room_path(@room) %>

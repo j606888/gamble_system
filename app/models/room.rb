@@ -53,7 +53,7 @@ class Room < ApplicationRecord
   end
 
   def players_analyse
-    players.winner.map { |p| p.analyse }
+    players.avaliable.winner.map { |p| p.analyse }
   end
 
   private

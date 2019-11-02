@@ -1,9 +1,9 @@
+<%= render 'rooms/concerns/room_bar'%>
 
 <div id="accordion">
   <div class>
     <a class="collapsed card-link" data-toggle="collapse" href="#score">總金額</a>
     <a class="collapsed card-link" data-toggle="collapse" href="#my_line">歷史走向</a>
-    <%= link_to '返回', room_path(@room), class: "card-link" %>
   </div>
   <div id="score" class="collapse show" data-parent="#accordion" width="80%">
     <canvas id="myChart"></canvas>
