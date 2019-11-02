@@ -2,22 +2,18 @@
 <div id="accordion">
   <div class>
     <a class="collapsed card-link" data-toggle="collapse" href="#score">總金額</a>
-    <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">歷史走向</a>
-    <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">還沒定</a>
+    <a class="collapsed card-link" data-toggle="collapse" href="#my_line">歷史走向</a>
     <%= link_to '返回', room_path(@room), class: "card-link" %>
   </div>
   <div id="score" class="collapse show" data-parent="#accordion" width="80%">
     <canvas id="myChart"></canvas>
   </div>
-  <div id="collapseTwo" class="collapse" data-parent="#accordion">
+  <div id="my_line" class="collapse" data-parent="#accordion">
     <canvas id="myLine"></canvas>
   </div>
-  <div id="collapseThree" class="collapse" data-parent="#accordion">
-    <div class="card-body">
-      not set yet
-    </div>
-  </div>
 </div>
+
+<%= render 'rooms/concerns/players_analyse' %>
 
 <script>
 var ctx = document.getElementById('myChart').getContext('2d');

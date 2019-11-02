@@ -1,0 +1,24 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>名稱</th>
+      <th>分數</th>
+      <th>勝場</th>
+      <th>敗場</th>
+      <th>勝率</th>
+      <th>平均每場</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @players_analyse.each do |player| %>
+      <tr>
+        <td><%= player[:name] %></td>
+        <td><%= player[:total_score] %></td>
+        <td><%= player[:win] %></td>
+        <td><%= player[:lose] %></td>
+        <td><%= player[:win_rate] %></td>
+        <td><%= player[:average] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

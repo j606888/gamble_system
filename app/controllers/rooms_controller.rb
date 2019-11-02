@@ -25,6 +25,7 @@ class RoomsController < ApplicationController
   
   def show
     authorize! :read, @room
+    @players_analyse = @room.players_analyse
     @players = @room.players.avaliable
     @report = @room.recent_report
   end
@@ -57,6 +58,7 @@ class RoomsController < ApplicationController
   end
 
   def chart
+    @players_analyse = @room.players_analyse
     @chart = ChartMaker.new(@room).export('score')
     @line = ChartMaker.new(@room).export('line')
   end

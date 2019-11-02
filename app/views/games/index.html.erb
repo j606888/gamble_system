@@ -1,6 +1,12 @@
 <h1>戰績表</h1>
 
 <%= link_to '返回', room_path(@room) %>
+<% if params[:edit].present? %>
+  <%= link_to '閱讀模式', room_games_path(@room)%>
+<% else %>
+  <%= link_to '編輯模式', room_games_path(@room, edit: true)%>
+<% end %>
+
 <table class="table table-bordered">
   <tr>
     <% @report[:header][:name].each do |name| %>
@@ -16,7 +22,10 @@
     <tr>
       <td>
         <%= record[:date] %>
-        <%= link_to '編輯', edit_room_game_path(@room.id, record[:id])%>
+        <% if params[:edit].present? %>
+          <%= link_to '編輯', edit_room_game_path(@room.id, record[:id])%>
+          <%= link_to '刪除', room_game_path(@room.id, record[:id]), method: :delete, data: {confirm: "Are you sure?"} %>
+        <% end %>
       </td>
       <% @report[:header][:id].each do |id| %>
         <td><%= record[id] %></td>

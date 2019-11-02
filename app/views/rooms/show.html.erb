@@ -3,13 +3,21 @@
 
 <%= form_tag(room_games_path(@room), remote: true) do %>
   <table>
-    <% @players.each do |player| %>
+    <thead>
       <tr>
-        <td><%= hidden_field_tag "records[]player_id", player.id %></td>
-        <td><%= player.name %></td>
-        <td><%= text_field_tag "records[]score" %></td>
+        <th colspan="2">姓名</th>
+        <th>分數</th>
       </tr>
-    <% end %>
+    </thead>
+    <tbody>
+      <% @players.each do |player| %>
+        <tr>
+          <td><%= hidden_field_tag "records[]player_id", player.id %></td>
+          <td><%= player.name %></td>
+          <td><%= text_field_tag "records[]score" %></td>
+        </tr>
+      <% end %>  
+    </tbody>
     <tr><td colspan="3"><%= submit_tag 'send' %></td></tr>
   </table>
 <% end %>
@@ -32,9 +40,7 @@
   </tr>
   <% @report[:body].each do |record| %>
     <tr>
-      <td>
-        <%= record[:date] %>
-      </td>
+      <td><%= record[:date] %></td>
       <% @report[:header][:id].each do |id| %>
         <td><%= record[id] %></td>
       <% end %>
@@ -42,6 +48,8 @@
     </tr>
   <% end %>
 </table>
+
+<%= render 'rooms/concerns/players_analyse' %>
 
 <%= link_to '設定', edit_room_path(@room) %>
 <%= link_to '管理玩家', room_players_path(@room) %>
