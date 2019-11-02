@@ -31,7 +31,9 @@
       <% @report[:header][:id].each do |id| %>
         <td><%= record[id] %></td>
       <% end %>
-      <td><%= record[:email] %></td>
+      <% if params[:edit].present? %>
+        <td><%= record[:email] %></td>
+      <% end %>
     </tr>
   <% end %>
 </table>

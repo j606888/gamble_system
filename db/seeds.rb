@@ -15,7 +15,6 @@ p4 = Player.create(name: '銷中停', nickname: 'CR', hidden: false, room: room)
 p5 = Player.create(name: '東錢', nickname: '$', hidden: false, room: room)
 
 user.add_role(:member, room)
-user.add_role(:admin, room)
 user1.add_role(:member, room)
 user2.add_role(:member, room)
 user3.add_role(:member, room)

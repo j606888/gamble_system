@@ -9,7 +9,6 @@ class Ability
     if user.has_role?(:god)
       can :manage, :all
     else
-      can :manage, Room, id: Room.with_role(:admin, user).pluck(:id)
       can :read, Room, id: Room.with_role(:member, user).pluck(:id)
     end
   end

@@ -23,11 +23,8 @@ class ApplicationController < ActionController::Base
   def set_join_rooms
     @join_rooms = Room.with_role(:member, current_user) if current_user
   end
+
   def set_current_room
     @room = Room.find(params[:room_id] || params[:id])
-  end
-
-  def check_admin_authorize!
-    authorize! :admin, @room
   end
 end

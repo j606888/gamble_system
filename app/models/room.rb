@@ -7,46 +7,21 @@ class Room < ApplicationRecord
   enum date_format: [:month, :date, :hour, :sec]
 
   ALLOW_REPORT_TYPE = %w[winner loser counter]
-  ALLOW_ROLES = %w[admin member]
   CHART_TYPE = %w[score]
 
-  def report(type='winner')
+  def report(type='winner', need_recorder=false)
     raise 'not allow type' if ALLOW_REPORT_TYPE.exclude?(type)
-    hash = {}
-    hash[:header] = header_maker(type)
-    hash[:body] = body_maker
-    hash
-  end
-
-  def recent_report
-    hash = {}
-    hash[:header] = header_maker('winner')
-    hash[:body] = recent_body_maker
-    hash
-  end
-
-  def roles_map
-    hash = {}
-    User.with_role(:member, self).preload(:roles).each do |user|
-      hash[user.id] = {
-        email: user.email,
-        name: user.name,
-        admin: user.has_cached_role?(:admin, self),
-        member: user.has_cached_role?(:member, self)
-      }
-    end
-    hash
+    {
+      header: header_maker(type, need_recorder),
+      body: body_maker
+    }
   end
 
   def hash_map
     hash = {}
     games.order(id: :desc).includes(:records).map do |game|
-      game_hash = {
-        date: game.display_time(date_format),
-      }
-      game.records.each do |record|
-        game_hash[record.player_id] = record.score
-      end
+      game_hash = { date: game.display_time(date_format) }
+      game.records.each { |record| game_hash[record.player_id] = record.score }
       hash[game.id] = game_hash
     end
     hash
@@ -58,38 +33,31 @@ class Room < ApplicationRecord
 
   private
 
-  def header_maker(type='winner')
+  def header_maker(type='winner', need_recorder=false)
     select_players = players.avaliable.send(type)
-    {
-      name: ['遊戲時間'] + select_players.map(&:name) + ['記錄者'],
-      money: ['分數'] + select_players.map(&:total_score) + [''],
+    header = {
+      name: ['遊戲時間'] + select_players.map(&:name),
+      money: ['分數'] + select_players.map(&:total_score),
       id: select_players.map(&:id)
     }
-  end
-
-  # 近5場
-  def recent_body_maker
-    games.order(id: :desc).limit(5).includes(:records).map do |game|
-      inside_maker(game)
-    end
+    return header unless need_recorder
+    header[:name] += ['記錄者']
+    header[:money] += ['']
+    header
   end
 
   def body_maker
     games.order(id: :desc).includes(:records).map do |game|
-      inside_maker(game)
+      hash = {
+        id: game.id,
+        date: game.display_time(date_format),
+        email: game.recorder
+      }
+      game.records.each do |record|
+        hash[record.player_id] = record.score
+      end
+      hash
     end
-  end
-
-  def inside_maker(game)
-    hash = {
-      id: game.id,
-      date: game.display_time(date_format),
-      email: game.recorder
-    }
-    game.records.each do |record|
-      hash[record.player_id] = record.score
-    end
-    hash
   end
 
   def set_default_setting

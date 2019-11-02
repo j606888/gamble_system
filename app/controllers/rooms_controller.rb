@@ -11,14 +11,12 @@ class RoomsController < ApplicationController
 
   def create
     room = Room.create(rooms_params)
-    current_user.add_role(:admin, room)
     current_user.add_role(:member, room)
     redirect_to room
   end
 
   def sample
     room = SampleRoom.new.call
-    current_user.add_role(:admin, room)
     current_user.add_role(:member, room)
     redirect_to room
   end

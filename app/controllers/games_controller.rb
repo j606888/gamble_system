@@ -3,7 +3,7 @@ class GamesController < ApplicationController
   before_action :set_current_game, except: [:index, :create]
 
   def index
-    @report = @room.report(record_type)
+    @report = @room.report(record_type, params[:edit])
   end
 
   def edit
