@@ -3,11 +3,14 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'rooms#index'
+  
+  get '/helps', to: "helps#index"
 
   resources :rooms do
     collection do
       get 'join'
       post 'verify'
+      get 'verify'
       post 'sample'
     end
 

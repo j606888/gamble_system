@@ -1,6 +1,7 @@
 class Player < ApplicationRecord
   belongs_to :room
   has_many :records, dependent: :destroy
+  before_update :upper_nickname!
 
   scope :avaliable, -> { where(hidden: false).order(:id) }
   scope :winner, -> { all.includes(:records).sort_by(&:total_score).reverse! }
@@ -35,5 +36,10 @@ class Player < ApplicationRecord
       win_rate: "#{(win_rate * 100).to_i}%",
       average: (total_score.to_f / game_count).round(2)
     }
+  end
+
+  private
+  def upper_nickname!
+    self.nickname = nickname.upcase
   end
 end

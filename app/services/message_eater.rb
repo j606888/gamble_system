@@ -3,6 +3,8 @@ class MessageEater
 
   ALLOW_STATUS = %w[normal record remove new]
   SPECIAL_STATUS = %w[new remove normal]
+
+  NORMAL_KEY_WORD = %w[help web player join]
   
   WEB_LINK = "https://j606888.com"
 
@@ -23,8 +25,19 @@ class MessageEater
     send("do_#{@group_status}_action")
   end
 
-  def do_new_action
+  def do_normal_action
+    try_to_bind_room
+    check_room_exist?
     return if is_lock?
+    @result = "無效" && return unless NORMAL_KEY_WORD.include?(@message)
+    send("normal_#{@message}_action")
+  end
+
+  def do_new_action
+    check_room_exist?
+    return if is_lock?
+
+    @result = GameConverter.call(@room, @message).result
   end
 
   def do_remove_action
@@ -34,10 +47,23 @@ class MessageEater
     Rails.cache.write("room:#{@line_group.id}:status", 'normal')
   end
 
-  def do_normal_action
-    try_to_bind_room
-    check_room_exist?
-    try_to_show_player
+
+
+  def normal_help_action
+    @result = "http://localhost:3000/helps"
+  end
+
+  def normal_web_action
+    @result = "http://localhost:3000/rooms/#{@room.id}"
+  end
+
+  def normal_join_action
+    @result = "http://localhost:3000/rooms/verify?invite_code=#{@room.invite_code}"
+  end
+
+  def normal_player_action
+    players = @room.players.map { |p| "#{p.name}(#{p.nickname})"}
+    @result = players
   end
 
   private
@@ -70,13 +96,6 @@ class MessageEater
     else
       @room = @line_group.room
     end
-  end
-
-  def try_to_show_player
-    return if is_lock?
-    players = @room.players.map { |p| "#{p.name}(#{p.nickname})"}
-    @result = players
-    lock_it!
   end
 
   def is_lock?

@@ -13,7 +13,6 @@ class Game < ApplicationRecord
 
   def self.fast_create(records, email)
     return '全為0' if all_zero?(records)
-
     sum = records.map{|r| r['score'].to_i}.compact.sum
     return sum if sum != 0
 
