@@ -8,7 +8,8 @@ class MessageEater < ServiceCaller
   end
 
   def call
-    return if bind_room_success?
+    return if unbind_room?
+    return if bind_room?
     return unless room_exist?
     return if room_update_status?
 
@@ -41,7 +42,14 @@ class MessageEater < ServiceCaller
 
   private
 
-  def bind_room_success?
+  def unbind_room?
+    return false unless @message == 'remove'
+    @line_group.update(room_id: nil)
+    @result = "解除成功！\n請重新綁定或剔除小幫手！"
+    true
+  end
+
+  def bind_room?
     room = Room.find_by(invite_code: @message)
     return false if room.nil?
 
@@ -60,7 +68,6 @@ class MessageEater < ServiceCaller
 
   def room_update_status?
     @group_status = Rails.cache.fetch("room:#{@room.id}:status") { 'normal' }
-    return unbind_room if @message == 'remove'
     return false if SPECIAL_STATUS.exclude?(@message)
 
     update_room_status(@message)
@@ -71,12 +78,6 @@ class MessageEater < ServiceCaller
 
   def players_array
     @room.players.map { |p| "#{p.name}(#{p.nickname})"}
-  end
-
-  def unbind_room
-    @line_group.update(room_id: nil)
-    @result = "解除成功！\n請重新綁定或剔除小幫手！"
-    true
   end
 
   def update_room_status(status)
