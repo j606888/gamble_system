@@ -12,7 +12,7 @@ class LineBot < ServiceCaller
   def call
     setup_line_group!
     message_eater = MessageEater.call(@line_group, @message_text)
-    LineReplyer.call(message_eater.result, @reply_token)
+    LineReplyer.call(message_eater.result, @reply_token) if message_eater.success?
   end
 
   private

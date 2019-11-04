@@ -1,5 +1,4 @@
 class MessageEater < ServiceCaller
-
   ALLOW_STATUS = %w[normal record remove new]
   SPECIAL_STATUS = %w[new remove normal]
 
@@ -31,20 +30,17 @@ class MessageEater < ServiceCaller
     return if is_lock?
 
     service = GameConverter.call(@room, @message)
-    if service.success?
-      @result = service.result
-      # Rails.cache.write("room:#{@line_group.id}:status", 'normal')
-    end
+    @result = service.error && return unless servicec.success?
+    @result = service.result
+    update_room_status('normal')
   end
 
   def do_remove_action
     @line_group.update(room_id: nil)
     @result = "解除成功！\n請重新綁定或剔除小幫手！"
 
-    Rails.cache.write("room:#{@line_group.id}:status", 'normal')
+    update_room_status('normal')
   end
-
-
 
   def normal_help_action
     @result = "http://localhost:3000/helps"
@@ -66,13 +62,12 @@ class MessageEater < ServiceCaller
   private
 
   def setup_group_status!
-    if SPECIAL_STATUS.include?(@message)
-      Rails.cache.write("room:#{@line_group.id}:status", @message)
-      @result = "更新狀態：#{@message}"
-      lock_it!
-    end
-
     @group_status = Rails.cache.fetch("room:#{@line_group.id}:status") { 'normal' }
+    return unless SPECIAL_STATUS.include?(@message)
+
+    update_room_status(@message)
+    @result = "更新狀態：#{@message}"
+    lock_it!
   end
 
   def try_to_bind_room
@@ -101,5 +96,9 @@ class MessageEater < ServiceCaller
 
   def lock_it!
     @lock = true
+  end
+
+  def update_room_status(status)
+    Rails.cache.write("room:#{@line_group.id}:status", status)
   end
 end
