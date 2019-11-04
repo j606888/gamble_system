@@ -1,10 +1,9 @@
 class MessageEater < ServiceCaller
-  ALLOW_STATUS = %w[normal record remove new]
   SPECIAL_STATUS = %w[new remove normal]
 
   NORMAL_KEY_WORD = %w[help web player join]
   
-  WEB_LINK = "https://j606888.com"
+  WEB_LINK = "http://localhost:3000"
 
   def initialize(line_group, message)
     @line_group = line_group
@@ -43,15 +42,15 @@ class MessageEater < ServiceCaller
   end
 
   def normal_help_action
-    @result = "http://localhost:3000/helps"
+    @result = "#{WEB_LINK}/helps"
   end
 
   def normal_web_action
-    @result = "http://localhost:3000/rooms/#{@room.id}"
+    @result = "#{WEB_LINK}/rooms/#{@room.id}"
   end
 
   def normal_join_action
-    @result = "http://localhost:3000/rooms/verify?invite_code=#{@room.invite_code}"
+    @result = "#{WEB_LINK}/rooms/verify?invite_code=#{@room.invite_code}"
   end
 
   def normal_player_action
