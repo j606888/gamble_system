@@ -2,9 +2,14 @@ class ServiceCaller
   attr_accessor :result, :error
 
   def self.call(*args)
-    service = self.new(*args)
-    service.call
-    service
+    begin
+      service = self.new(*args)
+      service.call
+      service
+    rescue => e
+      service.error = e
+      service
+    end
   end
 
   def success?

@@ -22,8 +22,8 @@ class GameConverter < ServiceCaller
     @rows.each do |row|
       nickname, score = row.split(" ")
       player = @room.players.find_by(nickname: nickname)
-      raise("#{nickname} not found") if player.nil?
-      raise("#{score} not integer") unless score.to_i.is_a?(Integer)
+      raise("#{nickname}玩家不存在！") if player.nil?
+      raise("#{score}非整數！") unless score.to_i.is_a?(Integer)
       @records[player.id] = score
     end
   end
@@ -46,6 +46,11 @@ class GameConverter < ServiceCaller
     if result == :success
       @result = "儲存成功"
       Rails.cache.delete("room:#{@room.id}:records")
+      @records.each do |key, value|
+        @result += "\n"
+        p = Player.find(key)
+        @result += "#{p.name} #{value}"
+      end
     else
       @error = "儲存失敗，跟0差了#{result}"
     end
