@@ -1,12 +1,5 @@
-class LineReplyer
-  attr_accessor :result
+class LineReplyer < ServiceCaller
   LINE_URI = "https://api.line.me/v2/bot/message/reply"
-
-  def self.call(*args)
-    service = new(*args)
-    service.call
-    service
-  end
 
   def initialize(result, reply_token)
     @result = result

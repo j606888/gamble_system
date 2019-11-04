@@ -1,4 +1,4 @@
-class LineBot
+class LineBot < ServiceCaller
   def initialize(event)
     @type = event['type']
     @reply_token = event['replyToken']

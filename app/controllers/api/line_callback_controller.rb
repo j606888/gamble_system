@@ -1,6 +1,6 @@
 class Api::LineCallbackController < Api::ApplicationController
   def index
-    LineBot.new(line_params['events'].first).call
+    LineBot.call(line_params['events'].first)
     render json: {status: 200}
   end
 

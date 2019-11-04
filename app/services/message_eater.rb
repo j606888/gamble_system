@@ -1,5 +1,4 @@
-class MessageEater
-  attr_accessor :result
+class MessageEater < ServiceCaller
 
   ALLOW_STATUS = %w[normal record remove new]
   SPECIAL_STATUS = %w[new remove normal]
@@ -7,12 +6,6 @@ class MessageEater
   NORMAL_KEY_WORD = %w[help web player join]
   
   WEB_LINK = "https://j606888.com"
-
-  def self.call(*args)
-    service = new(*args)
-    service.call
-    service
-  end
 
   def initialize(line_group, message)
     @line_group = line_group
@@ -37,7 +30,11 @@ class MessageEater
     check_room_exist?
     return if is_lock?
 
-    @result = GameConverter.call(@room, @message).result
+    service = GameConverter.call(@room, @message)
+    if service.success?
+      @result = service.result
+      # Rails.cache.write("room:#{@line_group.id}:status", 'normal')
+    end
   end
 
   def do_remove_action
