@@ -1,24 +1,25 @@
 ### Todo List
 
-## User
+## Landing Page
 
-## Player
+  * for before sign in
 
-## Room
+## Navbar
 
+  * Design a new one
 
-## Record
+## Bottom Bar
 
-* Admin setup allow edit record or not
+  * Maybe to one?
 
-* Mark up record which have been update
+## Sign Up
 
-* Remove all remark
+  * Only with google ?
 
-## Game
+  * with facebook ?
 
-* set time range
+  * sign up here ( Must have )
 
-## Data Analysis
+## Need Some Image
 
-Chart & Date
+  * where to put ?
