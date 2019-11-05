@@ -1,0 +1,18 @@
+development: &development
+  host: localhost
+  adapter: postgresql
+  encoding: utf8  
+  database: gamble_system_development
+  pool: 5
+  username: <%= Rails.application.credentials.database[:development][:username] %>
+  password: <%= Rails.application.credentials.database[:development][:password] %>
+
+test:
+  <<: *development
+  database: gamble_system_test
+
+production:
+  <<: *development
+  database: gamble_system_production
+  username: gamble_system
+  password: <%= ENV['GAMBLE_SYSTEM_DATABASE_PASSWORD'] %>
