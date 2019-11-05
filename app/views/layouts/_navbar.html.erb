@@ -18,9 +18,9 @@
       <% if user_signed_in? %>
         <%= link_to '登出', destroy_user_session_path, method: 'delete', class:"list-group-item list-group-item-action bg-light" %>
       <% end %>
+      <%= link_to '幫助', helps_path, class:"list-group-item list-group-item-action bg-light"  %>
     </div>
 
-  <!-- Menu Toggle Script -->
   <script>
     $("#menu-toggle").click(function(e) {
       e.preventDefault();
