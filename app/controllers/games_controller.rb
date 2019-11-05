@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   before_action :set_current_room
-  before_action :set_current_game, except: [:index, :create]
+  before_action :set_current_game, except: [:index, :create, :to_csv]
 
   def index
     @report = @room.report(record_type, params[:edit])
@@ -29,6 +29,10 @@ class GamesController < ApplicationController
     @game.destroy
     flash[:success] = "刪除成功"
     redirect_to room_games_path(@room)
+  end
+
+  def to_csv
+    send_data CsvBuilder.call(@room).result, filename: "#{@room.name}紀錄.csv"
   end
 
   private

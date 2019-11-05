@@ -19,7 +19,9 @@ Rails.application.routes.draw do
       get 'chart'
     end
 
-    resources :games, only: [:edit, :update, :destroy, :index, :create]
+    resources :games, only: [:edit, :update, :destroy, :index, :create] do
+      post 'to_csv', on: :collection
+    end
     resources :players do
       post 'triggle_hidden', on: :member
     end

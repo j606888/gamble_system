@@ -1,6 +1,8 @@
 <%= render 'rooms/concerns/room_bar'%>
 <h1>戰績表</h1>
 
+<%= button_to '下載', to_csv_room_games_path(@room) %>
+
 <%= link_to '返回', room_path(@room) %>
 <% if params[:edit].present? %>
   <%= link_to '閱讀模式', room_games_path(@room)%>

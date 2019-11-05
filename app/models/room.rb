@@ -35,7 +35,16 @@ class Room < ApplicationRecord
     games.order(id: :desc).includes(:records).map(&:detail)
   end
 
-  # private
+  def to_csv
+    CSV.generate(headers: true) do |csv|
+      csv << ['id', 'name', 'score']
+      csv << [1,'丁',50]
+      csv << [2,'詹姆士',530]
+      csv << [3,'叔叔',-50]
+    end
+  end
+
+  private
 
   def header_maker(type='winner', need_recorder=false)
     select_players = players.avaliable.send(type)
