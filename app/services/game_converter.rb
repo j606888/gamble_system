@@ -44,15 +44,21 @@ class GameConverter < ServiceCaller
   def fast_create!
     result = @room.games.fast_create(@records_array, "line_bot")
     if result == :success
-      @result = "儲存成功"
+      @result = "(儲存成功)"
       Rails.cache.delete("room:#{@room.id}:records")
-      @records.each do |key, value|
-        @result += "\n"
-        p = Player.find(key)
-        @result += "#{p.name} #{value}"
-      end
+      @result += player_str
     else
-      @error = "儲存失敗，跟0差了#{result}"
+      @error = "(儲存失敗，跟0差了#{result})" + player_str
     end
+  end
+
+  def player_str
+    str = ""
+    @records.each do |key, value|
+      str += "\n"
+      p = Player.find(key)
+      str += "#{p.name} #{value}"
+    end
+    str
   end
 end

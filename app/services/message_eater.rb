@@ -1,5 +1,8 @@
 class MessageEater < ServiceCaller
-  SPECIAL_STATUS = %w[new normal]
+  SPECIAL_STATUS = {
+    "新增" => "new",
+    "普通" => "normal"
+  }
   WEB_LINK = "http://localhost:3000"
 
   def initialize(line_group, message)
@@ -18,13 +21,13 @@ class MessageEater < ServiceCaller
 
   def do_normal_action
     @result = case @message
-    when 'help'
+    when '幫助'
       "#{WEB_LINK}/helps"
-    when 'web'
+    when '房間'
       "#{WEB_LINK}/rooms/#{@room.id}"
-    when 'join'
+    when '加入'
       "#{WEB_LINK}/rooms/verify?invite_code=#{@room.invite_code}"
-    when 'player'
+    when '玩家'
       players_array
     else
       "無效"
@@ -32,7 +35,7 @@ class MessageEater < ServiceCaller
   end
 
   def do_new_action
-    return players_array if @message == 'player'
+    return @result = players_array if @message == 'player'
 
     service = GameConverter.call(@room, @message)
     update_room_status('normal') if service.success?
@@ -67,12 +70,17 @@ class MessageEater < ServiceCaller
   end
 
   def room_update_status?
-    @group_status = Rails.cache.fetch("room:#{@room.id}:status") { 'normal' }
-    return false if SPECIAL_STATUS.exclude?(@message)
+    @group_status = Rails.cache.fetch("room:#{@room.id}:status") { '一般' }
+    return false if SPECIAL_STATUS.keys.exclude?(@message)
 
-    update_room_status(@message)
+    status = SPECIAL_STATUS[@message]
+    update_room_status(status)
     Rails.cache.delete("room:#{@room.id}:records")
-    @result = "更新狀態：#{@message}"
+    if @message == '新增'
+      @result = "進入記錄模式\n請輸入戰機"
+    elsif @message == '普通'
+      @result = "更新狀態：#{@message}"
+    end
     true
   end
 
