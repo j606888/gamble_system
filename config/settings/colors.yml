@@ -1,12 +1,8 @@
 development: &development
-  basic:
-    - "rgba(2,119,189 ,0.9)"
-    - "rgba(2,119,189 ,0.7)"
-    - "rgba(2,119,189 ,0.3)"
-    - "rgba(255,61,0 ,0.3)"
-    - "rgba(255,61,0 ,0.7)"
-    - "rgba(255,61,0 ,0.9)"
-  other:
+  rgba_string:
+    blue: "rgba(2,119,189 , %per)"
+    red: "rgba(255,61,0 , %per)"
+  random:
     - "#f44336"
     - "#9C27B0"
     - "#3F51B5"

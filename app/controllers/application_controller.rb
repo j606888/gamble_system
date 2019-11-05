@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :authenticate_user!
   before_action :set_join_rooms
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -27,5 +28,9 @@ class ApplicationController < ActionController::Base
 
   def set_current_room
     @room = Room.find(params[:room_id] || params[:id])
+  end
+
+  def check_room_authorize!
+    authorize! :read, @room
   end
 end

@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_current_room, except: [:index, :create, :new, :join, :verify, :sample]
+  before_action :set_current_room, only: [:show, :edit, :update, :left, :chart]
+  before_action :check_room_authorize!, only: [:show, :edit, :update, :left, :chart]
 
   def index
   end
@@ -16,13 +16,11 @@ class RoomsController < ApplicationController
   end
 
   def sample
-    room = SampleRoom.new.call
-    current_user.add_role(:member, room)
+    room = SampleRoom.call(current_user).result
     redirect_to room
   end
   
   def show
-    authorize! :read, @room
     @players_analyse = @room.players_analyse
     @players = @room.players.avaliable
   end
@@ -56,8 +54,8 @@ class RoomsController < ApplicationController
 
   def chart
     @players_analyse = @room.players_analyse
-    @chart = ChartMaker.new(@room).export('score')
-    @line = ChartMaker.new(@room).export('line')
+    @score_chart = ChartMaker.new(@room).export('score')
+    @history_chart = ChartMaker.new(@room).export('history')
   end
 
   private

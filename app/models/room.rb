@@ -3,7 +3,7 @@ class Room < ApplicationRecord
   has_many :players, dependent: :destroy
   has_many :games, dependent: :destroy
   has_one :line_group
-  before_save :set_default_setting
+  before_save :set_invite_code
 
   ALLOW_REPORT_TYPE = %w[winner loser counter]
   CHART_TYPE = %w[score]
@@ -12,36 +12,20 @@ class Room < ApplicationRecord
     raise 'not allow type' if ALLOW_REPORT_TYPE.exclude?(type)
     {
       header: header_maker(type, need_recorder),
-      body: new_body_maker
+      body: body_maker
     }
   end
 
   def hash_map
     hash = {}
-    games.order(id: :desc).includes(:records).map do |game|
-      game_hash = { date: game.display_time }
-      game.records.each { |record| game_hash[record.player_id] = record.score }
-      hash[game.id] = game_hash
+    games.order(id: :desc).includes(:records).each do |game|
+      hash[game.id] = game.detail
     end
     hash
   end
 
   def players_analyse
     players.avaliable.winner.map { |p| p.analyse }
-  end
-
-
-  def new_body_maker
-    games.order(id: :desc).includes(:records).map(&:detail)
-  end
-
-  def to_csv
-    CSV.generate(headers: true) do |csv|
-      csv << ['id', 'name', 'score']
-      csv << [1,'丁',50]
-      csv << [2,'詹姆士',530]
-      csv << [3,'叔叔',-50]
-    end
   end
 
   private
@@ -59,22 +43,14 @@ class Room < ApplicationRecord
     header
   end
 
-  
   def body_maker
-    games.order(id: :desc).includes(:records).map do |game|
-      hash = {
-        id: game.id,
-        date: game.display_time,
-        email: game.recorder
-      }
-      game.records.each do |record|
-        hash[record.player_id] = record.score
-      end
-      hash
-    end
+    games.order(id: :desc).includes(:records).map(&:detail)
   end
 
-  def set_default_setting
-    self.invite_code = rand(100000..1000000)
+  def set_invite_code
+    loop do
+      self.invite_code = rand(100000..1000000)
+      break if Room.find_by_invite_code(invite_code).nil?
+    end
   end
 end

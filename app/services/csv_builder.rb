@@ -12,7 +12,7 @@ class CsvBuilder < ServiceCaller
 
       @report[:body].each do |record|
         temp_array = []
-        temp_array << record['display_time']
+        temp_array << record['date']
         @report[:header][:id].each do |id|
           temp_array << record[id]
         end

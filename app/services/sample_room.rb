@@ -1,10 +1,15 @@
-class SampleRoom
+class SampleRoom < ServiceCaller
+  def initialize(current_user)
+    @current_user = current_user
+  end
+
   def call
     setup_room!
     setup_player!
     setup_game!
     setup_record!
-    @room
+    setup_user_role!
+    @result = @room
   end
 
   private
@@ -38,5 +43,9 @@ class SampleRoom
         Record.create(game_id: game_id, player_id: player_id, score: score)
       end
     end
+  end
+
+  def setup_user_role!
+    @current_user.add_role(:member, @room)
   end
 end

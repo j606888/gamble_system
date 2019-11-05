@@ -9,7 +9,7 @@ class GameConverter < ServiceCaller
     push_rows_into_records!
     cache_records!
     make_records_array!
-    fast_create!
+    try_to_create!
   end
 
   private
@@ -41,8 +41,8 @@ class GameConverter < ServiceCaller
     end
   end
 
-  def fast_create!
-    result = @room.games.fast_create(@records_array, "line_bot")
+  def try_to_create!
+    result = @room.games.create_with_records(@records_array, "line_bot")
     if result == :success
       @result = "(儲存成功)"
       Rails.cache.delete("room:#{@room.id}:records")

@@ -10,19 +10,19 @@ class GamesController < ApplicationController
   end
 
   def create
-    @result = @room.games.fast_create(record_params, current_user.email)
-    if @result == :success
-      redirect_to Room.find(params[:room_id])
-      flash[:success] = "記錄成功"
-    end
+    @result = @room.games.create_with_records(record_params, current_user.email)
+    return unless @result == :success
+
+    flash[:success] = "記錄成功"
+    redirect_to Room.find(params[:room_id])
   end
 
   def update
     @result = @game.update_by_records(record_params['records'])
-    if @result == :success
-      flash[:success] = "更新成功"
-      redirect_to room_games_path(@room)
-    end
+    return unless @result == :success
+    
+    flash[:success] = "更新成功"
+    redirect_to room_games_path(@room)
   end
 
   def destroy

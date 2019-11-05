@@ -20,12 +20,12 @@ var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: <%= raw(@chart[:labels]) %>,
+        labels: <%= raw(@score_chart[:labels]) %>,
         datasets: [{
             barThickness: 12,
             label: '總金額',
-            data: <%= raw(@chart[:data]) %>,
-            backgroundColor: <%= raw(@chart[:bg_color]) %>,
+            data: <%= raw(@score_chart[:data]) %>,
+            backgroundColor: <%= raw(@score_chart[:bg_color]) %>,
             borderWidth: 1
         }]
     },
@@ -45,9 +45,9 @@ var li = document.getElementById('myLine').getContext('2d');
 var myLineChart = new Chart(li, {
     type: 'line',
     data: {
-        labels: <%= raw(@line[:dates]) %>,
+        labels: <%= raw(@history_chart[:dates]) %>,
         datasets: [
-            <% @line[:datasets].each do |dataset| %>
+            <% @history_chart[:datasets].each do |dataset| %>
                 {
                     data: <%= raw(dataset[:data]) %>,
                     borderColor: "<%= raw(dataset[:color]) %>",
