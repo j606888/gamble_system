@@ -2,9 +2,6 @@
   <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">          
     <ul class="navbar-nav">
       <% if user_signed_in? %>
-        <li><%= active_link_to '新增/加入', rooms_path, class: "nav-link", active: :exclusive %></li>
-        <li><%= active_link_to '編輯帳號', edit_user_registration_path, class:"nav-link" %></li>
-        <li><%= active_link_to '登出', destroy_user_session_path, method: 'delete', class:"nav-link" %><li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             擁有房間
@@ -15,6 +12,17 @@
             <% end %>
           </div>
         </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="" id="createLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            新增/加入房間
+          </a>
+          <div class="dropdown-menu" aria-labelledby="createLink">
+            <%= link_to '加入房間', join_rooms_path, class: 'dropdown-item', remote: true, 'data-toggle' => 'modal', 'data-target' => '#modal-join'  %>
+            <%= link_to '創建房間', new_room_path, class: 'dropdown-item' %>
+          </div>
+        </li>
+        <li><%= active_link_to '編輯帳號', edit_user_registration_path, class:"nav-link" %></li>
+        <li><%= active_link_to '登出', destroy_user_session_path, method: 'delete', class:"nav-link" %><li>
       <% else %>
         <li><%= link_to '登入', new_user_session_path, class:"nav-link" %></li>
       <% end %>
@@ -22,7 +30,7 @@
     </ul>
   </div>
   <div class="mx-auto order-0">
-    <% if @room.present? %>
+    <% if @room&.id.present? %>
       <li class="navbar-brand mx-auto"><%= @room.name %></li>
     <% else %>
       <li class="navbar-brand mx-auto" href="#">麻將小幫手 v2.0</li>
@@ -30,7 +38,7 @@
   </div>
   
   <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-    <% if @room.present? %>
+    <% if @room&.id.present? %>
       <ul class="navbar-nav ml-auto">
         <li><%= active_link_to '首頁', room_path(@room), active: :exclusive, class: "nav-link" %> </li>
         <li><%= active_link_to '全部戰機', room_games_path(@room), class: "nav-link "%> </li>
@@ -47,3 +55,11 @@
     <%= value %>
   </div>
 <% end %>
+
+<div class="nav-space"></div>
+
+<div class="modal hide fade" id="modal-join" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"></div>
+  </div>
+</div>

@@ -2,9 +2,6 @@ class RoomsController < ApplicationController
   before_action :set_current_room, only: [:show, :edit, :update, :left, :chart]
   before_action :check_room_authorize!, only: [:show, :edit, :update, :left, :chart]
 
-  def index
-  end
-
   def new
     @room = Room.new
   end
