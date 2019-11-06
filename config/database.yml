@@ -11,6 +11,12 @@ test:
   <<: *development
   database: gamble_system_test
 
+preparing:
+  <<: *development
+  database: gamble_system_preparing
+  username: <%= Rails.application.credentials.database[:preparing][:username] %>
+  password: <%= Rails.application.credentials.database[:preparing][:password] %>
+
 production:
   <<: *development
   database: gamble_system_production
