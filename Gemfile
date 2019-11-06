@@ -26,6 +26,7 @@ gem 'bootstrap-datepicker-rails'
 gem 'omniauth-google-oauth2'
 gem 'faraday'
 gem 'redis'
+gem 'active_link_to'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
