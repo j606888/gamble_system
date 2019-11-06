@@ -8,8 +8,9 @@ set :repo_url, "git@github.com:j606888/gamble_system.git"
 ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/home/deployer/#{fetch(:deploy_env)}/#{fetch(:application)}"
+set :deploy_to, -> { "/home/deployer/#{fetch :deploy_env}_servers/#{fetch(:application)}" }
 
+set :rvm_ruby_version, '2.6.3@gamble_system'
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
 
