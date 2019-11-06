@@ -1,29 +1,49 @@
-
-    <!-- Sidebar -->
-    <div class="bg-light border-right" id="sidebar-wrapper">
-      <div class="sidebar-heading">麻將小幫手 V2.0</div>
-      <div class="list-group list-group-flush">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">          
+    <ul class="navbar-nav">
       <% if user_signed_in? %>
-        <div class="list-group-item list-group-item-action bg-light">Hi, <%= current_user.name || current_user.email %></div>
-        <%= link_to '+', rooms_path, class:"list-group-item list-group-item-action bg-light" %>
-        <% @join_rooms.each do |room| %>
-         <%= link_to room.name, room_path(room), class: "list-group-item list-group-item-action bg-light" %>
-        <% end %>
-        <%= link_to '編輯帳號', edit_user_registration_path, class:"list-group-item list-group-item-action bg-light" %>
+        <li><%= link_to '新增/加入', rooms_path, class: "nav-link active" %></li>
+        <li><%= link_to '編輯帳號', edit_user_registration_path, class:"nav-link" %></li>
+        <li><%= link_to '登出', destroy_user_session_path, method: 'delete', class:"nav-link" %><li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            擁有房間
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <% @join_rooms.each do |room| %>
+              <%= link_to room.name, room_path(room), class: "dropdown-item" %>
+            <% end %>
+          </div>
+        </li>
       <% else %>
-        <%= link_to '登入', new_user_session_path, class:"list-group-item list-group-item-action bg-light" %>
+        <li><%= link_to '登入', new_user_session_path, class:"nav-link" %></li>
       <% end %>
-      </div>
+      <li><%= link_to '幫助', helps_path, class:"nav-link" %></li>
+    </ul>
+  </div>
+  <div class="mx-auto order-0">
+    <% if @room.present? %>
+      <li class="navbar-brand mx-auto"><%= @room.name %></li>
+    <% else %>
+      <li class="navbar-brand mx-auto" href="#">麻將小幫手 v2.0</li>
+    <% end %>
+  </div>
+  
+  <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+    <% if @room.present? %>
+      <ul class="navbar-nav ml-auto">
+        <li><%= link_to '首頁', room_path(@room) , class: "nav-link"%> </li>
+        <li><%= link_to '全部戰機', room_games_path(@room) , class: "nav-link"%> </li>
+        <li><%= link_to '圖表', chart_room_path(@room), class: "nav-link" %></li>
+        <li><%= link_to '管理玩家', room_players_path(@room), class: "nav-link" %></li>
+        <li><%= link_to '設定', edit_room_path(@room), class: "nav-link" %></li>
+      </ul>
+    <% end %>
+  </div>
+</nav>
 
-      <% if user_signed_in? %>
-        <%= link_to '登出', destroy_user_session_path, method: 'delete', class:"list-group-item list-group-item-action bg-light" %>
-      <% end %>
-      <%= link_to '幫助', helps_path, class:"list-group-item list-group-item-action bg-light"  %>
-    </div>
-
-  <script>
-    $("#menu-toggle").click(function(e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-    });
-  </script>
+<% flash.each do |key, value| %>
+  <div class="<%= flash_class(key) %>">
+    <%= value %>
+  </div>
+<% end %>

@@ -20,44 +20,27 @@ body {
   background-color: #ecf0f1;
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 40px;
+* {
+  // border: 1px solid blue;
+}
+
+.flex-container {
+  display: flex;
 }
 
 a:hover {
     text-decoration: none
 }
 
-.container {
-  margin-top: 40px;
-}
-
-.bg-mygray {
-  background-color: #cbd6e9;
-}
-
-.card {
-  width: 300px;
-}
-
-input[type=text] {
-  padding:5px; border:2px solid #ccc; 
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-}
-
-input[type=text]:focus {
-  border-color:#333; 
-}
-
-a {
-  @extend .btn;
-  @extend .btn-secondary;
-}
-
 .collapsing {
     -webkit-transition: none;
     transition: none;
     display: none;
+}
+
+h1 {
+  text-align: center;
+  margin: 50px;
+  font-size: 50px;
+  
 }
