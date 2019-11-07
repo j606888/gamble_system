@@ -24,8 +24,27 @@ class Room < ApplicationRecord
     hash
   end
 
-  def players_analyse
-    players.avaliable.winner.map { |p| p.analyse }
+  def players_analyse_array
+    hash = {
+      name: ['名稱'],
+      total_score: ['分數'],
+      game_count: ['總場次'],
+      win: ['勝場'],
+      lose: ['敗場'],
+      win_rate: ['勝率'],
+      average: ['平均每場']
+    }
+    players.avaliable.winner.each do |p|
+      info = p.analyse
+      hash[:name] << info[:name]
+      hash[:total_score] << info[:total_score]
+      hash[:game_count] << info[:game_count]
+      hash[:win] << info[:win]
+      hash[:lose] << info[:lose]
+      hash[:win_rate] << info[:win_rate]
+      hash[:average] << info[:average]
+    end
+    hash
   end
 
   private

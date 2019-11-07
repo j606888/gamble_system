@@ -18,7 +18,7 @@ class RoomsController < ApplicationController
   end
   
   def show
-    @players_analyse = @room.players_analyse
+    @players_analyse_array = @room.players_analyse_array
     @players = @room.players.avaliable
   end
 
@@ -50,7 +50,7 @@ class RoomsController < ApplicationController
   end
 
   def chart
-    @players_analyse = @room.players_analyse
+    @players_analyse_array = @room.players_analyse_array
     @score_chart = ChartMaker.new(@room).export('score')
     @history_chart = ChartMaker.new(@room).export('history')
   end

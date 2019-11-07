@@ -1,6 +1,25 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">          
-    <ul class="navbar-nav">
+    <% if @room&.id.present? %>
+      <ul class="navbar-nav ">
+        <li><%= active_link_to '首頁', room_path(@room), active: :exclusive, class: "nav-link" %> </li>
+        <li><%= active_link_to '全部戰機', room_games_path(@room), class: "nav-link "%> </li>
+        <li><%= active_link_to '圖表', chart_room_path(@room), class: "nav-link " %></li>
+        <li><%= active_link_to '管理玩家', room_players_path(@room), class: "nav-link " %></li>
+        <li><%= active_link_to '設定', edit_room_path(@room), class: "nav-link " %></li>
+      </ul>
+    <% end %>
+  </div>
+  <div class="mx-auto order-0">
+    <% if @room&.id.present? %>
+      <li class="navbar-brand mx-auto"><%= @room.name %></li>
+    <% else %>
+      <li class="navbar-brand mx-auto" href="#">麻將小幫手 v2.0</li>
+    <% end %>
+  </div>
+  
+  <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+    <ul class="navbar-nav ml-auto">
       <% if user_signed_in? %>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -28,25 +47,6 @@
       <% end %>
       <li><%= active_link_to '幫助', helps_path, class:"nav-link" %></li>
     </ul>
-  </div>
-  <div class="mx-auto order-0">
-    <% if @room&.id.present? %>
-      <li class="navbar-brand mx-auto"><%= @room.name %></li>
-    <% else %>
-      <li class="navbar-brand mx-auto" href="#">麻將小幫手 v2.0</li>
-    <% end %>
-  </div>
-  
-  <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-    <% if @room&.id.present? %>
-      <ul class="navbar-nav ml-auto">
-        <li><%= active_link_to '首頁', room_path(@room), active: :exclusive, class: "nav-link" %> </li>
-        <li><%= active_link_to '全部戰機', room_games_path(@room), class: "nav-link "%> </li>
-        <li><%= active_link_to '圖表', chart_room_path(@room), class: "nav-link " %></li>
-        <li><%= active_link_to '管理玩家', room_players_path(@room), class: "nav-link " %></li>
-        <li><%= active_link_to '設定', edit_room_path(@room), class: "nav-link " %></li>
-      </ul>
-    <% end %>
   </div>
 </nav>
 

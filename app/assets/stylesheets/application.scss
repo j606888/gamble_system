@@ -20,27 +20,16 @@ body {
   background-color: #ecf0f1;
 }
 
-.flex-container {
-  display: flex;
+* {
+  font-family: 'Noto Sans TC', sans-serif;
 }
 
 a:hover {
     text-decoration: none
 }
 
-.collapsing {
-    -webkit-transition: none;
-    transition: none;
-    display: none;
-}
-
 h1 {
   text-align: center;
   margin: 20px;
   font-size: 36px;
-  
-}
-
-.nav-space {
-  margin-bottom: 50px;
 }
