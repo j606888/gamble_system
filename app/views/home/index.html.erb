@@ -1,18 +1,23 @@
-<h1>登入</h1>
-<div class="home_div">
-  <div>
-    <div>
-      <%= simple_form_for(@user, url: user_session_path) do |f| %>
-        <%= f.input :email, label: false, require: false, autofocus: true, input_html: { autocomplete: "email"}, placeholder: '信箱' %>
-        <%= f.input :password, label: false, require: false, input_html: { autocomplete: "current-password" }, placeholder: '密碼' %>
-        <%= f.input :remember_me, label: '記住我', as: :boolean %>
-        <%= f.button :submit, "登入" %>
-      <% end %>
+
+<div class="home_wrapper">
+  <div class="outer_wrapper">
+    <div class="logo">
+      <h1>十一萬</h1>
+      
+        <div>
+        <%= link_to user_google_oauth2_omniauth_authorize_path do %>
+          <%= image_tag("google_button.png") %>
+        <% end %>
+      </div>
     </div>
-    <div>
-      <%= link_to user_google_oauth2_omniauth_authorize_path do %>
-        <%= image_tag("google_button.png") %>
-      <% end %>  
+    <hr/>
+    <div class="formField">
+      <%= simple_form_for(@user, url: user_session_path) do |f| %>
+        <%= f.input :email, label: false, require: false, autofocus: true, input_html: { autocomplete: "email", :class => 'full'}, placeholder: '信箱' %>
+        <%= f.input :password, label: false, require: false, input_html: { autocomplete: "current-password", class: 'full' }, placeholder: '密碼' %>
+        <div class="check"><input type="checkbox"/><span>記住我</span></div>
+        <button type="submit">登入</button>
+      <% end %>
     </div>
   </div>
 </div>
