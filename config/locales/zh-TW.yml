@@ -1,5 +1,12 @@
 zh-TW:
-  hint: '提示: '
-  hello: '哈囉哈囉'
-  say_hi: "Hello %{name}"
-  add_role: ""
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            password:
+              too_short: 密碼太短了至少6碼哦
+              blank: 密碼不能為空
+            email:
+              taken: 已經被使用了請使用其他Email
+            

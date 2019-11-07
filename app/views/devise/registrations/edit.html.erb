@@ -4,7 +4,8 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :email, label: '信箱',  required: true, autofocus: true %>
+    
+    <h4>信箱：<%= @user.email %></h4>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
@@ -14,7 +15,7 @@
 
     <%= f.input :password,
                 label: '更新密碼',
-                hint: "leave it blank if you don't want to change it",
+                hint: "如果沒有要更新密碼則不需填寫",
                 required: false,
                 input_html: { autocomplete: "new-password" } %>
     <%= f.input :password_confirmation,
