@@ -89,6 +89,10 @@ GEM
     capistrano-rvm (0.1.2)
       capistrano (~> 3.0)
       sshkit (~> 1.2)
+    capistrano3-puma (3.1.1)
+      capistrano (~> 3.7)
+      capistrano-bundler
+      puma (~> 3.4)
     capybara (3.29.0)
       addressable
       mini_mime (>= 0.1.3)
@@ -344,6 +348,7 @@ DEPENDENCIES
   capistrano-bundler (~> 1.6)
   capistrano-rails (~> 1.4)
   capistrano-rvm
+  capistrano3-puma
   capybara (>= 2.15)
   chart-js-rails
   chromedriver-helper
