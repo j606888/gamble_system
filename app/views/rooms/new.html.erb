@@ -1,10 +1,15 @@
-<h1>新房間</h1>
+<h1>創建房間</h1>
+<div class="createRoom">
+  <%= simple_form_for @room do |f| %>
 
-<%= simple_form_for @room do |f| %>
+    <%= f.input :name, label: false, placeholder: '房間名稱' %>
+    <%= f.button :submit, class: 'btn btn-success', value: "建立" %>
+  <% end %>
 
-  <%= f.input :name, label: '房間名稱' %>
-  <%= f.button :submit, class: 'btn btn-secondary', label: '繼續' %>
-<% end %>
-
-
-<%= button_to '建立範例房間', sample_rooms_path %>
+  <hr>
+  <div class="jumbotron">
+    <p>如果尚未使用過，可以先建立一個範例房間，在裡面隨意走走晃晃</p>
+    <p>等到你覺得熟悉了或是想建立一個屬於自己個空房間，隨時可以離開</p>
+  </div>
+  <%= button_to '建立範例房間', sample_rooms_path, class: 'btn btn-secondary' %>
+</div>
