@@ -2,11 +2,7 @@
 
 ## Landing Page
 
-  * for before sign in
-
 ## Navbar
-
-  * Design a new one
 
 ## Bottom Bar
 
@@ -14,12 +10,16 @@
 
 ## Sign Up
 
-  * Only with google ?
+## Adivce from Duki
 
-  * with facebook ?
+* IA(info arch)
 
-  * sign up here ( Must have )
+* 總成績，圖表放在一個Tab內
 
-## Need Some Image
+* Log in 要有Logo
 
-  * where to put ?
+* 要可以讓個人Line加入（不只是Group)
+
+* 房間名稱改成其他的（Group名稱？）
+
+* 跑板了
