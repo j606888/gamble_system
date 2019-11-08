@@ -1,15 +1,15 @@
 <h1>戰績表</h1>
 
-<%= button_to '下載', to_csv_room_games_path(@room) %>
+<%= link_to '下載 CSV', to_csv_room_games_path(@room), method: :post, class: "btn btn-primary" %>
 
-<%= link_to '返回', room_path(@room) %>
 <% if params[:edit].present? %>
-  <%= link_to '閱讀模式', room_games_path(@room)%>
+  <%= link_to '閱讀模式', room_games_path(@room), class: "btn btn-warning"%>
 <% else %>
-  <%= link_to '編輯模式', room_games_path(@room, edit: true)%>
+  <%= link_to '編輯模式', room_games_path(@room, edit: true), class: "btn btn-warning"%>
 <% end %>
+<hr>
 
-<table class="table table-bordered">
+<table class="table table-bordered table-hover">
   <tr>
     <% @report[:header][:name].each do |name| %>
       <th><%= name %></th>
