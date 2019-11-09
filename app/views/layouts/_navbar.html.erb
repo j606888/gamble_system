@@ -36,10 +36,10 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="userSetting">
             <%= link_to '新群組', new_room_path, class:"dropdown-item" %>
-            <%= link_to '編輯帳號', edit_user_registration_path, class:"dropdown-item" %>
-            <%= link_to '登出', destroy_user_session_path, method: 'delete', class:"dropdown-item" %>
             <%= link_to '幫助', helps_path, class:"dropdown-item" %>
             <%= link_to '給我點建議', '', class:"dropdown-item" %>
+            <%= link_to '編輯帳號', edit_user_registration_path, class:"dropdown-item" %>
+            <%= link_to '登出', destroy_user_session_path, method: 'delete', class:"dropdown-item" %>
           </div>
         </li>
       <% else %>

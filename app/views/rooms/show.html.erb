@@ -1,22 +1,25 @@
 <%= form_tag(room_games_path(@room), remote: true) do %>
-  <table>
-    <thead>
-      <tr>
-        <th colspan="2">姓名</th>
-        <th>分數</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @players.each do |player| %>
+  <div style="margin: auto">
+    <table>
+      <thead>
         <tr>
-          <td><%= hidden_field_tag "records[]player_id", player.id %></td>
-          <td><%= player.name %></td>
-          <td><%= text_field_tag "records[]score" %></td>
+          <th colspan="2">姓名</th>
+          <th>分數</th>
         </tr>
-      <% end %>  
-    </tbody>
-    <tr><td colspan="3"><%= submit_tag 'send' %></td></tr>
-  </table>
+      </thead>
+      <tbody>
+        <% @players.each do |player| %>
+          <tr>
+            <td><%= hidden_field_tag "records[]player_id", player.id %></td>
+            <td><%= player.name %></td>
+            <td><%= text_field_tag "records[]score", "", class: 'form-control room-input-field' %></td>
+          </tr>
+        <% end %>  
+      </tbody>
+      <tr><td colspan="3"><%= submit_tag 'send' %></td></tr>
+    </table>
+  </div>
+  <hr>
 <% end %>
 
 <div id="valid_result"></div>

@@ -18,7 +18,9 @@ class LineBot < ServiceCaller
   private
 
   def setup_line_group!
-    @line_group = LineGroup.find_or_create_by(group_id: @group_id)
+    is_user = @group_id.nil?
+    group_id = is_user ? @user_id : @group_id
+    @line_group = LineGroup.find_or_create_by(group_id: group_id, is_user: is_user)
   end
 
   def bind_room?

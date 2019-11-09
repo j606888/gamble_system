@@ -1,0 +1,12 @@
+<table class="table table-striped">
+
+  <body style="text-align: center">
+    <% @players_analyse_array.each do |key, value| %>
+    <tr>
+      <% value.each do |row| %>
+        <td><%= row %></td>
+      <% end %>
+    </tr>
+    <% end %>
+  </body>
+</table>
