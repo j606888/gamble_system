@@ -4,6 +4,9 @@ class GamesController < ApplicationController
 
   def index
     @report = @room.report(record_type, params[:edit])
+    @players_analyse_array = @room.players_analyse_array
+    @score_chart = ChartMaker.new(@room).export('score')
+    @history_chart = ChartMaker.new(@room).export('history')
   end
 
   def edit

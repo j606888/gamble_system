@@ -2,11 +2,10 @@
   <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">          
     <% if @room&.id.present? %>
       <ul class="navbar-nav ">
-        <li><%= active_link_to '首頁', room_path(@room), active: :exclusive, class: "nav-link" %> </li>
-        <li><%= active_link_to '全部戰機', room_games_path(@room), class: "nav-link "%> </li>
-        <li><%= active_link_to '圖表', chart_room_path(@room), class: "nav-link " %></li>
-        <li><%= active_link_to '管理玩家', room_players_path(@room), class: "nav-link " %></li>
-        <li><%= active_link_to '設定', edit_room_path(@room), class: "nav-link " %></li>
+        <li><%= link_to room_path(@room), class: "nav-link" do %><i class="big-icon fas fa-home"></i><% end %> </li>
+        <li><%= link_to room_games_path(@room), class: "nav-link" do %><i class="big-icon fas fa-chart-bar"></i><% end %> </li>
+        <li><%= link_to room_players_path(@room), class: "nav-link" do %><i class="big-icon fas fa-user-friends"></i><% end %> </li>
+        <li><%= link_to edit_room_path(@room), class: "nav-link" do %><i class="big-icon fas fa-cog"></i><% end %> </li>
       </ul>
     <% end %>
   </div>
@@ -21,10 +20,9 @@
   <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
     <ul class="navbar-nav ml-auto">
       <% if user_signed_in? %>
-        <li class="nav-link">Hi, <%= current_user.name || current_user.email %></li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            擁有房間
+            所有群組
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <% @join_rooms.each do |room| %>
@@ -33,20 +31,20 @@
           </div>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="" id="createLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            新增/加入房間
+          <a class="nav-link dropdown-toggle" href="" id="userSetting" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
+             <i class="fas fa-kiwi-bird"></i>  <%= current_user.name || current_user.email %>
           </a>
-          <div class="dropdown-menu" aria-labelledby="createLink">
-            <%= link_to '加入房間', join_rooms_path, class: 'dropdown-item', remote: true, 'data-toggle' => 'modal', 'data-target' => '#modal-join'  %>
-            <%= link_to '創建房間', new_room_path, class: 'dropdown-item' %>
+          <div class="dropdown-menu" aria-labelledby="userSetting">
+            <%= link_to '新群組', new_room_path, class:"dropdown-item" %>
+            <%= link_to '編輯帳號', edit_user_registration_path, class:"dropdown-item" %>
+            <%= link_to '登出', destroy_user_session_path, method: 'delete', class:"dropdown-item" %>
+            <%= link_to '幫助', helps_path, class:"dropdown-item" %>
+            <%= link_to '給我點建議', '', class:"dropdown-item" %>
           </div>
         </li>
-        <li><%= active_link_to '編輯帳號', edit_user_registration_path, class:"nav-link" %></li>
-        <li><%= active_link_to '登出', destroy_user_session_path, method: 'delete', class:"nav-link" %><li>
       <% else %>
         <li><%= link_to '登入', new_user_session_path, class:"nav-link" %></li>
       <% end %>
-      <li><%= active_link_to '幫助', helps_path, class:"nav-link" %></li>
     </ul>
   </div>
 </nav>

@@ -17,7 +17,6 @@ Rails.application.routes.draw do
 
     member do
       post 'left'
-      get 'chart'
     end
 
     resources :games, only: [:edit, :update, :destroy, :index, :create] do

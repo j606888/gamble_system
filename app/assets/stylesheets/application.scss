@@ -45,3 +45,32 @@ h1 {
   text-align: center;
   background-color: #292525;
 }
+
+.big-icon {
+  font-size: 30px;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+
+.collapsing {
+    -webkit-transition: none;
+    transition: none;
+    display: none;
+}

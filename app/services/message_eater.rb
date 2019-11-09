@@ -23,7 +23,7 @@ class MessageEater < ServiceCaller
     @result = case @message
     when '幫助'
       "#{WEB_LINK}/helps"
-    when '房間'
+    when '群組'
       "#{WEB_LINK}/rooms/#{@room.id}"
     when '加入'
       "#{WEB_LINK}/rooms/verify?invite_code=#{@room.invite_code}"
@@ -57,7 +57,7 @@ class MessageEater < ServiceCaller
     return false if room.nil?
 
     @line_group.update(room_id: room.id) 
-    @result = "綁定房間成功！\n房間名稱：#{room.name}"
+    @result = "綁定群組成功！\n群組名稱：#{room.name}"
     true
   end
 
@@ -65,7 +65,7 @@ class MessageEater < ServiceCaller
     @room = @line_group.room
     return true if @room.present?
 
-    @result = "請輸入Invite code綁定房間\n如果沒有房間請先去至網頁版創建\n#{WEB_LINK}"
+    @result = "請輸入Invite code綁定群組\n如果沒有群組請先去至網頁版創建\n#{WEB_LINK}"
     false
   end
 

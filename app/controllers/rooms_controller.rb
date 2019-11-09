@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
-  before_action :set_current_room, only: [:show, :edit, :update, :left, :chart]
-  before_action :check_room_authorize!, only: [:show, :edit, :update, :left, :chart]
+  before_action :set_current_room, only: [:show, :edit, :update, :left]
+  before_action :check_room_authorize!, only: [:show, :edit, :update, :left]
 
   def new
     @room = Room.new
@@ -45,14 +45,8 @@ class RoomsController < ApplicationController
 
   def left
     current_user.remove_role(:member, @room)
-    flash[:success] = "退出房間成功！"
+    flash[:success] = "退出群組成功！"
     redirect_to @room
-  end
-
-  def chart
-    @players_analyse_array = @room.players_analyse_array
-    @score_chart = ChartMaker.new(@room).export('score')
-    @history_chart = ChartMaker.new(@room).export('history')
   end
 
   private
