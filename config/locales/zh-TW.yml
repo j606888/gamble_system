@@ -1,4 +1,30 @@
 zh-TW:
+  date:
+    month_names: 年
+  admin:
+    form:
+      basic_info: 基本資料
+    actions:
+      dashboard:
+        menu: 目錄
+        breadcrumb: 麵包屑
+      new:
+        menu: 新目錄
+      index:
+        breadcrumb: 麵包屑
+        menu: 目錄
+        title: 標題
+      export:
+        link: 連結
+        menu: export目錄
+      show:
+        title: 標題
+        menu: 目錄
+        breadcrumb: 麵包屑
+      delete:
+        menu: 刪除
+      edit:
+        menu: 編輯
   activerecord:
     errors:
       models:
