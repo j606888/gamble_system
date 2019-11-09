@@ -3,7 +3,7 @@ class MessageEater < ServiceCaller
     "新增" => "new",
     "普通" => "normal"
   }
-  WEB_LINK = "http://localhost:3000"
+  WEB_HOST = Setting.host
 
   def initialize(line_group, message)
     @line_group = line_group
@@ -22,11 +22,11 @@ class MessageEater < ServiceCaller
   def do_normal_action
     @result = case @message
     when '幫助'
-      "#{WEB_LINK}/helps"
+      "#{WEB_HOST}/helps"
     when '群組'
-      "#{WEB_LINK}/rooms/#{@room.id}"
+      "#{WEB_HOST}/rooms/#{@room.id}"
     when '加入'
-      "#{WEB_LINK}/rooms/verify?invite_code=#{@room.invite_code}"
+      "#{WEB_HOST}/rooms/verify?invite_code=#{@room.invite_code}"
     when '玩家'
       players_array
     else
@@ -65,7 +65,7 @@ class MessageEater < ServiceCaller
     @room = @line_group.room
     return true if @room.present?
 
-    @result = "請輸入Invite code綁定群組\n如果沒有群組請先去至網頁版創建\n#{WEB_LINK}"
+    @result = "請輸入Invite code綁定群組\n如果沒有群組請先去至網頁版創建\n#{WEB_HOST}"
     false
   end
 

@@ -1,0 +1,12 @@
+development: &development
+  host: 'http://localhost:3000'
+
+test:
+  <<: *development
+
+preparing:
+  <<: *development
+  host: 'https://www.j606888.com:3004'
+
+production:
+  <<: *development
