@@ -16,6 +16,7 @@ class HomeController < ApplicationController
   def advise
     if advise_params.present?
       AdviseTool.call(advise_params)
+      AdviseMailer.remind.deliver_now
 
       flash[:success] = "感謝您的建議，我會盡快作出更新的！"
       redirect_to welcome_path

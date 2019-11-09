@@ -21,3 +21,5 @@
   * 存在redis
   * 說謝謝
   * 要寄信通知我自己
+
+  https://myaccount.google.com/lesssecureapps
