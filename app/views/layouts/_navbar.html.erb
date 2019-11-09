@@ -28,7 +28,7 @@
             <% @join_rooms.each do |room| %>
               <%= link_to room.name, room_path(room), class: "dropdown-item" %>
             <% end %>
-            <%= link_to '新群組', new_room_path, class:"dropdown-item" %>
+            <%= link_to new_room_path, class:"dropdown-item" do %><i class="fas fa-plus"></i> 群組<% end %>
           </div>
         </li>
         <li class="nav-item dropdown">
