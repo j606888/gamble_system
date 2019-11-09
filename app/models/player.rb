@@ -25,7 +25,8 @@ class Player < ApplicationRecord
       lose_count += 1 if record.score < 0
     end
 
-    win_rate = win_count.to_f / ( win_count + lose_count )
+    win_rate = 0 if game_count == 0
+    win_rate ||= win_count.to_f / ( win_count + lose_count )
     {
       id: id,
       name: name,

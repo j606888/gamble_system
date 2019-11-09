@@ -12,4 +12,18 @@ class HomeController < ApplicationController
 
   def welcome
   end
+
+  def advise
+    if advise_params.present?
+      AdviseTool.call(advise_params)
+
+      flash[:success] = "感謝您的建議，我會盡快作出更新的！"
+      redirect_to welcome_path
+    end
+  end
+
+  private
+  def advise_params
+    params.permit(:name, :content)
+  end
 end

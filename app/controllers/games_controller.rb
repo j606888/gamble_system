@@ -21,7 +21,7 @@ class GamesController < ApplicationController
   end
 
   def update
-    @result = @game.update_by_records(record_params['records'])
+    @result = @game.update_by_records(record_params)
     return unless @result == :success
     
     flash[:success] = "更新成功"

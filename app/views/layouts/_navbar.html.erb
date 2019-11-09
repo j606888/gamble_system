@@ -28,6 +28,7 @@
             <% @join_rooms.each do |room| %>
               <%= link_to room.name, room_path(room), class: "dropdown-item" %>
             <% end %>
+            <%= link_to '新群組', new_room_path, class:"dropdown-item" %>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -35,9 +36,8 @@
              <i class="fas fa-kiwi-bird"></i>  <%= current_user.name || current_user.email %>
           </a>
           <div class="dropdown-menu" aria-labelledby="userSetting">
-            <%= link_to '新群組', new_room_path, class:"dropdown-item" %>
             <%= link_to '幫助', helps_path, class:"dropdown-item" %>
-            <%= link_to '給我點建議', '', class:"dropdown-item" %>
+            <%= link_to '給我點建議', advise_path, class:"dropdown-item" %>
             <%= link_to '編輯帳號', edit_user_registration_path, class:"dropdown-item" %>
             <%= link_to '登出', destroy_user_session_path, method: 'delete', class:"dropdown-item" %>
           </div>

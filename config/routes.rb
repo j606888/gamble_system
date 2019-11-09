@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   
   get '/helps', to: "home#help"
   get '/welcome', to: 'home#welcome'
+  get '/advise', to: 'home#advise'
+  post '/advise', to: 'home#advise'
 
   resources :rooms do
     collection do

@@ -20,7 +20,7 @@ class Game < ApplicationRecord
 
   def update_by_records(records_hash)
     sum = records_hash.map { |r| r['score'].to_i }.sum
-    return sum if sum != 0
+    return Game.error_message(sum) if sum != 0
 
     records_hash.each do |r|
       record = records.find_by(player_id: r['player_id'])

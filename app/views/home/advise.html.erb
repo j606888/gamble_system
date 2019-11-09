@@ -1,0 +1,15 @@
+<h1>建議區</h1>
+
+
+<%= form_tag(advise_path) do %>
+  <div class="form-group">
+    <%= label_tag 'name', '名字' %>
+    <%= text_field_tag 'name', '', class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= label_tag 'content', '內容' %>
+    <%= text_area_tag 'content', nil, rows: 3, cols: 20, class: 'form-control' %>
+  </div>
+  
+  <%= submit_tag '送出', class: "btn btn-primary" %>
+<% end %>

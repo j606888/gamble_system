@@ -14,6 +14,10 @@
 
 * Log in 要有Logo
 
-* 要可以讓個人Line加入（不只是Group)
-
 * 跑板了
+
+* Advise
+  * 有表單
+  * 存在redis
+  * 說謝謝
+  * 要寄信通知我自己
