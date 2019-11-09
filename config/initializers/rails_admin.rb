@@ -9,7 +9,9 @@ RailsAdmin.config do |config|
   # config.current_user_method(&:current_user)
 
   ## == CancanCan ==
-  # config.authorize_with :cancancan
+  config.authorize_with do
+    redirect_to main_app.root_path unless current_user.has_role?(:god)
+  end
 
   ## == Pundit ==
   # config.authorize_with :pundit
