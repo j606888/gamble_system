@@ -15,11 +15,3 @@
 * Log in 要有Logo
 
 * 跑板了
-
-* Advise
-  * 有表單
-  * 存在redis
-  * 說謝謝
-  * 要寄信通知我自己
-
-  https://myaccount.google.com/lesssecureapps

@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">          
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+  <div>
     <% if @room&.id.present? %>
-      <ul class="navbar-nav ">
+      <ul class="navbar-nav flex-row float-left">
         <li><%= link_to room_path(@room), class: "nav-link" do %><i class="big-icon fas fa-home"></i><% end %> </li>
         <li><%= link_to room_games_path(@room), class: "nav-link" do %><i class="big-icon fas fa-chart-bar"></i><% end %> </li>
         <li><%= link_to room_players_path(@room), class: "nav-link" do %><i class="big-icon fas fa-user-friends"></i><% end %> </li>
@@ -16,8 +16,11 @@
       <li class="navbar-brand mx-auto" href="#">麻將小幫手 v2.0</li>
     <% end %>
   </div>
-  
-  <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#rightNav" aria-controls="rightNav" aria-expanded="false">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="navbar-collapse collapse order-3" id="rightNav">
     <ul class="navbar-nav ml-auto">
       <% if user_signed_in? %>
         <li class="nav-item dropdown">
