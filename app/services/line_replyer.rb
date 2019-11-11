@@ -27,7 +27,7 @@ class LineReplyer < ServiceCaller
     conn = Faraday.new(LINE_URI)
     conn.post do |req|
       req.headers['Content-Type'] = 'application/json'
-      req.headers['Authorization'] = "Bearer #{Rails.application.credentials.line_api[:access_token]}"
+      req.headers['Authorization'] = "Bearer #{Secret.line_api[:access_token]}"
       req.body = @body.to_json
     end
   end
