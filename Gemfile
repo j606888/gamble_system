@@ -45,6 +45,7 @@ group :development do
   gem 'capistrano-bundler', '~> 1.6', require: false
   gem 'capistrano-rvm', require: false
   gem 'capistrano3-puma' , require: false
+  gem 'solargraph'
 end
 
 group :test do

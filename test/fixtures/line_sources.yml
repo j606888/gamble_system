@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  source_type: MyString
+  source_id: MyString
+  room_id: 1
+
+two:
+  source_type: MyString
+  source_id: MyString
+  room_id: 1

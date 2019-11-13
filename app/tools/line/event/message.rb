@@ -1,7 +1,7 @@
 module Line::Event::Message
   def text
     raise "not message type" unless is_message?
-    @message['text']
+    @message['text'].downcase.strip
   end
 
   def is_message?

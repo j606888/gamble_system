@@ -8,27 +8,30 @@ class LineReplyer < ServiceCaller
 
   def call
     build_body!
-    post_it!
+    # post_it!
   end
 
   private
   def build_body!
     text = @result.is_a?(Array) ? @result.join("\n") : @result
-    @body = {
-      replyToken: @reply_token,
-      # messages: [
-      #   type: 'text',
-      #   text: text
-      # ]
-      messages: [
-        {
-          type: 'flex',
-          altText: 'This is Flex Message',
-          contents: carousel
-        }
+    line_reply = Line::Reply.new(@reply_token)
+    line_reply.send_quick
+    # line_reply.send_template_message
+    # @body = {
+    #   replyToken: @reply_token,
+    #   # messages: [
+    #   #   type: 'text',
+    #   #   text: text
+    #   # ]
+    #   messages: [
+    #     {
+    #       type: 'flex',
+    #       altText: 'This is Flex Message',
+    #       contents: carousel
+    #     }
         
-      ]
-    }
+    #   ]
+    # }
   end
 
   def post_it!

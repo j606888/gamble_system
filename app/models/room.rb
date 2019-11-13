@@ -3,6 +3,7 @@ class Room < ApplicationRecord
   has_many :players, dependent: :destroy
   has_many :games, dependent: :destroy
   has_one :line_group
+  has_many :line_sources
   before_save :set_invite_code
 
   ALLOW_REPORT_TYPE = %w[winner loser counter]
