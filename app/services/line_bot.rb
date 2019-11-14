@@ -13,15 +13,14 @@ class LineBot < ServiceCaller
   def call
     
     @line_event = Line::Event.new(@event)
-    # binding.pry
     @room = @line_event.room
     
     @line_reply = Line::Reply.new(@line_event.reply_token)
+    # service = LinePostback.call(@line_event) if @line_event.is_postback?
+    # service = LineMessage.call(@line_event) if @line_event.is_message?
 
-    service = LinePostback.call(@line_event) if @line_event.is_postback?
-    service = LineMessage.call(@line_event) if @line_event.is_message?
-
-    @line_reply.reply_template(:bind_first) if @room.nil?
+    @line_reply.reply_template(:bind_first) 
+    # @line_reply.reply_template(:bind_first) if @room.nil?
     
     # setup_line_group!
     # message_eater = MessageEater.call(@line_group, @message_text)

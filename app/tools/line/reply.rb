@@ -19,14 +19,28 @@ class Line::Reply
 
   private
   def post_it
+    de = Line::Designer.new
+    
+    # binding.pry
+    
+    # @message_object = de.not_bind_room
+    # @message_object = de.first_time_new_player
+    # @message_object = de.create_a_player
+    # @message_object = de.first_time_finish
+    
+    @message_object = de.carousel_board
+    # @message_object = de.carousel_record
+    # @message_object = de.record_not_zero
+    # @message_object = de.record_is_zero
+
     conn = Faraday.new(LINE_URI)
     # request_body
-    conn.post do |req|
+    a = conn.post do |req|
       req.headers['Content-Type'] = 'application/json'
       req.headers['Authorization'] = "Bearer #{Line::ACCESS_TOKEN}"
       req.body = request_body.to_json
     end
-    
+    # binding.pry
   end
 
   # https://developers.line.biz/en/reference/messaging-api/#message-objects
