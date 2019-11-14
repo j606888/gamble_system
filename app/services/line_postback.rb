@@ -17,6 +17,7 @@ class LinePostback < ServiceCaller
   private
 
   def create_room_and_bind!
+    
     line_reply.reply_text(:already_bind_room) if @line_source.room.present?
     room = Room.create(name: '麻將小房間')
     @line_source.update(room_id: room.id)
