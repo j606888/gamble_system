@@ -6,6 +6,10 @@ class LineReplyer
     add_player
     add_player_success
     carousel_board
+    add_record
+    record_is_zero
+    record_not_zero
+    player_not_found
   ]
 
   def initialize(reply_token)

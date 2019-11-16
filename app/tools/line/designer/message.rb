@@ -173,4 +173,11 @@ module Line::Designer::Message
       text: "恭喜你！基本設定已結束\n現在隨時可以輸入「麻將」叫出小幫手了"
     }
   end
+
+  def player_not_found(nickname)
+    {
+      type: "text",
+      text: "暱稱(#{nickname})不存在，請重新確認！"
+    }
+  end
 end

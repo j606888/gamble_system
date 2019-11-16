@@ -5,7 +5,10 @@ class LineBot < ServiceCaller
     add_player_done: "結束",
     mahjohn: "麻將",
     left_room: "解除綁定",
-    add_player: "新增玩家"
+    add_player: "新增玩家",
+    add_record: "新增紀錄",
+    force_save: "強迫儲存",
+    force_cancel: "取消"
   }
 
   def initialize(event)
@@ -24,6 +27,7 @@ class LineBot < ServiceCaller
     
     return add_player! if @line_source.first_add_player?
     return normal_detact! if @line_source.normal?
+    return record_detact! if @line_source.recording?
   end
 
   private
@@ -76,6 +80,50 @@ class LineBot < ServiceCaller
     if @text == KEYWORDS[:add_player]
       @line_source.first_add_player!
       line_replyer.reply(:add_player)
+    end
+    if @text == KEYWORDS[:add_record]
+      @line_source.recording!
+      line_replyer.reply(:add_record, @room)
+    end
+  end
+
+  def record_detact!
+    
+    records_hash = Rails.cache.fetch("room:#{@room.id}:records") { {} }
+    if @text == KEYWORDS[:force_save]
+      # @room.games.force_with_records(records_hash)
+      # return line_replyer.record_is_zero(@room.games.last)
+    elsif @text == KEYWORDS[:force_cancel]
+      Rails.cache.delete("room:#{@room.id}:records")
+      @line_source.normal!
+      return line_replyer.reply(:carousel_board, @room)
+    end
+
+    str_records = @text.upcase.strip.split("\n")
+    str_records.each do |record|
+      nickname, score = record.split(" ")
+      player = @room.players.find_by(nickname: nickname)
+      return line_replyer.reply(:player_not_found, nickname) if player.nil?
+      records_hash[player.id] = score.to_i
+    end
+
+    records_array = records_hash.map do |id, score|
+      {
+        'player_id' => id,
+        'score' => score
+      }
+    end
+
+    
+    result = @room.games.create_with_records(records_array, 'line_bot')
+    if result == :success
+      line_replyer.reply(:record_is_zero, @room.games.last)
+      Rails.cache.delete("room:#{@room.id}:records")
+      @line_source.normal!
+    else
+      Rails.cache.write("room:#{@room.id}:records", records_hash)
+      
+      line_replyer.reply(:record_not_zero, records_array)
     end
   end
 

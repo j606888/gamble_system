@@ -4,14 +4,23 @@ class Game < ApplicationRecord
 
   before_create :set_recorded_at
 
+  # records = [
+  #   {
+  #     'id' => 3,
+  #     'score' => 200
+  #   },
+  #   {
+  #     'id' => 5,
+  #     'score' => 460
+  #   }
+  # ]
   def self.create_with_records(records, email)
     return error_message(:all_zero) if all_zero?(records)
     sum = records.map { |r| r['score'].to_i }.compact.sum
     return error_message(sum) if sum != 0
-
     game = create(recorder: email)
     records.each do |r|
-      next if r['score'].empty?
+      next unless r['score'].present?
       game.records.create(r)
     end
 
@@ -47,7 +56,7 @@ class Game < ApplicationRecord
 
   def self.error_message(num)
     if num.is_a?(Integer)
-      "總數不為0!差了#{num}"
+      num
     else
       "全數資料為0!"
     end

@@ -1,25 +1,26 @@
 module Line::Designer::Record
-  # carousel_record
+  # add_record
 
   # creating_record(something)
   # record_help
   # record_not_zero(something)
   # record_is_zero(something)
-  def carousel_record
+  def add_record(room)
+    players = room.players
     {
       type: "flex",
       altText: "新增紀錄",
       contents: {
         type: "carousel",
         contents: [
-          creating_record,
+          creating_record(players),
           record_help
         ]
       }
     }
   end
 
-  def creating_record
+  def creating_record(players)
      {
         "type": "bubble",
         "direction": "ltr",
@@ -69,28 +70,8 @@ module Line::Designer::Record
                 },
                 {
                   "type": "separator"
-                },
-                {
-                  "type": "text",
-                  "text": "James(J)",
-                  "align": "center"
-                },
-                {
-                  "type": "text",
-                  "text": "Steve(S)",
-                  "align": "center"
-                },
-                {
-                  "type": "text",
-                  "text": "Bob(B)",
-                  "align": "center"
-                },
-                {
-                  "type": "text",
-                  "text": "東錢($)",
-                  "align": "center"
                 }
-              ]
+              ] + players&.map { |p| player_name_info(p) }
             }
           ]
         },
@@ -188,7 +169,7 @@ module Line::Designer::Record
     }
   end
 
-  def record_not_zero
+  def record_not_zero(records_array)
     {
       type: "flex",
       altText: "Flex Message",
@@ -217,74 +198,7 @@ module Line::Designer::Record
         body: {
           type: "box",
           layout: "vertical",
-          contents: [
-            {
-              type: "box",
-              layout: "horizontal",
-              contents: [
-                {
-                  type: "text",
-                  text: "James(J)"
-                },
-                {
-                  type: "text",
-                  text: "50",
-                  align: "end"
-                }
-              ]
-            },
-            {
-              type: "box",
-              layout: "horizontal",
-              contents: [
-                {
-                  type: "text",
-                  text: "Steve(S)"
-                },
-                {
-                  type: "text",
-                  text: "-150",
-                  align: "end"
-                }
-              ]
-            },
-            {
-              type: "box",
-              layout: "horizontal",
-              contents: [
-                {
-                  type: "text",
-                  text: "Bob(B)"
-                },
-                {
-                  type: "text",
-                  text: "200",
-                  align: "end"
-                }
-              ]
-            },
-            {
-              type: "separator",
-              margin: "md"
-            },
-            {
-              type: "box",
-              layout: "horizontal",
-              contents: [
-                {
-                  type: "text",
-                  text: "總結",
-                  weight: "bold"
-                },
-                {
-                  type: "text",
-                  text: "100",
-                  align: "end",
-                  weight: "bold"
-                }
-              ]
-            }
-          ]
+          contents: records_array.map { |r| temp_record_info(r) }
         },
         footer: {
           type: "box",
@@ -303,7 +217,8 @@ module Line::Designer::Record
     }
   end
 
-  def record_is_zero
+  def record_is_zero(game)
+    records = game.records
     {
       type: "flex",
       altText: "Flex Message",
@@ -332,55 +247,56 @@ module Line::Designer::Record
         body: {
           type: "box",
           layout: "vertical",
-          contents: [
-            {
-              type: "box",
-              layout: "horizontal",
-              contents: [
-                {
-                  type: "text",
-                  text: "James(J)"
-                },
-                {
-                  type: "text",
-                  text: "50",
-                  align: "end"
-                }
-              ]
-            },
-            {
-              type: "box",
-              layout: "horizontal",
-              contents: [
-                {
-                  type: "text",
-                  text: "Steve(S)"
-                },
-                {
-                  type: "text",
-                  text: "-150",
-                  align: "end"
-                }
-              ]
-            },
-            {
-              type: "box",
-              layout: "horizontal",
-              contents: [
-                {
-                  type: "text",
-                  text: "Bob(B)"
-                },
-                {
-                  type: "text",
-                  text: "200",
-                  align: "end"
-                }
-              ]
-            }
-          ]
+          contents: records.map { |r| record_info(r) }
         }
       }
+    }
+  end
+
+  def player_name_info(player)
+    {
+      "type": "text",
+      "text": "#{player.name}(#{player.nickname})",
+      "align": "center"
+    }
+  end
+
+  def record_info(record)
+    player = record.player
+    {
+      type: "box",
+      layout: "horizontal",
+      contents: [
+        {
+          type: "text",
+          text: "#{player.name}(#{player.nickname})"
+        },
+        {
+          type: "text",
+          text: record.score.to_s,
+          align: "end"
+        }
+      ]
+    }
+  end
+
+  def temp_record_info(hash)
+    player = Player.find(hash['player_id'])
+    score = hash['score']
+    {
+      type: "box",
+      layout: "horizontal",
+      contents: [
+        {
+          type: "text",
+          text: "#{player.name}(#{player.nickname})"
+        },
+        {
+          type: "text",
+          text: score.to_s,
+          align: "end"
+        }
+      ]
     }
   end
 end

@@ -6,7 +6,6 @@ module Line::Designer::Board
   # unbind_board
 
   def carousel_board(room)
-    # binding.pry
     invite_code = room.invite_code
     players = room.players
     {
@@ -48,9 +47,9 @@ module Line::Designer::Board
           {
             "type": "button",
             "action": {
-              "type": "postback",
+              "type": "message",
               "label": "新增紀錄",
-              "data": "status:creating_record"
+              "text": "新增紀錄"
             },
             "margin": "xs",
             "height": "sm",
