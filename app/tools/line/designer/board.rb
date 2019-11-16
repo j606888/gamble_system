@@ -7,7 +7,7 @@ module Line::Designer::Board
 
   def carousel_board(room)
     invite_code = room.invite_code
-    players = room.players
+    players = room.players.avaliable.winner
     {
       type: "flex",
       altText: "主控台",
@@ -111,7 +111,15 @@ module Line::Designer::Board
             type: "text",
             text: "總積分",
             size: "xl",
+            align: "center",
             weight: "bold"
+          },
+          {
+            type: "text",
+            text: "(更詳細的紀錄請至Web版)",
+            size: "xs",
+            align: "center",
+            color: "#9F9F9F"
           },
           {
             type: "box",

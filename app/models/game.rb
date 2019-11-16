@@ -1,7 +1,6 @@
 class Game < ApplicationRecord
   belongs_to :room
   has_many :records, dependent: :destroy
-
   before_create :set_recorded_at
 
   # records = [
@@ -34,6 +33,21 @@ class Game < ApplicationRecord
     records_hash.each do |r|
       record = records.find_by(player_id: r['player_id'])
       record.update!(score: r['score'])
+    end
+    :success
+  end
+
+  def self.create_from_line(records_hash)
+    sum = records_hash.values.sum
+    return sum if sum != 0
+
+    force_from_line(records_hash)
+  end
+
+  def self.force_from_line(records_hash)
+    game = create(recorder: 'line_bot')
+    records_hash.each do |player_id, score|
+      game.records.create(player_id: player_id, score: score)
     end
     :success
   end

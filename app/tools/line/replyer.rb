@@ -1,4 +1,4 @@
-class LineReplyer
+class Line::Replyer
   REPLY_URI = "https://api.line.me/v2/bot/message/reply"
   ACCESS_TOKEN = Secret.line_api[:access_token]
   ALLOW_ACTION = %i[
@@ -40,5 +40,4 @@ class LineReplyer
       req.body = request_body.to_json
     end
   end
-
 end

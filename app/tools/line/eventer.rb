@@ -1,4 +1,4 @@
-class LineBot < ServiceCaller
+class Line::Eventer < ServiceCaller
   ALLOW_MESSAGE_TYPE = "text"
   KEYWORDS = {
     create_new_room: "建立",
@@ -23,17 +23,17 @@ class LineBot < ServiceCaller
   def call
     setup_line_source!
     return unless message_is_text?
-    return try_to_bind_room if @room.nil?
-    
-    return add_player! if @line_source.first_add_player?
-    return normal_detact! if @line_source.normal?
-    return record_detact! if @line_source.recording?
+
+    return unbind_detect! if @line_source.unbind_mode?
+    return player_detect! if @line_source.player_mode?
+    return normal_detact! if @line_source.normal_mode?
+    return record_detact! if @line_source.record_mode?
   end
 
   private
 
   def line_replyer
-    @line_replyer ||= LineReplyer.new(@reply_token)
+    @line_replyer ||= Line::Replyer.new(@reply_token)
   end
 
   def setup_line_source!
@@ -50,85 +50,80 @@ class LineBot < ServiceCaller
     true
   end
 
-  def try_to_bind_room
-    room = Room.create(name: "麻將小房間") if @text == KEYWORDS[:create_new_room]
-    room ||= Room.find_by(invite_code: @text)
-
-    return line_replyer.reply(:need_to_bind_room) if room.nil?
-
-    @line_source.update!(room_id: room.id)
-    @line_source.first_add_player!
-    line_replyer.reply(:add_player)
+  def unbind_detect!
+    if @text == KEYWORDS[:create_new_room]
+      room = Room.create(name: "麻將小房間")
+      @line_source.update!(room_id: room.id)
+      @line_source.player_mode!
+      return line_replyer.reply(:add_player)
+    elsif room = Room.find_by(invite_code: @text)
+      @line_source.update!(room_id: room.id)
+      @line_source.normal_mode!
+      return line_replyer.reply(:carousel_board, room)
+    end
+    
+    line_replyer.reply(:need_to_bind_room)
   end
 
-  def add_player!
+  def player_detect!
     if @text == KEYWORDS[:add_player_done]
-      @line_source.normal!
-      line_replyer.reply(:carousel_board, @room)
-    else
-      player_info = @text.split(" ")
-      name = player_info[0]
-      nickname = player_info[1] || "G"
-      @room.players.create(name: name, nickname: nickname)
-      line_replyer.reply(:add_player_success, name)
+      @line_source.normal_mode!
+      return line_replyer.reply(:carousel_board, @room)
     end
+
+    name, nickname = @text.split(" ")
+    @room.players.create(name: name, nickname: nickname)
+    line_replyer.reply(:add_player_success, name)
   end
 
   def normal_detact!
     return line_replyer.reply(:carousel_board, @room) if @text == KEYWORDS[:mahjohn]
     return left_room if @text == KEYWORDS[:left_room]
     if @text == KEYWORDS[:add_player]
-      @line_source.first_add_player!
+      @line_source.player_mode!
       line_replyer.reply(:add_player)
-    end
-    if @text == KEYWORDS[:add_record]
-      @line_source.recording!
+    elsif @text == KEYWORDS[:add_record]
+      @line_source.record_mode!
       line_replyer.reply(:add_record, @room)
     end
   end
 
   def record_detact!
-    
-    records_hash = Rails.cache.fetch("room:#{@room.id}:records") { {} }
+    records = Rails.cache.fetch("room:#{@room.id}:records") { {} }
+
     if @text == KEYWORDS[:force_save]
-      # @room.games.force_with_records(records_hash)
-      # return line_replyer.record_is_zero(@room.games.last)
+      @room.games.force_from_line(records)
+      Rails.cache.delete("room:#{@room.id}:records")
+      @line_source.normal_mode!
+      return line_replyer.reply(:record_is_zero, @room.games.last)
     elsif @text == KEYWORDS[:force_cancel]
       Rails.cache.delete("room:#{@room.id}:records")
-      @line_source.normal!
+      @line_source.normal_mode!
       return line_replyer.reply(:carousel_board, @room)
     end
 
     str_records = @text.upcase.strip.split("\n")
     str_records.each do |record|
       nickname, score = record.split(" ")
-      player = @room.players.find_by(nickname: nickname)
+      player = @room.players.find_by(nickname: nickname) || @room.players.find_by(name: nickname)
       return line_replyer.reply(:player_not_found, nickname) if player.nil?
-      records_hash[player.id] = score.to_i
+      records[player.id] = score.to_i
     end
-
-    records_array = records_hash.map do |id, score|
-      {
-        'player_id' => id,
-        'score' => score
-      }
-    end
-
     
-    result = @room.games.create_with_records(records_array, 'line_bot')
+    result = @room.games.create_from_line(records)
     if result == :success
       line_replyer.reply(:record_is_zero, @room.games.last)
       Rails.cache.delete("room:#{@room.id}:records")
-      @line_source.normal!
+      @line_source.normal_mode!
     else
-      Rails.cache.write("room:#{@room.id}:records", records_hash)
-      
-      line_replyer.reply(:record_not_zero, records_array)
+      Rails.cache.write("room:#{@room.id}:records", records)
+      line_replyer.reply(:record_not_zero, records)
     end
   end
 
   def left_room
-    @line_source.update(room_id: nil, status: nil)
+    @line_source.update(room_id: nil)
+    @line_source.unbind_mode!
     line_replyer.reply(:need_to_bind_room)
-  end
-end 
+  end  
+end

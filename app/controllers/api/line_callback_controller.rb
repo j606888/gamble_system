@@ -1,6 +1,12 @@
 class Api::LineCallbackController < Api::ApplicationController
   def index
-    LineBot.call(line_params['events'].first)
+    result = Line::Eventer.call(line_params['events'].first)
+    
+    unless result.success?
+      puts result.error
+      puts result.error.backtrace
+    end
+
     render json: {status: 200}
   end
 

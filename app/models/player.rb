@@ -2,6 +2,7 @@ class Player < ApplicationRecord
   belongs_to :room
   has_many :records, dependent: :destroy
   before_update :upper_nickname!
+  before_create :nickname_check!
 
   scope :avaliable, -> { where(hidden: false).order(:id) }
   scope :winner, -> { all.includes(:records).sort_by(&:total_score).reverse! }
@@ -42,5 +43,21 @@ class Player < ApplicationRecord
   private
   def upper_nickname!
     self.nickname = nickname.upcase
+  end
+
+  def nickname_check!
+    return if room.players.find_by(nickname: nickname).nil? && nickname.present?
+    
+    ('A'..'Z').each do |alph|
+      self.nickname = alph
+      break if room.players.find_by(nickname: nickname).nil?
+    end
+
+    return if room.players.find_by(nickname: nickname).nil?
+
+    loop do
+      self.nickname = SecureRandom.hex(2)
+      break if room.players.find_by(nickname: nickname).nil?
+    end
   end
 end

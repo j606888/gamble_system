@@ -1,12 +1,6 @@
 module Line::Designer::Record
-  # add_record
-
-  # creating_record(something)
-  # record_help
-  # record_not_zero(something)
-  # record_is_zero(something)
   def add_record(room)
-    players = room.players
+    players = room.players.avaliable.winner
     {
       type: "flex",
       altText: "新增紀錄",
@@ -169,7 +163,7 @@ module Line::Designer::Record
     }
   end
 
-  def record_not_zero(records_array)
+  def record_not_zero(records_hash)
     {
       type: "flex",
       altText: "Flex Message",
@@ -198,7 +192,7 @@ module Line::Designer::Record
         body: {
           type: "box",
           layout: "vertical",
-          contents: records_array.map { |r| temp_record_info(r) }
+          contents: records_hash.map { |player_id, score| temp_record_info(player_id, score) }
         },
         footer: {
           type: "box",
@@ -237,7 +231,7 @@ module Line::Designer::Record
             },
             {
               type: "text",
-              text: "(已紀錄至Server）",
+              text: "(輸入[麻將]叫出主選單）",
               size: "xs",
               align: "center",
               color: "#ACA6A6"
@@ -280,9 +274,8 @@ module Line::Designer::Record
     }
   end
 
-  def temp_record_info(hash)
-    player = Player.find(hash['player_id'])
-    score = hash['score']
+  def temp_record_info(player_id, score)
+    player = Player.find(player_id)
     {
       type: "box",
       layout: "horizontal",
