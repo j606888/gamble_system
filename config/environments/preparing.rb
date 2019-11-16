@@ -70,7 +70,7 @@ Rails.application.configure do
     :port                 => 587,
     :domain               => 'j606888.com',
     :user_name            => 'apikey',
-    :password             => Secret.sendgrid['password'],
+    :password             => Secret.sendgrid[:password],
     :authentication       => "plain",
     :enable_starttls_auto => true
   }
