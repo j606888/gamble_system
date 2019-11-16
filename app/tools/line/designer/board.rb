@@ -5,95 +5,97 @@ module Line::Designer::Board
   # score_board(something)
   # unbind_board
 
-  def carousel_board
+  def carousel_board(room)
+    # binding.pry
+    invite_code = room.invite_code
+    players = room.players
     {
       type: "flex",
       altText: "主控台",
       contents: {
         type: "carousel",
         contents: [
-          main_board,
-          score_board,
-          unbind_board
+          main_board(room),
+          score_board(players),
+          unbind_board(invite_code)
         ]
       }
     }
   end
 
-  def main_board
+  def main_board(room)
     {
-      type: "bubble",
-      direction: "ltr",
-      header: {
-        type: "box",
-        layout: "vertical",
-        contents: [
+      "type": "bubble",
+      "direction": "ltr",
+      "header": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
           {
-            type: "text",
-            text: "麻將小幫手",
-            size: "xxl",
-            align: "center",
-            gravity: "center",
-            weight: "regular",
-            color: "#1A1917"
+            "type": "text",
+            "text": "主選單",
+            "size": "xl",
+            "align": "center",
+            "gravity": "center",
+            "weight": "regular"
           }
         ]
       },
-      body: {
-        type: "box",
-        layout: "vertical",
-        contents: [
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
           {
-            type: "button",
-            action: {
-              type: "uri",
-              label: "前往Web",
-              uri: "https://j606888.com:3004"
+            "type": "button",
+            "action": {
+              "type": "postback",
+              "label": "新增紀錄",
+              "data": "status:creating_record"
             },
-            color: "#D35400",
-            margin: "md",
-            height: "md",
-            style: "primary"
+            "margin": "xs",
+            "height": "sm",
+            "style": "primary"
           },
           {
-            type: "button",
-            action: {
-              type: "postback",
-              label: "新增紀錄",
-              data: "status:creating_record"
+            "type": "button",
+            "action": {
+              "type": "message",
+              "label": "新增玩家",
+              "text": "新增玩家"
             },
-            color: "#D35400",
-            margin: "sm",
-            style: "primary"
+            "margin": "xs",
+            "height": "sm",
+            "style": "primary"
           },
           {
-            type: "button",
-            action: {
-              type: "postback",
-              label: "新增玩家",
-              data: "status: creating_player"
+            "type": "button",
+            "action": {
+              "type": "uri",
+              "label": "前往Web",
+              "uri": room.web_link
             },
-            color: "#D35400",
-            margin: "sm",
-            style: "primary"
+            "margin": "xs",
+            "height": "sm",
+            "style": "primary"
           },
           {
-            type: "button",
-            action: {
-              type: "message",
-              label: "查看教學(not yet)",
-              text: "還沒啦"
+            "type": "button",
+            "action": {
+              "type": "message",
+              "label": "查看教學(not yet)",
+              "text": "還沒啦"
             },
-            color: "#D35400",
-            margin: "sm",
-            style: "primary"
+            "margin": "xs",
+            "height": "sm",
+            "style": "primary"
           }
         ]
       }
     }
   end
 
-  def score_board
+  def score_board(players)
+    
     {
       type: "bubble",
       body: {
@@ -149,145 +151,13 @@ module Line::Designer::Board
                 color: "#D35400"
               }
             ]
-          },
-          {
-            type: "box",
-            layout: "horizontal",
-            spacing: "sm",
-            contents: [
-              {
-                type: "text",
-                text: "莊子Ｅ",
-                margin: "md",
-                align: "start",
-                weight: "bold",
-                wrap: false
-              },
-              {
-                type: "text",
-                text: "(E)",
-                size: "sm",
-                align: "start",
-                color: "#AAAAAA"
-              },
-              {
-                type: "text",
-                text: "22",
-                margin: "sm",
-                align: "end"
-              },
-              {
-                type: "text",
-                text: "-2400",
-                align: "end"
-              }
-            ]
-          },
-          {
-            type: "box",
-            layout: "horizontal",
-            spacing: "sm",
-            contents: [
-              {
-                type: "text",
-                text: "李彥增",
-                margin: "md",
-                align: "start",
-                weight: "bold",
-                wrap: false
-              },
-              {
-                type: "text",
-                text: "(J)",
-                size: "sm",
-                align: "start",
-                color: "#AAAAAA"
-              },
-              {
-                type: "text",
-                text: "12",
-                margin: "sm",
-                align: "end"
-              },
-              {
-                type: "text",
-                text: "3350",
-                align: "end"
-              }
-            ]
-          },
-          {
-            type: "box",
-            layout: "horizontal",
-            spacing: "sm",
-            contents: [
-              {
-                type: "text",
-                text: "嚴浩平",
-                margin: "md",
-                align: "start",
-                weight: "bold",
-                wrap: false
-              },
-              {
-                type: "text",
-                text: "(B)",
-                size: "sm",
-                align: "start",
-                color: "#AAAAAA"
-              },
-              {
-                type: "text",
-                text: "3",
-                margin: "sm",
-                align: "end"
-              },
-              {
-                type: "text",
-                text: "1220",
-                align: "end"
-              }
-            ]
-          },
-          {
-            type: "box",
-            layout: "horizontal",
-            spacing: "sm",
-            contents: [
-              {
-                type: "text",
-                text: "東錢",
-                margin: "md",
-                align: "start",
-                weight: "bold",
-                wrap: false
-              },
-              {
-                type: "text",
-                text: "($)",
-                size: "sm",
-                align: "start",
-                color: "#AAAAAA"
-              },
-              {
-                type: "text",
-                text: "22",
-                margin: "sm",
-                align: "end"
-              },
-              {
-                type: "text",
-                text: "4400",
-                align: "end"
-              }
-            ]
           }
-        ]
+        ] + players&.map { |p| player_info(p) }
       }
     }
   end
 
-  def unbind_board
+  def unbind_board(invite_code)
     {
       type: "bubble",
       direction: "ltr",
@@ -309,6 +179,10 @@ module Line::Designer::Board
         contents: [
           {
             type: "text",
+            text: "邀請碼：#{invite_code}",
+          },
+          {
+            type: "text",
             text: "一個群組只能綁定一個麻將群組",
             align: "start"
           },
@@ -325,14 +199,49 @@ module Line::Designer::Board
           {
             type: "button",
             action: {
-              type: "postback",
+              type: "message",
               label: "解除綁定",
-              text: "我說解除！",
-              data: "data: remove_group"
+              text: "解除綁定"
             }
           }
         ]
       }
+    }
+  end
+
+  def player_info(player)
+    {
+      type: "box",
+      layout: "horizontal",
+      spacing: "sm",
+      contents: [
+        {
+          type: "text",
+          text: player.name,
+          margin: "md",
+          align: "start",
+          weight: "bold",
+          wrap: false
+        },
+        {
+          type: "text",
+          text: player.nickname,
+          size: "sm",
+          align: "start",
+          color: "#AAAAAA"
+        },
+        {
+          type: "text",
+          text: player.game_times.to_s,
+          margin: "sm",
+          align: "end"
+        },
+        {
+          type: "text",
+          text: player.total_score.to_s,
+          align: "end"
+        }
+      ]
     }
   end
 end

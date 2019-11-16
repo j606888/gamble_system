@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_13_123822) do
+ActiveRecord::Schema.define(version: 2019_11_16_024413) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,20 +23,13 @@ ActiveRecord::Schema.define(version: 2019_11_13_123822) do
     t.string "recorder"
   end
 
-  create_table "line_groups", force: :cascade do |t|
-    t.string "group_id"
-    t.string "room_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "is_user"
-  end
-
   create_table "line_sources", force: :cascade do |t|
     t.integer "source_type"
     t.string "source_id"
     t.integer "room_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status"
   end
 
   create_table "players", force: :cascade do |t|

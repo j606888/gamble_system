@@ -48,6 +48,10 @@ class Room < ApplicationRecord
     hash
   end
 
+  def web_link
+    "http://localhost:3000/rooms/verify?invite_code=#{invite_code}"
+  end
+
   private
 
   def header_maker(type='winner', need_recorder=false)

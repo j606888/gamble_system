@@ -20,105 +20,106 @@ module Line::Designer::Record
   end
 
   def creating_record
-    {
-      type: "bubble",
-      direction: "ltr",
-      header: {
-        type: "box",
-        layout: "vertical",
-        contents: [
-          {
-            type: "text",
-            text: "新增紀錄",
-            size: "xxl",
-            align: "center"
-          },
-          {
-            type: "text",
-            text: "總和為0時會自動儲存",
-            size: "xxs",
-            color: "#9F9F9F"
-          },
-          {
-            type: "text",
-            text: "輸入或點選「強迫儲存」會無視總結0",
-            size: "xxs",
-            color: "#9F9F9F"
-          },
-          {
-            type: "text",
-            text: "輸入或點選「取消」會回到主選單",
-            size: "xxs",
-            color: "#9F9F9F"
-          }
-        ]
-      },
-      body: {
-        type: "box",
-        layout: "vertical",
-        contents: [
-          {
-            type: "box",
-            layout: "vertical",
-            contents: [
-              {
-                type: "text",
-                text: "玩家列表",
-                align: "center",
-                weight: "bold"
-              },
-              {
-                type: "separator"
-              },
-              {
-                type: "text",
-                text: "James(J)",
-                align: "center"
-              },
-              {
-                type: "text",
-                text: "Steve(S)",
-                align: "center"
-              },
-              {
-                type: "text",
-                text: "Bob(B)",
-                align: "center"
-              },
-              {
-                type: "text",
-                text: "東錢($)",
-                align: "center"
+     {
+        "type": "bubble",
+        "direction": "ltr",
+        "header": {
+          "type": "box",
+          "layout": "vertical",
+          "contents": [
+            {
+              "type": "text",
+              "text": "新增紀錄",
+              "size": "xl",
+              "align": "center"
+            },
+            {
+              "type": "text",
+              "text": "總和為0時會自動儲存",
+              "size": "xxs",
+              "color": "#9F9F9F"
+            },
+            {
+              "type": "text",
+              "text": "輸入或點選「強迫儲存」會無視總結0",
+              "size": "xxs",
+              "color": "#9F9F9F"
+            },
+            {
+              "type": "text",
+              "text": "輸入或點選「取消」會回到主選單",
+              "size": "xxs",
+              "color": "#9F9F9F"
+            }
+          ]
+        },
+        "body": {
+          "type": "box",
+          "layout": "vertical",
+          "contents": [
+            {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [
+                {
+                  "type": "text",
+                  "text": "玩家列表",
+                  "align": "center",
+                  "weight": "bold"
+                },
+                {
+                  "type": "separator"
+                },
+                {
+                  "type": "text",
+                  "text": "James(J)",
+                  "align": "center"
+                },
+                {
+                  "type": "text",
+                  "text": "Steve(S)",
+                  "align": "center"
+                },
+                {
+                  "type": "text",
+                  "text": "Bob(B)",
+                  "align": "center"
+                },
+                {
+                  "type": "text",
+                  "text": "東錢($)",
+                  "align": "center"
+                }
+              ]
+            }
+          ]
+        },
+        "footer": {
+          "type": "box",
+          "layout": "horizontal",
+          "contents": [
+            {
+              "type": "button",
+              "action": {
+                "type": "postback",
+                "label": "強迫儲存",
+                "text": "強迫儲存",
+                "data": "data: force_save"
               }
-            ]
-          }
-        ]
-      },
-      footer: {
-        type: "box",
-        layout: "horizontal",
-        contents: [
-          {
-            type: "button",
-            action: {
-              type: "postback",
-              label: "強迫儲存",
-              text: "強迫儲存",
-              data: "data: force_save"
+            },
+            {
+              "type": "button",
+              "action": {
+                "type": "postback",
+                "label": "取消",
+                "text": "取消",
+                "data": "data: ignore"
+              }
             }
-          },
-          {
-            type: "button",
-            action: {
-              type: "postback",
-              label: "取消",
-              text: "取消",
-              data: "data: ignore"
-            }
-          }
-        ]
+          ]
+        }
       }
-    }
+    
   end
 
   def record_help
