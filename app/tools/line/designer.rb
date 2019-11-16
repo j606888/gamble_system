@@ -1,5 +1,5 @@
 class Line::Designer
-  include Board
-  include Message
-  include Record
+  include Line::Designer::Board
+  include Line::Designer::Message
+  include Line::Designer::Record
 end
