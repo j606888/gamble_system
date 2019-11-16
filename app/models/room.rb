@@ -49,7 +49,7 @@ class Room < ApplicationRecord
   end
 
   def web_link
-    "http://localhost:3000/rooms/verify?invite_code=#{invite_code}"
+    "#{Setting.host}/rooms/verify?invite_code=#{invite_code}"
   end
 
   private
