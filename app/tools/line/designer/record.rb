@@ -16,81 +16,38 @@ module Line::Designer::Record
 
   def creating_record(players)
      {
-        "type": "bubble",
-        "direction": "ltr",
-        "header": {
-          "type": "box",
-          "layout": "vertical",
-          "contents": [
-            {
-              "type": "text",
-              "text": "新增紀錄",
-              "size": "xl",
-              "align": "center"
-            },
-            {
-              "type": "text",
-              "text": "總和為0時會自動儲存",
-              "size": "xxs",
-              "color": "#9F9F9F"
-            },
-            {
-              "type": "text",
-              "text": "輸入或點選「強迫儲存」會無視總結0",
-              "size": "xxs",
-              "color": "#9F9F9F"
-            },
-            {
-              "type": "text",
-              "text": "輸入或點選「取消」會回到主選單",
-              "size": "xxs",
-              "color": "#9F9F9F"
-            }
+        type: "bubble",
+        direction: "ltr",
+        header: {
+          type: "box",
+          layout: "vertical",
+          contents: [
+            text('新增紀錄', { size: "xl", align: "center" }),
+            text('總和為0時會自動儲存', { size: "xxs", color: "#9F9F9F" }),
+            text('輸入或點選「強迫儲存」會無視總結0', { size: "xxs", color: "#9F9F9F" }),
+            text('輸入或點選「取消」會回到主選單', { size: "xxs", color: "#9F9F9F" })
           ]
         },
-        "body": {
-          "type": "box",
-          "layout": "vertical",
-          "contents": [
+        body: {
+          type: "box",
+          layout: "vertical",
+          contents: [
             {
-              "type": "box",
-              "layout": "vertical",
-              "contents": [
-                {
-                  "type": "text",
-                  "text": "玩家列表",
-                  "align": "center",
-                  "weight": "bold"
-                },
-                {
-                  "type": "separator"
-                }
+              type: "box",
+              layout: "vertical",
+              contents: [
+                text('玩家列表', { align: 'center', weight: 'bold' }),
+                { type: "separator" }
               ] + players&.map { |p| player_name_info(p) }
             }
           ]
         },
-        "footer": {
-          "type": "box",
-          "layout": "horizontal",
-          "contents": [
-            {
-              "type": "button",
-              "action": {
-                "type": "postback",
-                "label": "強迫儲存",
-                "text": "強迫儲存",
-                "data": "data: force_save"
-              }
-            },
-            {
-              "type": "button",
-              "action": {
-                "type": "postback",
-                "label": "取消",
-                "text": "取消",
-                "data": "data: ignore"
-              }
-            }
+        footer: {
+          type: "box",
+          layout: "horizontal",
+          contents: [
+            button_message('強迫儲存', '強迫儲存'),
+            button_message('取消', '取消')
           ]
         }
       }
@@ -104,60 +61,20 @@ module Line::Designer::Record
       header: {
         type: "box",
         layout: "vertical",
-        contents: [
-          {
-            type: "text",
-            text: "教學",
-            size: "xxl",
-            align: "center"
-          }
-        ]
+        contents: [ text('教學', { size: 'xxl', align: 'center'}) ]
       },
       body: {
         type: "box",
         layout: "vertical",
         contents: [
-          {
-            type: "text",
-            text: "格式： 代號（空格）金額",
-            align: "start"
-          },
-          {
-            type: "text",
-            text: "備註：可以換行一次輸入多筆",
-            size: "xs",
-            align: "start",
-            color: "#AEA3A3"
-          },
-          {
-            type: "separator",
-            margin: "lg"
-          },
-          {
-            type: "text",
-            text: "範例：",
-            align: "start"
-          },
-          {
-            type: "text",
-            text: "J 1200",
-            align: "end"
-          },
-          {
-            type: "text",
-            text: "L -300",
-            align: "end"
-          },
-          {
-            type: "text",
-            text: "BOB -300",
-            align: "end"
-          },
-          {
-            type: "text",
-            text: "BK -600",
-            align: "end"
-          }
+          text('格式： 代號（空格）金額', { align: 'start' })
+          text('備註：可以換行一次輸入多筆', { size: "xs", align: "start", color: "#AEA3A3" })
+          { type: "separator", margin: "lg" },
+          text('範例', { align: 'start' })
+          text('J 1200', { align: 'end' })
+          text('L -300', { align: 'end' })
+          text('BOB -300', { align: 'end' })
+          text('BK -600', { align: 'end' })
         ]
       }
     }
@@ -174,19 +91,8 @@ module Line::Designer::Record
           type: "box",
           layout: "vertical",
           contents: [
-            {
-              type: "text",
-              text: "目前紀錄",
-              size: "xl",
-              align: "center"
-            },
-            {
-              type: "text",
-              text: "(尚未儲存）",
-              size: "xs",
-              align: "center",
-              color: "#ACA6A6"
-            }
+            text('目前紀錄', {size: "xl", align: "center"}),
+            text('(尚未儲存）', {size: "xs", align: "center", color: "#ACA6A6"})
           ]
         },
         body: {
@@ -197,15 +103,7 @@ module Line::Designer::Record
         footer: {
           type: "box",
           layout: "horizontal",
-          contents: [
-            {
-              type: "text",
-              text: "請繼續新增紀錄或輸入「強迫儲存」",
-              size: "xs",
-              align: "center",
-              color: "#B9B8B8"
-            }
-          ]
+          contents: [ text('請繼續新增紀錄或輸入「強迫儲存」', {size: "xs", align: "center", color: "#B9B8B8"} ) ]
         }
       }
     }
@@ -223,19 +121,8 @@ module Line::Designer::Record
           type: "box",
           layout: "vertical",
           contents: [
-            {
-              type: "text",
-              text: "儲存成功！",
-              size: "xl",
-              align: "center"
-            },
-            {
-              type: "text",
-              text: "(輸入[麻將]叫出主選單）",
-              size: "xs",
-              align: "center",
-              color: "#ACA6A6"
-            }
+            text('儲存成功！', { size: "xl", align: "center" }),
+            text('(輸入[麻將]叫出主選單）', { size: "xs", align: "center", color: "#ACA6A6" })
           ]
         },
         body: {
@@ -248,11 +135,7 @@ module Line::Designer::Record
   end
 
   def player_name_info(player)
-    {
-      "type": "text",
-      "text": "#{player.name}(#{player.nickname})",
-      "align": "center"
-    }
+    text("#{player.name}(#{player.nickname})", { align: 'center' })
   end
 
   def record_info(record)
@@ -261,15 +144,8 @@ module Line::Designer::Record
       type: "box",
       layout: "horizontal",
       contents: [
-        {
-          type: "text",
-          text: "#{player.name}(#{player.nickname})"
-        },
-        {
-          type: "text",
-          text: record.score.to_s,
-          align: "end"
-        }
+        text("#{player.name}(#{player.nickname})"),
+        text(record.score.to_s, { align: 'end' })
       ]
     }
   end
@@ -280,15 +156,8 @@ module Line::Designer::Record
       type: "box",
       layout: "horizontal",
       contents: [
-        {
-          type: "text",
-          text: "#{player.name}(#{player.nickname})"
-        },
-        {
-          type: "text",
-          text: score.to_s,
-          align: "end"
-        }
+        text("#{player.name}(#{player.nickname})"),
+        text(score.to_s, { align: 'end' })
       ]
     }
   end
