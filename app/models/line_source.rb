@@ -6,6 +6,6 @@ class LineSource < ApplicationRecord
 
   private
   def setup_status
-    self.status = 'unbind_mode'
+    self.status = 'normal_mode'
   end
 end

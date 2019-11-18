@@ -67,13 +67,13 @@ module Line::Designer::Record
         type: "box",
         layout: "vertical",
         contents: [
-          text('格式： 代號（空格）金額', { align: 'start' })
-          text('備註：可以換行一次輸入多筆', { size: "xs", align: "start", color: "#AEA3A3" })
+          text('格式： 代號（空格）金額', { align: 'start' }),
+          text('備註：可以換行一次輸入多筆', { size: "xs", align: "start", color: "#AEA3A3" }),
           { type: "separator", margin: "lg" },
-          text('範例', { align: 'start' })
-          text('J 1200', { align: 'end' })
-          text('L -300', { align: 'end' })
-          text('BOB -300', { align: 'end' })
+          text('範例', { align: 'start' }),
+          text('J 1200', { align: 'end' }),
+          text('L -300', { align: 'end' }),
+          text('BOB -300', { align: 'end' }),
           text('BK -600', { align: 'end' })
         ]
       }

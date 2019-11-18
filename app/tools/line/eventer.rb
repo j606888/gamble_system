@@ -36,10 +36,17 @@ class Line::Eventer < ServiceCaller
     @line_replyer ||= Line::Replyer.new(@reply_token)
   end
 
+  def auto_create_room
+    room = Room.create(name: "麻將小房間")
+    @line_source.room = room
+    @line_source.save
+  end
+
   def setup_line_source!
     source_type = @source['type']
     source_id = @source["#{source_type}Id"]
-    @line_source = LineSource.find_or_create_by(source_type: "is_#{source_type}", source_id: source_id)
+    @line_source = LineSource.find_or_initialize_by(source_type: "is_#{source_type}", source_id: source_id)
+    auto_create_room if @line_source.new_record?
     @room = @line_source.room
     @line_source
   end

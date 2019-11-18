@@ -41,7 +41,7 @@ module Line::Designer::Message
           type: "box",
           layout: "vertical",
           contents: [
-            text('新增玩家', {size: "lg", align: "center", weight: "bold"})
+            text('新增玩家', {size: "lg", align: "center", weight: "bold"}),
             text('新增完畢後輸入「結束」或點選「結束」鈕', {size: "xs", color: "#2F2F2F", wrap: true})
           ]
         },
@@ -53,7 +53,7 @@ module Line::Designer::Message
               type: "box",
               layout: "horizontal",
               contents: [
-                text('格式：', {size: "sm", align: "start", color: "#9F9F9F", wrap: true})
+                text('格式：', {size: "sm", align: "start", color: "#9F9F9F", wrap: true}),
                 text('名稱[空白]暱稱', {size: "sm", align: "end", color: "#9F9F9F", wrap: true})
               ]
             },
@@ -61,7 +61,7 @@ module Line::Designer::Message
               type: "box",
               layout: "horizontal",
               contents: [
-                text('範例：', {size: "sm", align: "start", color: "#9F9F9F", wrap: true})
+                text('範例：', {size: "sm", align: "start", color: "#9F9F9F", wrap: true}),
                 text('詹姆士 J', {size: "sm", align: "end", color: "#9F9F9F", wrap: true})
               ]
             }

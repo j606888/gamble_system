@@ -111,7 +111,7 @@ module Line::Designer::Board
         text(player.name, { margin: "md", align: "start", weight: "bold", wrap: false }),
         text(player.nickname, { size: "sm", align: "start", color: "#AAAAAA"}),
         text(player.game_times.to_s, { margin: "sm", align: "end" }),
-        text(player.total_score.to_s, { aling: 'end' })
+        text(player.total_score.to_s, { align: 'end' })
       ]
     }
   end
