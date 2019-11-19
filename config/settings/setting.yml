@@ -10,3 +10,4 @@ preparing:
 
 production:
   <<: *development
+  host: 'https://www.j606888.com:3005'

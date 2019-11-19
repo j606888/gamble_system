@@ -20,5 +20,5 @@ preparing:
 production:
   <<: *development
   database: gamble_system_production
-  username: gamble_system
-  password: <%= ENV['GAMBLE_SYSTEM_DATABASE_PASSWORD'] %>
+  username: <%= Secret.database[:username] %>
+  password: <%= Secret.database[:password] %>
