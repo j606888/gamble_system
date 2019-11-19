@@ -1,17 +1,25 @@
 class Game < ApplicationRecord
   belongs_to :room
   has_many :records, dependent: :destroy
-
   before_create :set_recorded_at
 
+  # records = [
+  #   {
+  #     'id' => 3,
+  #     'score' => 200
+  #   },
+  #   {
+  #     'id' => 5,
+  #     'score' => 460
+  #   }
+  # ]
   def self.create_with_records(records, email)
     return error_message(:all_zero) if all_zero?(records)
     sum = records.map { |r| r['score'].to_i }.compact.sum
     return error_message(sum) if sum != 0
-
     game = create(recorder: email)
     records.each do |r|
-      next if r['score'].empty?
+      next unless r['score'].present?
       game.records.create(r)
     end
 
@@ -25,6 +33,21 @@ class Game < ApplicationRecord
     records_hash.each do |r|
       record = records.find_by(player_id: r['player_id'])
       record.update!(score: r['score'])
+    end
+    :success
+  end
+
+  def self.create_from_line(records_hash)
+    sum = records_hash.values.sum
+    return sum if sum != 0
+
+    force_from_line(records_hash)
+  end
+
+  def self.force_from_line(records_hash)
+    game = create(recorder: 'line_bot')
+    records_hash.each do |player_id, score|
+      game.records.create(player_id: player_id, score: score)
     end
     :success
   end
@@ -47,7 +70,7 @@ class Game < ApplicationRecord
 
   def self.error_message(num)
     if num.is_a?(Integer)
-      "總數不為0!差了#{num}"
+      num
     else
       "全數資料為0!"
     end

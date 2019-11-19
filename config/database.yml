@@ -4,8 +4,8 @@ development: &development
   encoding: utf8  
   database: gamble_system_development
   pool: 5
-  username: <%= Rails.application.credentials.database[:development][:username] %>
-  password: <%= Rails.application.credentials.database[:development][:password] %>
+  username: <%= Secret.database[:username] %>
+  password: <%= Secret.database[:password] %>
 
 test:
   <<: *development
@@ -14,8 +14,8 @@ test:
 preparing:
   <<: *development
   database: gamble_system_preparing
-  username: <%= Rails.application.credentials.database[:preparing][:username] %>
-  password: <%= Rails.application.credentials.database[:preparing][:password] %>
+  username: <%= Secret.database[:username] %>
+  password: <%= Secret.database[:password] %>
 
 production:
   <<: *development
