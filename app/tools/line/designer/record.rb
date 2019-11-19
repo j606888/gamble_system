@@ -81,6 +81,7 @@ module Line::Designer::Record
   end
 
   def record_not_zero(records_hash)
+    sum = 0
     {
       type: "flex",
       altText: "Flex Message",
@@ -98,7 +99,23 @@ module Line::Designer::Record
         body: {
           type: "box",
           layout: "vertical",
-          contents: records_hash.map { |player_id, score| temp_record_info(player_id, score) }
+          contents: records_hash.map do |player_id, score|
+            sum += score
+            temp_record_info(player_id, score)
+          end + [
+            {
+              type: "separator",
+              margin: "md"
+            },
+            {
+              type: "box",
+              layout: "horizontal",
+              contents: [
+                text('總結', {weight: 'bold'}),
+                text(sum.to_s, {align: 'end', weight: 'bold'})
+              ]
+            }
+          ]
         },
         footer: {
           type: "box",
