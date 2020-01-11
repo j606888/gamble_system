@@ -1,8 +1,9 @@
 class Liff::UserController < ApplicationController
   skip_before_action :authenticate_user!
   skip_before_action :set_join_rooms
-  
+
   def new
+    render layout: false
   end
 
   def create
