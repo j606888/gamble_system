@@ -13,7 +13,7 @@
         <input type="text" name="name"><br>
         Nickame:<br>
         <input type="text" name="nickname"><br>
-        <input type="hidden" id="userId" name="userId">
+        <input type="hidden" id="source_id" name="source_id">
         <input type="submit" value="go">
       <% end %>
 
@@ -23,7 +23,7 @@
         function initApp() {
           context = liff.getContext();
           source_id = context['userId'];
-          document.getElementById('userId').value = source_id
+          document.getElementById('source_id').value = source_id
         }
 
         let myLiffId = "1653496919-KzWxBJEZ";
