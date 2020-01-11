@@ -20,10 +20,16 @@
 
 
           document.getElementById('btn').addEventListener('click', function() {
-            liff.openWindow({
-              url: 'https://google.com',
-              external: true
-            })
+            context = liff.getContext();
+            liff.sendMessages([{
+              'type': 'text',
+              'text': context['type'] + context['userId']
+            }]);
+            profile = liff.getProfile();
+            liff.sendMessages([{
+              'type': 'text',
+              'text': profile['displayName'] + profile['userId']
+            }]);
           });
 
           document.getElementById('close').addEventListener('click', function() {
