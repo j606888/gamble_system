@@ -6,27 +6,17 @@
       
   </head>
   <body>
-      <h2>新增玩家<h2>
-      <%= form_tag(liff_user_create_path) do %>
-      
-        Name:<br>
-        <input type="text" name="name"><br>
-        Nickame:<br>
-        <input type="text" name="nickname"><br>
-        <input type="hidden" id="source_id" name="source_id">
-        <input type="submit" value="go">
-      <% end %>
-
-
       <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
       <script>
         function initApp() {
-
-          let key = "<%= j(params['key']) %>";
-          console.log(key);
-          context = liff.getContext();
-          source_id = context['userId'];
-          document.getElementById('source_id').value = source_id
+          let message = "<%= j(params['message']) %>";
+          liff.sendMessages([
+            {
+              type: 'text',
+              text: message
+            }
+          ])
+          liff.closeWindow();
         }
 
         let myLiffId = "1653496919-gn1xDAZY";

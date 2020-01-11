@@ -38,6 +38,7 @@ Rails.application.routes.draw do
     namespace :user do
       get 'new'
       post 'create'
+      get 'callback'
     end
   end
 end

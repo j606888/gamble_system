@@ -9,8 +9,12 @@ class Liff::UserController < ApplicationController
   def create
     line_source = LineSource.find_by(source_id: params[:source_id])
     room = line_source.room
-    room.players.create(name: params[:name], nickname: params[:nickname])
-    flash[:success] = 'create succuess'
-    redirect_to liff_user_new_path
+    player = room.players.create(name: params[:name], nickname: params[:nickname])
+    message = "#{player.name}(#{player.nickname}) 建立成功！"
+    redirect_to liff_user_callback_path(message: message)
+  end
+
+  def callback
+    render layout: false
   end
 end
