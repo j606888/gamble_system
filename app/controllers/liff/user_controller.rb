@@ -7,7 +7,8 @@ class Liff::UserController < ApplicationController
   end
 
   def create
-    room = Room.find_by(source_id: params[:source_id])
+    line_source = LineSource.find_by(source_id: params[:source_id])
+    room = line_source.room
     room.players.create(name: params[:name], nickname: params[:nickname])
     flash[:success] = 'create succuess'
     redirect_to liff_user_new_path
