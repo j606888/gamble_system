@@ -35,5 +35,9 @@ Rails.application.routes.draw do
 
   namespace :liff do
     get 'user'
+    namespace :user do
+      get 'new'
+      post 'create'
+    end
   end
 end
