@@ -32,4 +32,8 @@ Rails.application.routes.draw do
   namespace :api do
     post 'line_callback', to: 'line_callback#index'
   end
+
+  namespace :liff do
+    get 'user'
+  end
 end
