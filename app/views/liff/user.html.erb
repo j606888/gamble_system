@@ -20,11 +20,7 @@
 
 
           document.getElementById('btn').addEventListener('click', function() {
-            context = liff.getContext();
-            liff.sendMessages([{
-              'type': 'text',
-              'text': context['type'] + context['userId']
-            }]);
+            
             profile = liff.getProfile();
             liff.sendMessages([{
               'type': 'text',
