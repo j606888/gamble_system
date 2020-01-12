@@ -1,0 +1,21 @@
+<h2>編輯玩家</h2>
+
+<%= simple_form_for(@player, url: liff_user_path(@player.id, source_id: params[:source_id])) do |f| %>
+  <%= f.input :name, label: '玩家名稱' %>
+  <%= f.input :nickname, label: '暱稱' %>
+  <%= f.input :hidden, label: '隱藏'%>
+  <%= f.button :submit, class: 'btn btn-secondary', label: '繼續' %>
+<% end %>
+
+<%= link_to '返回', room_players_path(@player.room) %>
+
+<script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+<script>
+  liff.init({
+    liffId: "1653496919-qlmKpk3r"
+  }).then(() => {
+    
+  }).catch((err) => {
+    alert(err)
+  })
+</script>

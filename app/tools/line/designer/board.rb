@@ -5,7 +5,9 @@ module Line::Designer::Board
   # score_board(something)
   # unbind_board
 
-  def carousel_board(room)
+  def carousel_board(options)
+    room = options[:room]
+    line_source = options[:line_source]
     invite_code = room.invite_code
     players = room.players.avaliable.winner
     {
@@ -14,7 +16,7 @@ module Line::Designer::Board
       contents: {
         type: "carousel",
         contents: [
-          main_board(room),
+          main_board(room, line_source),
           score_board(players),
           unbind_board(invite_code)
         ]
@@ -22,7 +24,7 @@ module Line::Designer::Board
     }
   end
 
-  def main_board(room)
+  def main_board(room, line_source)
     {
       type: "bubble",
       direction: "ltr",
@@ -36,7 +38,8 @@ module Line::Designer::Board
         layout: "vertical",
         contents: [
           button_message('新增紀錄', '新增紀錄', {margin: 'xs', height: 'sm', style: 'primary'}),
-          button_message('新增玩家', '新增玩家', {margin: 'xs', height: 'sm', style: 'primary'}),
+          button_uri('新增玩家', line_source.add_player_link, {margin: 'xs', height: 'sm', style: 'primary'}),
+          button_uri('編輯玩家', line_source.player_index_link, {margin: 'xs', height: 'sm', style: 'primary'}),
           button_uri('前往web', room.web_link, {margin: 'xs', height: 'sm', style: 'primary'}),
           button_message('查看教學', '還沒啦', {margin: 'xs', height: 'sm', style: 'primary'})
         ]

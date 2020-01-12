@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LIFF Starter</title>
+
+</head>
+
+<body>
+  <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+  <script>
+    function initApp() {
+      let message = "<%= j(params['message']) %>";
+      liff.sendMessages([
+        {
+          type: 'text',
+          text: message
+        }
+      ])
+      liff.closeWindow();
+    }
+    let liff_id = "<%= j(params['liff_id']) %>";
+    
+
+    liff.init({
+      liffId: liff_id
+    }).then(() => {
+      initApp();
+    }).catch((err) => {
+      alert(err)
+    })
+
+  </script>
+</body>
+
+</html>

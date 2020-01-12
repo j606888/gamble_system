@@ -84,7 +84,11 @@ class Line::Eventer < ServiceCaller
   end
 
   def normal_detact!
-    return line_replyer.reply(:carousel_board, @room) if @text == KEYWORDS[:mahjohn]
+    options = {
+      room: @room,
+      line_source: @line_source
+    }
+    return line_replyer.reply(:carousel_board, options) if @text == KEYWORDS[:mahjohn]
     return left_room if @text == KEYWORDS[:left_room]
     if @text == KEYWORDS[:add_player]
       @line_source.player_mode!

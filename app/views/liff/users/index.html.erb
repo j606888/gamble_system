@@ -1,0 +1,36 @@
+<h2>新增玩家<h2>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">名稱</th>
+      <th scope="col">暱稱</th>
+      <th scope="col">動作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @players.each do |player| %>
+      <tr>
+        <th><%= player.id %></th>
+        <th><%= player.name %></th>
+        <th><%= player.nickname %></th>
+        <th>
+          <%= link_to '刪除', liff_user_path(player.id, source_id: params[:source_id]), method: :delete %>
+          <%= link_to '編輯', edit_liff_user_path(player.id, source_id: params[:source_id]) %>
+        </th>
+      </tr>
+    <% end %>
+
+    <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+    <script>
+      liff.init({
+        liffId: "1653496919-qlmKpk3r"
+      }).then(() => {
+        
+      }).catch((err) => {
+        alert(err)
+      })
+    </script>
+  </tbody>
+</table>

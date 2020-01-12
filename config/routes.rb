@@ -34,11 +34,10 @@ Rails.application.routes.draw do
   end
 
   namespace :liff do
-    get 'user'
-    namespace :user do
-      get 'new'
-      post 'create'
-      get 'callback'
+    resources :users
+
+    namespace :callback do
+      get 'text'
     end
   end
 end
