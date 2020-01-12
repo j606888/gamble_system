@@ -16,8 +16,8 @@
         <th><%= player.name %></th>
         <th><%= player.nickname %></th>
         <th>
-          <%= link_to '刪除', liff_user_path(player.id, source_id: params[:source_id]), method: :delete %>
-          <%= link_to '編輯', edit_liff_user_path(player.id, source_id: params[:source_id]) %>
+          <%= link_to '刪除', liff_player_path(player.id, source_id: params[:source_id]), method: :delete %>
+          <%= link_to '編輯', edit_liff_player_path(player.id, source_id: params[:source_id]) %>
         </th>
       </tr>
     <% end %>

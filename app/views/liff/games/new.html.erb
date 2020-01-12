@@ -1,0 +1,35 @@
+<h2>新增玩家<h2>
+<%= form_tag(output_liff_games_path(source_id: params[:source_id])) do %>
+  <div style="margin: auto">
+    <table>
+      <thead>
+        <tr>
+          <th colspan="2">姓名</th>
+          <th>分數</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @players.each do |player| %>
+          <tr>
+            <td><%= hidden_field_tag "records[]player_id", player.id %></td>
+            <td><%= "#{player.name}(#{player.nickname})" %></td>
+            <td><%= text_field_tag "records[]score", "", class: 'form-control room-input-field' %></td>
+          </tr>
+        <% end %>  
+      </tbody>
+      <tr><td colspan="3"><%= submit_tag '送出', class:"btn btn-success" %></td></tr>
+    </table>
+  </div>
+  <hr>
+<% end %>
+
+<script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+<script>
+  liff.init({
+    liffId: "1653496919-Oaqv0m3k"
+  }).then(() => {
+    
+  }).catch((err) => {
+    alert(err)
+  })
+</script>

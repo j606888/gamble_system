@@ -1,20 +1,20 @@
 module Line::Designer::Record
-  def add_record(room)
-    players = room.players.avaliable.winner
+  def add_record(line_source)
     {
       type: "flex",
       altText: "新增紀錄",
       contents: {
         type: "carousel",
         contents: [
-          creating_record(players),
+          creating_record(line_source),
           record_help
         ]
       }
     }
   end
 
-  def creating_record(players)
+  def creating_record(line_source)
+    players = line_source.room.players.avaliable.winner
      {
         type: "bubble",
         direction: "ltr",
@@ -47,7 +47,8 @@ module Line::Designer::Record
           layout: "horizontal",
           contents: [
             button_message('強迫儲存', '強迫儲存'),
-            button_message('取消', '取消')
+            button_message('取消', '取消'),
+            button_uri('紀錄小幫手', line_source.new_game_link)
           ]
         }
       }

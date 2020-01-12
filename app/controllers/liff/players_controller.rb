@@ -1,4 +1,4 @@
-class Liff::UsersController < Liff::ApplicationController
+class Liff::PlayersController < Liff::ApplicationController
   before_action :check_source_ability, only: [:create, :index, :update, :destroy]
 
   def index

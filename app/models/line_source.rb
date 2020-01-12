@@ -12,6 +12,10 @@ class LineSource < ApplicationRecord
     "line://app/1653496919-qlmKpk3r?source_id=#{source_id}"
   end
 
+  def new_game_link
+    "line://app/1653496919-Oaqv0m3k?source_id=#{source_id}"
+  end
+
   private
   def setup_status
     self.status = 'normal_mode'

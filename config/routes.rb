@@ -34,7 +34,13 @@ Rails.application.routes.draw do
   end
 
   namespace :liff do
-    resources :users
+    resources :players
+
+    resources :games, only: [:new] do
+      collection do
+        post 'output'
+      end
+    end
 
     namespace :callback do
       get 'text'

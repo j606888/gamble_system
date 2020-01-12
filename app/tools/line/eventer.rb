@@ -95,7 +95,7 @@ class Line::Eventer < ServiceCaller
       line_replyer.reply(:add_player)
     elsif @text == KEYWORDS[:add_record]
       @line_source.record_mode!
-      line_replyer.reply(:add_record, @room)
+      line_replyer.reply(:add_record, @line_source)
     end
   end
 
