@@ -8,6 +8,8 @@
 </head>
 
 <body>
+  <h2>Web here</h2>
+  <p><%= @message %></p>
   <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
   <script>
     function initApp() {
@@ -28,7 +30,7 @@
     }).then(() => {
       initApp();
     }).catch((err) => {
-      alert(err)
+      
     })
 
   </script>

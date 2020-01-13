@@ -36,6 +36,14 @@ Rails.application.routes.draw do
   namespace :liff do
     resources :players
 
+    namespace :rooms do
+      get 'edit'
+      put 'update'
+      get 'show'
+      post 'switch'
+      post 'create'
+    end
+
     resources :games, only: [:new] do
       collection do
         post 'output'

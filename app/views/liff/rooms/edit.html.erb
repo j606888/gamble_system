@@ -1,0 +1,16 @@
+<%= form_tag(liff_rooms_update_path, method: 'put') do %>
+  房間名稱：<br>
+  <input type="text" name="name" value="<%= @room.name %>">
+  <input type="hidden" name="source_id" value="<%= params[:source_id] %>">
+  <input type="hidden" name="room_id" value="<%= params[:room_id] %>">
+  <input type="submit" value="go">
+<% end %>
+<script>
+  liff.init({
+    liffId: "1653496919-op36eGKE"
+  }).then(() => {
+    
+  }).catch((err) => {
+    alert(err)
+  })
+</script>
