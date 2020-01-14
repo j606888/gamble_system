@@ -12,7 +12,7 @@ class Api::LineCallbackController < Api::ApplicationController
 
   private
   def line_params
-    params.permit(events: [:type, :replyToken, :timestamp, source: [:userId, :groupId, :type], postback: {}, message:{}])
+    params.permit(events: [:type, :replyToken, :timestamp, source: [:userId, :groupId, :type, :roomId], postback: {}, message:{}])
   end
 end
   

@@ -30,6 +30,7 @@ class Line::Replyer
 
   def post_it
     conn = Faraday.new(REPLY_URI)
+    # binding.pry
     conn.post do |req|
       req.headers['Content-Type'] = 'application/json'
       req.headers['Authorization'] = "Bearer #{ACCESS_TOKEN}"

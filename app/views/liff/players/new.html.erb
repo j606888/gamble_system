@@ -5,7 +5,7 @@
   暱稱:<br>
   <input type="text" name="nickname"><br>
   <input type="hidden" name="source_id" value="<%= params[:source_id] %>">
-  <input type="submit" value="go">
+  <%= submit_tag 'go', data: { disable_with: 'go' } %>
 <% end %>
 
-<%= render(partial: 'liff/init', locals: { liff_id: Setting.liff_ids.player_add }) %>
+<%= render(partial: 'liff/init', locals: { liff_id: Setting.liff_ids.player_new }) %>

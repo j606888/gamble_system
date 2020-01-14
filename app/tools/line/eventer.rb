@@ -66,7 +66,7 @@ class Line::Eventer < ServiceCaller
     elsif room = Room.find_by(invite_code: @text)
       @line_source.update!(room_id: room.id)
       @line_source.normal_mode!
-      return line_replyer.reply(:carousel_board, room)
+      return line_replyer.reply(:carousel_board, @line_source)
     end
     
     line_replyer.reply(:need_to_bind_room)
@@ -75,7 +75,7 @@ class Line::Eventer < ServiceCaller
   def player_detect!
     if @text == KEYWORDS[:add_player_done]
       @line_source.normal_mode!
-      return line_replyer.reply(:carousel_board, @room)
+      return line_replyer.reply(:carousel_board, @line_source)
     end
 
     name, nickname = @text.split(" ")
@@ -84,11 +84,7 @@ class Line::Eventer < ServiceCaller
   end
 
   def normal_detact!
-    options = {
-      room: @room,
-      line_source: @line_source
-    }
-    return line_replyer.reply(:carousel_board, options) if @text == KEYWORDS[:mahjohn]
+    return line_replyer.reply(:carousel_board, @line_source) if @text == KEYWORDS[:mahjohn]
     return left_room if @text == KEYWORDS[:left_room]
     if @text == KEYWORDS[:add_player]
       @line_source.player_mode!
@@ -110,7 +106,7 @@ class Line::Eventer < ServiceCaller
     elsif @text == KEYWORDS[:force_cancel]
       Rails.cache.delete("room:#{@room.id}:records")
       @line_source.normal_mode!
-      return line_replyer.reply(:carousel_board, @room)
+      return line_replyer.reply(:carousel_board, @line_source)
     end
 
     str_records = @text.upcase.strip.split("\n")

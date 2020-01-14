@@ -2,7 +2,7 @@
 <h2>目前房間:<%= @room.name %></h2>
 <ul>
   <% @other_rooms.each do |o_room| %>
-    <li><%= o_room.name %><%= button_to '切換', liff_rooms_switch_path(target_id: o_room.id, source_id: params[:source_id]) %> </li>
+    <li><%= o_room.name %><%= button_to '切換', liff_rooms_switch_path(target_id: o_room.id, source_id: params[:source_id]), data: {disable_with: 'Please wait...'} %> </li>
   <% end %>
 </ul>
 <%= form_tag(liff_rooms_create_path) do %>

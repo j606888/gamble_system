@@ -1,77 +1,48 @@
 module Line::Designer::Board
-  # carousel_board
 
-  # main_board
-  # score_board(something)
-  # unbind_board
-
-  def carousel_board(options)
-    room = options[:room]
-    line_source = options[:line_source]
-    invite_code = room.invite_code
-    players = room.players.avaliable.winner
+  def carousel_board(line_source)
     {
       type: "flex",
-      altText: "主控台",
+      altText: "麻將將",
       contents: {
         type: "carousel",
         contents: [
-          main_board(room, line_source),
-          score_board(players),
-          unbind_board(invite_code)
+          score_board(line_source),
+          setting_board(line_source)
         ]
       }
     }
   end
 
-  def main_board(room, line_source)
+  def score_board(line_source)
+    players = line_source.room.players
+    room_name = line_source.room.name
+
+    return none_user_board if players.count == 0
     {
       type: "bubble",
-      direction: "ltr",
       header: {
         type: "box",
-        layout: "vertical",
-        contents: [ text('主選單', {size: "xl", align: "center", gravity: "center", weight: "regular"}) ]
+        layout: "horizontal",
+        contents: [
+          text(room_name, {flex: 5, size: "xl", align: "start", gravity: "center", color: "#F2B94A", wrap: true} ),
+          button_message("紀錄", "新增紀錄", {flex: 2, color: "#E1A576", margin: 'none', height: 'sm', style: 'primary'} )
+        ]
       },
       body: {
         type: "box",
         layout: "vertical",
-        contents: [
-          button_message('新增紀錄', '新增紀錄', {margin: 'xs', height: 'sm', style: 'primary'}),
-          button_uri('新增玩家', line_source.liff_link(:player_add), {margin: 'xs', height: 'sm', style: 'primary'}),
-          button_uri('編輯玩家', line_source.liff_link(:player_index), {margin: 'xs', height: 'sm', style: 'primary'}),
-          button_uri('前往web', room.web_link, {margin: 'xs', height: 'sm', style: 'primary'}),
-          button_message('查看教學', '還沒啦', {margin: 'xs', height: 'sm', style: 'primary'})
-        ]
-      }
-    }
-  end
-
-  def score_board(players)
-    
-    {
-      type: "bubble",
-      body: {
-        type: "box",
-        layout: "vertical",
         spacing: "md",
-        action: {
-          type: "uri",
-          label: "Action",
-          uri: "https://linecorp.com"
-        },
         contents: [
-          text('總積分', {size: "xl", align: "center", weight: "bold"}),
-          text('(更詳細的紀錄請至Web版)', {size: "xs", align: "center", color: "#9F9F9F"}),
           {
-            type: "box",
-            layout: "horizontal",
-            spacing: "xl",
+            type: 'box',
+            layout: 'horizontal',
+            flex: 3,
+            spacing: 'xl',
             contents: [
-              text('名稱', { margin: "md", align: "start", weight: "bold", color: "#D35400", wrap: false }),
-              text('代號', { align: "start", weight: "bold", color: "#D35400" }),
-              text('出場數', { margin: "sm", align: "end", weight: "bold", color: "#D35400" }),
-              text('總分', { align: "end", weight: "bold", color: "#D35400" })
+              text('名稱', { flex: 4, margin: 'md', align: 'start', weight: 'bold', color: '#FDCB6E', wrap: false} ),
+              text('出場數', { flex: 2, margin: 'sm', align: 'center', weight: 'bold', color: '#FDCB6E'}),
+              text('總分', { flex: 2, align: 'end', weight: 'bold', color: '#FDCB6E'})
             ]
           }
         ] + players&.map { |p| player_info(p) }
@@ -79,28 +50,74 @@ module Line::Designer::Board
     }
   end
 
-  def unbind_board(invite_code)
+  def setting_board(line_source)
+    {
+      type: 'bubble',
+      direction: 'ltr',
+      header: {
+        type: 'box',
+        layout: 'horizontal',
+        contents: [
+          text('設定', { size: 'xxl', align: 'center' })
+        ]
+      },
+      body: {
+        type: 'box',
+        layout: 'vertical',
+        spacing: 'sm',
+        contents: [
+          {
+            type: 'box',
+            layout: 'horizontal',
+            contents: [
+              text('玩家', {margin: 'md', size: 'lg', align: 'center', gravity: 'center'}),
+              button_uri('新增', line_source.liff_link(:player_new), {color: '#F28C8C', margin: 'md', height: 'sm', style: 'primary'}),
+              button_uri('編輯', line_source.liff_link(:player_edit), {margin: 'md', height: 'sm', style: 'secondary'})
+            ]
+          },{
+            type: 'separator'
+          },{
+            type: 'box',
+            layout: 'horizontal',
+            contents: [
+              text('戰績表', {margin: 'md', size: 'lg', align: 'center', gravity: 'center'}),
+              button_uri('表格', line_source.liff_link(:record_total), {margin: 'md', height: 'sm', style: 'secondary'}),
+              button_uri('個人', line_source.liff_link(:record_index), {margin: 'md', height: 'sm', style: 'secondary'})
+            ]
+          },{
+            type: 'separator'
+          },{
+            type: 'box',
+            layout: 'horizontal',
+            contents: [
+              text('房間', {margin: 'md', size: 'lg', align: 'center', gravity: 'center'}),
+              button_uri('更名', line_source.liff_link(:room_edit), {margin: 'md', height: 'sm', style: 'secondary'}),
+              button_uri('切換', line_source.liff_link(:room_show), {margin: 'md', height: 'sm', style: 'secondary'})
+            ]
+          }
+        ]
+      }
+    }
+  end
+
+  def none_user_board
     {
       type: "bubble",
-      direction: "ltr",
+      direction: 'ltr',
       header: {
         type: "box",
         layout: "vertical",
-        contents: [ text('解除綁定', { size: 'xl', align: 'center'}) ]
+        contents: [ text("歡迎使用十一萬", {size: "xl", align: 'center'} ) ]
       },
       body: {
         type: "box",
         layout: "vertical",
+        spacing: "lg",
         contents: [
-          text("邀請碼：#{invite_code}"),
-          text("一個群組只能綁定一個麻將群組", { align: 'start'} ),
-          text("如果要換新群組請先解除綁定！")
+          text('目前沒有任何玩家，先到右邊去新增吧。', { align: 'start', wrap: true} ),
+          { type: 'separator' },
+          text('好了之後再輸入「麻將」叫出我，你就會有一個不一樣的表單了！', { align: 'start', wrap: true} )
         ]
-      },
-      footer: {
-        type: "box",
-        layout: "horizontal",
-        contents: [ button_message('解除綁定', '解除綁定') ]
       }
     }
   end
@@ -109,12 +126,12 @@ module Line::Designer::Board
     {
       type: "box",
       layout: "horizontal",
+      flex: 1,
       spacing: "sm",
       contents: [
-        text(player.name, { margin: "md", align: "start", weight: "bold", wrap: false }),
-        text(player.nickname, { size: "sm", align: "start", color: "#AAAAAA"}),
-        text(player.game_times.to_s, { margin: "sm", align: "end" }),
-        text(player.total_score.to_s, { align: 'end' })
+        text("#{player.name}(#{player.nickname})", { margin: "md", flex: 4, align: "start", weight: "bold", wrap: false }),
+        text(player.game_times.to_s, { margin: "sm", flex: 2, align: 'center', margin: 'sm' }),
+        text(player.total_score.to_s, { align: 'end', flex: 2, align: 'end' })
       ]
     }
   end

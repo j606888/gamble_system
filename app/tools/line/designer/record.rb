@@ -15,45 +15,39 @@ module Line::Designer::Record
 
   def creating_record(line_source)
     players = line_source.room.players.avaliable.winner
-     {
-        type: "bubble",
-        direction: "ltr",
-        header: {
-          type: "box",
-          layout: "vertical",
+    {
+      type: 'bubble',
+      header: {
+        type: 'box',
+        layout: 'horizontal',
+        flex: 0,
+        contents: [
+          text('新增紀錄', {flex: 5, size: 'xl', align: 'start', gravity: 'center', color: '#000000'}),
+          button_message('取消', '取消', {flex: 2, color: '#E1A576', margin: 'none', height: 'sm', style: 'primary'})
+        ]
+      },
+      body: {
+        type: 'box',
+        layout: 'vertical',
+        spacing: 'md',
+        contents: [
+          type: 'box',
+          layout: 'vertical',
           contents: [
-            text('新增紀錄', { size: "xl", align: "center" }),
-            text('總和為0時會自動儲存', { size: "xxs", color: "#9F9F9F" }),
-            text('輸入或點選「強迫儲存」會無視總結0', { size: "xxs", color: "#9F9F9F" }),
-            text('輸入或點選「取消」會回到主選單', { size: "xxs", color: "#9F9F9F" })
-          ]
-        },
-        body: {
-          type: "box",
-          layout: "vertical",
-          contents: [
-            {
-              type: "box",
-              layout: "vertical",
-              contents: [
-                text('玩家列表', { align: 'center', weight: 'bold' }),
-                { type: "separator" }
-              ] + players&.map { |p| player_name_info(p) }
-            }
-          ]
-        },
-        footer: {
-          type: "box",
-          layout: "horizontal",
-          contents: [
-            button_message('強迫儲存', '強迫儲存'),
-            button_message('取消', '取消'),
-            button_uri('紀錄小幫手', line_source.liff_link(:game_new))
-          ]
-        }
+            text('玩家列表', {align: 'center', weight: 'bold'}),
+            { type: 'separator'},
+          ] + players&.map { |p| player_name_info(p) }
+        ]
+      },
+      footer: {
+        type: "box",
+        layout: "vertical",
+        contents: [
+          button_uri('小幫手', line_source.liff_link(:game_new), {color: '#E1A576', style: 'primary'})
+        ]
       }
-    
-  end
+    }
+  end 
 
   def record_help
    {
@@ -85,43 +79,72 @@ module Line::Designer::Record
     sum = 0
     {
       type: "flex",
-      altText: "Flex Message",
+      altText: "Record not zero",
       contents: {
         type: "bubble",
         direction: "ltr",
         header: {
           type: "box",
-          layout: "vertical",
+          layout: 'horizontal',
           contents: [
-            text('目前紀錄', {size: "xl", align: "center"}),
-            text('(尚未儲存）', {size: "xs", align: "center", color: "#ACA6A6"})
+            {
+              type: 'box',
+              layout: 'vertical',
+              flex: 4,
+              contents: [
+                text('目前紀錄', {size: "xl", align: "start"}),
+                text('(尚未儲存）', {size: "sm", align: "start", color: "#ACA6A6"})
+              ]
+            },
+            button_message('儲存', '強迫儲存', {flex: 2, color: '#E1A576', margin: 'xxl', height: 'sm', style: 'primary'})
           ]
         },
         body: {
-          type: "box",
-          layout: "vertical",
-          contents: records_hash.map do |player_id, score|
-            sum += score
-            temp_record_info(player_id, score)
-          end + [
+          type: 'box',
+          layout: 'horizontal',
+          contents: [
             {
-              type: "separator",
-              margin: "md"
+              type: 'box',
+              layout: 'vertical',
+              flex: 1,
+              spacing: 'md',
+              contents: [{type: 'spacer'}]
             },
             {
               type: "box",
-              layout: "horizontal",
-              contents: [
-                text('總結', {weight: 'bold'}),
-                text(sum.to_s, {align: 'end', weight: 'bold'})
+              layout: "vertical",
+              flex: 5,
+              contents: records_hash.map do |player_id, score|
+                sum += score
+                temp_record_info(player_id, score)
+              end + [
+                {
+                  type: "separator",
+                  margin: "md"
+                },
+                {
+                  type: "box",
+                  layout: "horizontal",
+                  contents: [
+                    text('總結', {weight: 'bold'}),
+                    text(sum.to_s, {align: 'end', weight: 'bold'})
+                  ]
+                }
               ]
+            },
+            {
+              type: 'box',
+              layout: 'vertical',
+              flex: 1,
+              spacing: 'md',
+              contents: [{type: 'spacer'}]
             }
           ]
         },
         footer: {
           type: "box",
           layout: "horizontal",
-          contents: [ text('請繼續新增紀錄或輸入「強迫儲存」', {size: "xs", align: "center", color: "#B9B8B8"} ) ]
+          contents: [ text('請繼續新增紀錄或點選「儲存」', {size: "sm", align: "center", color: "#B9B8B8"} ) ]
         }
       }
     }
@@ -131,22 +154,51 @@ module Line::Designer::Record
     records = game.records
     {
       type: "flex",
-      altText: "Flex Message",
+      altText: "record_is_zero",
       contents: {
         type: "bubble",
         direction: "ltr",
         header: {
           type: "box",
-          layout: "vertical",
+          layout: 'horizontal',
           contents: [
-            text('儲存成功！', { size: "xl", align: "center" }),
-            text('(輸入[麻將]叫出主選單）', { size: "xs", align: "center", color: "#ACA6A6" })
+            {
+              type: 'box',
+              layout: 'vertical',
+              flex: 4,
+              contents: [
+                text('儲存成功', { size: 'xl', align: 'start'}),
+                text('(已紀錄至Server)', { size: 'sm', margin: 'sm', align: 'start', color: '#ACA6A6'})
+              ]
+            },
+            button_message('主選單', '麻將', {flex: 3, color: '#E1A576', margin: 'xxl', height: 'sm', style: 'primary', gravity: 'center'})
           ]
         },
         body: {
-          type: "box",
-          layout: "vertical",
-          contents: records.map { |r| record_info(r) }
+          type: 'box',
+          layout: 'horizontal',
+          contents: [
+            {
+              type: 'box',
+              layout: 'vertical',
+              flex: 1,
+              spacing: 'md',
+              contents: [{type: 'spacer'}]
+            },
+            {
+              type: 'box',
+              layout: 'vertical',
+              flex: 5,
+              contents: records.map { |r| record_info(r)}
+            },
+            {
+              type: 'box',
+              layout: 'vertical',
+              flex: 1,
+              spacing: 'md',
+              contents: [{type: 'spacer'}]
+            }
+          ]
         }
       }
     }

@@ -3,6 +3,6 @@ class Setting < Settingslogic
   namespace Rails.env
 
   def liff_link(id)
-    "line://app/#{liff_ids.send(id)}"
+    "line://app/#{liff_ids[id]}"
   end
 end

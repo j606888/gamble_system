@@ -1,18 +1,18 @@
 class Liff::RoomsController < Liff::ApplicationController
-  before_action :check_room_ability, only: [:edit, :update]
-
   def create
     room = Room.create(name: params[:name])
     RoomMap.create(room_id: room.id, line_source_id: @line_source.id)
     @line_source.update(room_id: room.id)
     message = "#{room.name} 建立成功"
-    redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.room_edit)
+    redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.room_show)
   end
 
   def edit
+    @room = @source_room
   end
 
   def update
+    @room = @source_room
     @room.update(name: params[:name])
     message = "#{@room.name} 房間更名成功！"
     redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.room_edit)
@@ -27,11 +27,5 @@ class Liff::RoomsController < Liff::ApplicationController
     @line_source.update(room_id: params[:target_id])
     message = "切換至 #{@line_source.room.name} 成功！"
     redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.room_show)
-  end
-
-  private
-  def check_room_ability
-    @room = Room.find(params[:room_id])
-    return render json: { status: 403, error_message: 'Insufficient permission for this room'} if @room != @source_room
   end
 end
