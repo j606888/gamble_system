@@ -24,12 +24,4 @@
   </tbody>
 </table>
 
-<script>
-  liff.init({
-    liffId: "1653496919-qlmKpk3r"
-  }).then(() => {
-    
-  }).catch((err) => {
-    alert(err)
-  })
-</script>
+<%= render(partial: 'liff/init', locals: { liff_id: Setting.liff_ids.player_index }) %>

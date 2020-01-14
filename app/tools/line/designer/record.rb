@@ -48,7 +48,7 @@ module Line::Designer::Record
           contents: [
             button_message('強迫儲存', '強迫儲存'),
             button_message('取消', '取消'),
-            button_uri('紀錄小幫手', line_source.new_game_link)
+            button_uri('紀錄小幫手', line_source.liff_link(:game_new))
           ]
         }
       }

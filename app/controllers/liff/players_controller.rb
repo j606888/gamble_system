@@ -13,7 +13,7 @@ class Liff::PlayersController < Liff::ApplicationController
     room = line_source.room
     player = room.players.create(name: params[:name], nickname: params[:nickname])
     message = "#{player.name}(#{player.nickname}) 建立成功！"
-    redirect_to liff_callback_text_path(message: message, liff_id: "1653496919-gn1xDAZY")
+    redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.player_add)
   end
 
   def edit
@@ -25,7 +25,7 @@ class Liff::PlayersController < Liff::ApplicationController
     return render json: { status: 403 } unless player.room = @room
     player.update(player_params)
     message = "#{player.name}(#{player.nickname}) 更新成功！"
-    redirect_to liff_callback_text_path(message: message, liff_id: "1653496919-qlmKpk3r")
+    redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.player_index)
   end
 
   def destroy
@@ -33,7 +33,7 @@ class Liff::PlayersController < Liff::ApplicationController
     return render json: { status: 403 } unless @player.room = @room
     @player.delete
     message = "#{@player.name} 刪除成功！"
-    redirect_to liff_callback_text_path(message: message, liff_id: "1653496919-qlmKpk3r")
+    redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.player_index)
   end
 
   private

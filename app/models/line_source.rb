@@ -16,24 +16,8 @@ class LineSource < ApplicationRecord
     update(room_id: room_id)
   end
 
-  def add_player_link
-    "line://app/1653496919-gn1xDAZY?source_id=#{source_id}"
-  end
-
-  def player_index_link
-    "line://app/1653496919-qlmKpk3r?source_id=#{source_id}"
-  end
-
-  def new_game_link
-    "line://app/1653496919-Oaqv0m3k?source_id=#{source_id}"
-  end
-
-  def room_edit_link
-    "line://app/1653496919-op36eGKE?source_id=#{source_id}&room_id=#{room.id}"
-  end
-
-  def room_show_link
-    "line://app/1653496919-GmW6orDX?source_id=#{source_id}"
+  def liff_link(type)
+    "#{Setting.liff_link(type)}?source_id=#{source_id}"
   end
 
   private

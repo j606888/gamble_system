@@ -9,13 +9,4 @@
 
 <%= link_to '返回', room_players_path(@player.room) %>
 
-<script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
-<script>
-  liff.init({
-    liffId: "1653496919-qlmKpk3r"
-  }).then(() => {
-    
-  }).catch((err) => {
-    alert(err)
-  })
-</script>
+<%= render(partial: 'liff/init', locals: { liff_id: Setting.liff_ids.player_index }) %>

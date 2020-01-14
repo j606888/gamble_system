@@ -38,8 +38,8 @@ module Line::Designer::Board
         layout: "vertical",
         contents: [
           button_message('新增紀錄', '新增紀錄', {margin: 'xs', height: 'sm', style: 'primary'}),
-          button_uri('新增玩家', line_source.add_player_link, {margin: 'xs', height: 'sm', style: 'primary'}),
-          button_uri('編輯玩家', line_source.player_index_link, {margin: 'xs', height: 'sm', style: 'primary'}),
+          button_uri('新增玩家', line_source.liff_link(:player_add), {margin: 'xs', height: 'sm', style: 'primary'}),
+          button_uri('編輯玩家', line_source.liff_link(:player_index), {margin: 'xs', height: 'sm', style: 'primary'}),
           button_uri('前往web', room.web_link, {margin: 'xs', height: 'sm', style: 'primary'}),
           button_message('查看教學', '還沒啦', {margin: 'xs', height: 'sm', style: 'primary'})
         ]

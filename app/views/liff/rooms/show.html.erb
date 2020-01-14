@@ -10,12 +10,5 @@
   <input type="hidden" name="source_id" value="<%= params[:source_id] %>">
   <input type="submit" value="go">
 <% end %>
-<script>
-  liff.init({
-    liffId: "1653496919-GmW6orDX"
-  }).then(() => {
-    
-  }).catch((err) => {
-    alert(err)
-  })
-</script>
+
+<%= render(partial: 'liff/init', locals: { liff_id: Setting.liff_ids.room_show }) %>

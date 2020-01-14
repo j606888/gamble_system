@@ -23,13 +23,4 @@
   <hr>
 <% end %>
 
-<script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
-<script>
-  liff.init({
-    liffId: "1653496919-Oaqv0m3k"
-  }).then(() => {
-    
-  }).catch((err) => {
-    alert(err)
-  })
-</script>
+<%= render(partial: 'liff/init', locals: { liff_id: Setting.liff_ids.game_new }) %>

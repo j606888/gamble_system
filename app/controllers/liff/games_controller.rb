@@ -7,7 +7,7 @@ class Liff::GamesController < Liff::ApplicationController
 
   def output
     message = Record.to_message(params[:records])
-    redirect_to liff_callback_text_path(message: message, liff_id: "1653496919-Oaqv0m3k")
+    redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.game_new)
   end
 
   private

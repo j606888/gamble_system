@@ -6,7 +6,7 @@ class Liff::RoomsController < Liff::ApplicationController
     RoomMap.create(room_id: room.id, line_source_id: @line_source.id)
     @line_source.update(room_id: room.id)
     message = "#{room.name} 建立成功"
-    redirect_to liff_callback_text_path(message: message, liff_id: "1653496919-op36eGKE")
+    redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.room_edit)
   end
 
   def edit
@@ -15,7 +15,7 @@ class Liff::RoomsController < Liff::ApplicationController
   def update
     @room.update(name: params[:name])
     message = "#{@room.name} 房間更名成功！"
-    redirect_to liff_callback_text_path(message: message, liff_id: "1653496919-op36eGKE")
+    redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.room_edit)
   end
 
   def show
@@ -26,7 +26,7 @@ class Liff::RoomsController < Liff::ApplicationController
   def switch
     @line_source.update(room_id: params[:target_id])
     message = "切換至 #{@line_source.room.name} 成功！"
-    redirect_to liff_callback_text_path(message: message, liff_id: "1653496919-GmW6orDX")
+    redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.room_show)
   end
 
   private

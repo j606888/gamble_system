@@ -1,5 +1,11 @@
 development: &development
   host: 'http://localhost:3000'
+  liff_ids:
+    player_add: 1653496919-gn1xDAZY
+    player_index: 1653496919-qlmKpk3r
+    game_new: 1653496919-Oaqv0m3k
+    room_edit: 1653496919-op36eGKE
+    room_show: 1653496919-GmW6orDX
 
 test:
   <<: *development
