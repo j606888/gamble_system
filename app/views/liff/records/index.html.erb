@@ -1,0 +1,11 @@
+<% @reports.each do |report| %>
+  <div>
+    <h3><%= report[:name] %></h3>
+    <p>分數：<%= report[:total_score] %></p>
+    <p>總場數<%= report[:game_count] %></p>
+    <p>贏：<%= report[:win] %></p>
+    <p>輸：<%= report[:lose] %></p>
+    <p>勝率：<%= report[:win_rate] %></p>
+    <%= link_to '個人歷史', liff_records_show_path(player_id: report[:id], source_id: params[:source_id])%>
+  </div>
+<% end %>

@@ -40,6 +40,15 @@ class Player < ApplicationRecord
     }
   end
 
+  def date_report
+    records.includes(:game).map do |record|
+      {
+        date: record.game.date,
+        score: record.score
+      }
+    end
+  end
+
   private
   def upper_nickname!
     self.nickname = nickname.upcase

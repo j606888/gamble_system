@@ -44,6 +44,12 @@ Rails.application.routes.draw do
       post 'create'
     end
 
+    namespace :records do
+      get 'index'
+      get 'show'
+      get 'total'
+    end
+
     resources :games, only: [:new] do
       collection do
         post 'output'

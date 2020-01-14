@@ -1,0 +1,11 @@
+<h2>個人歷史紀錄</h2>
+<%= @player.name %>
+<table>
+  <% @reports.each do |report| %>
+    <tr>
+      <td><%= report[:date] %></td>
+      <td><%= report[:score] %></td>
+    </tr>
+  <% end %>
+</table>
+<%= link_to '返回', liff_records_index_path(source_id: params[:source_id]) %>
