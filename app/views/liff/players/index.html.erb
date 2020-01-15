@@ -1,27 +1,24 @@
-<h2>新增玩家<h2>
-
-<table class="table">
-  <thead class="thead-dark">
+<div class="wrapper">
+  <header class="nameTitle">
+    <div class="nameTitle">管理玩家</div>
+  </header>
+  <table>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">名稱</th>
-      <th scope="col">暱稱</th>
-      <th scope="col">動作</th>
+      <td>名稱</td>
+      <td>暱稱</td>
+      <td>動作</td>
     </tr>
-  </thead>
-  <tbody>
     <% @players.each do |player| %>
       <tr>
-        <th><%= player.id %></th>
         <th><%= player.name %></th>
         <th><%= player.nickname %></th>
         <th>
-          <%= link_to '刪除', liff_player_path(player.id, source_id: params[:source_id]), method: :delete %>
-          <%= link_to '編輯', edit_liff_player_path(player.id, source_id: params[:source_id]) %>
+          <%= link_to '編輯', edit_liff_player_path(player.id, source_id: params[:source_id]), class: 'edit' %> &nbsp; &nbsp;   
+          <%= link_to '刪除', liff_player_path(player.id, source_id: params[:source_id]), class: 'delete', method: :delete %>
         </th>
       </tr>
     <% end %>
-  </tbody>
-</table>
+  </table>
+</div>
 
 <%= render(partial: 'liff/init', locals: { liff_id: Setting.liff_ids.player_edit }) %>

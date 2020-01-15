@@ -300,6 +300,18 @@ table {
   border-bottom: 1px solid #eeeeee;
 }
 
+table .edit {
+  color: green;
+  font-size: 12;
+  font-weight: 100;
+}
+
+table .delete {
+  color: red;
+  font-size: 12;
+  font-weight: 100;
+}
+
 table tr:first-child {
   background: #eeeeee;
 }
