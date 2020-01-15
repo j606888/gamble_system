@@ -15,6 +15,14 @@ test:
 preparing:
   <<: *development
   host: 'https://www.j606888.com:3004'
+  liff_ids:
+    player_new: 1653770328-n4pAp719
+    player_edit: 1653770328-amNdNLkz
+    game_new: 1653770328-bwGoGXNe
+    room_edit: 1653770328-Md6W60Rx
+    room_show: 1653770328-nN2q2kj0
+    record_index: 1653770328-o5DyDP0O
+    record_total: 1653770328-BvQeQ2lY
 
 production:
   <<: *development
