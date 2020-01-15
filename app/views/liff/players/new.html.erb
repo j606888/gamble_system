@@ -1,11 +1,18 @@
-<h2>新增玩家<h2>
-<%= form_tag(liff_players_path) do %>
-  名稱:<br>
-  <input type="text" name="name"><br>
-  暱稱:<br>
-  <input type="text" name="nickname"><br>
-  <input type="hidden" name="source_id" value="<%= params[:source_id] %>">
-  <%= submit_tag 'go', data: { disable_with: 'go' } %>
-<% end %>
-
+<div class="wrapper">
+  <header class="nameTitle">
+    <div class="nameTitle">新增玩家</div>
+  </header>
+  <section>
+    <%= form_tag(liff_players_path) do %>
+      <div class="inputValue">
+          <div class="name1">名稱</div>
+          <div class="small_input"><input type="text" name="name"></div>
+          <div class="name2">暱稱</div>
+          <div class="small_input"><input type="text" name="nickname"></div>
+          <input type="hidden" name="source_id" value="<%= params[:source_id] %>">
+      </div>
+      <%= submit_tag '新增', class: 'normal',  data: { disable_with: '新增' } %>
+    <% end %>
+  </section>
+</div>
 <%= render(partial: 'liff/init', locals: { liff_id: Setting.liff_ids.player_new }) %>
