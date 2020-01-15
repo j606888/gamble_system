@@ -15,7 +15,7 @@ module Line::Designer::Board
   end
 
   def score_board(line_source)
-    players = line_source.room.players
+    players = line_source.room.players.winner
     room_name = line_source.room.name
 
     return none_user_board if players.count == 0
@@ -123,6 +123,7 @@ module Line::Designer::Board
   end
 
   def player_info(player)
+    report = player.analyse
     {
       type: "box",
       layout: "horizontal",
@@ -130,8 +131,8 @@ module Line::Designer::Board
       spacing: "sm",
       contents: [
         text("#{player.name}(#{player.nickname})", { margin: "md", flex: 4, align: "start", weight: "bold", wrap: false }),
-        text(player.game_times.to_s, { margin: "sm", flex: 2, align: 'center', margin: 'sm' }),
-        text(player.total_score.to_s, { align: 'end', flex: 2, align: 'end' })
+        text(report[:game_count].to_s, { margin: "sm", flex: 2, align: 'center' }),
+        text(report[:total_score].to_s, { align: 'end', flex: 2 })
       ]
     }
   end

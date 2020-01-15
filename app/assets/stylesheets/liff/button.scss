@@ -135,6 +135,28 @@ button.secondary {
   background: #ffffff;
 }
 
+a.secondary {
+  width: 100%;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  text-align: center;
+  border-radius: 10px;
+  padding: 10px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: 1px solid #cccccc;
+  color: #51ad42;
+  background: #ffffff;
+}
+
 a {
   color: inherit;
 }
@@ -263,7 +285,7 @@ header .nameTitle {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 50px 1fr;
-      grid-template-columns: 50px 1fr;
+      grid-template-columns: 0.7fr 1fr;
   -ms-grid-rows: 1fr;
       grid-template-rows: 1fr;
       grid-template-areas: "side" "input";
@@ -308,6 +330,18 @@ table .edit {
 
 table .delete {
   color: red;
+  font-size: 12;
+  font-weight: 100;
+}
+
+table .hidden {
+  color: red;
+  font-size: 12;
+  font-weight: 100;
+}
+
+table .show {
+  color: blue;
   font-size: 12;
   font-weight: 100;
 }

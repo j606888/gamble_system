@@ -1,26 +1,21 @@
-<h2>新增玩家<h2>
-<%= form_tag(output_liff_games_path(source_id: params[:source_id])) do %>
-  <div style="margin: auto">
-    <table>
-      <thead>
-        <tr>
-          <th colspan="2">姓名</th>
-          <th>分數</th>
-        </tr>
-      </thead>
-      <tbody>
+<div class="wrapper">
+  <header class="nameTitle">
+    <div class="nameTitle">新增紀錄</div>
+  </header>
+  <section>
+    <%= form_tag(output_liff_games_path(source_id: params[:source_id])) do %>
+      <div class="inputValue">
+        <div class="name">姓名</div>
+        <div class="point">分數</div>
         <% @players.each do |player| %>
-          <tr>
-            <td><%= hidden_field_tag "records[]player_id", player.id %></td>
-            <td><%= "#{player.name}(#{player.nickname})" %></td>
-            <td><%= text_field_tag "records[]score", "", class: 'form-control room-input-field' %></td>
-          </tr>
-        <% end %>  
-      </tbody>
-      <tr><td colspan="3"><%= submit_tag '送出', class:"btn btn-success", data: {disable_with: '送出'} %></td></tr>
-    </table>
-  </div>
-  <hr>
-<% end %>
+          <div class="name1"><%= "#{player.name}(#{player.nickname})" %></div>
+          <div class="small_input"><%= text_field_tag "records[]score" %></div>
+          <%= hidden_field_tag "records[]player_id", player.id %>
+        <% end %>
+      </div>
+      <%= submit_tag '新增', class: 'normal', data: { disable_with: '新增' } %>
+    <% end %>
+  </section>   
+</div>
 
 <%= render(partial: 'liff/init', locals: { liff_id: Setting.liff_ids.game_new }) %>

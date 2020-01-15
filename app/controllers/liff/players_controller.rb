@@ -29,13 +29,21 @@ class Liff::PlayersController < Liff::ApplicationController
     redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.player_edit)
   end
 
-  def destroy
-    @player = Player.find(params[:id])
-    return render json: { status: 403 } unless @player.room = @room
-    @player.delete
-    message = "#{@player.name} 刪除成功！"
+  def trigger_hidden
+    player = Player.find(params[:id])
+    player.update(hidden: !player.hidden)
+    status = player.hidden ? '隱藏' : '顯示'
+    message = "#{player.name} #{status} 成功！"
     redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.player_edit)
   end
+
+  # def destroy
+  #   @player = Player.find(params[:id])
+  #   return render json: { status: 403 } unless @player.room = @room
+  #   @player.delete
+  #   message = "#{@player.name} 刪除成功！"
+  #   redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.player_edit)
+  # end
 
   private
   def check_source_ability    

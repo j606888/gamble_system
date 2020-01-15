@@ -34,7 +34,11 @@ Rails.application.routes.draw do
   end
 
   namespace :liff do
-    resources :players
+    resources :players do
+      member do
+        post 'trigger_hidden'
+      end
+    end
 
     namespace :rooms do
       get 'edit'

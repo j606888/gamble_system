@@ -1,11 +1,28 @@
-<% @reports.each do |report| %>
-  <div>
-    <h3><%= report[:name] %></h3>
-    <p>分數：<%= report[:total_score] %></p>
-    <p>總場數<%= report[:game_count] %></p>
-    <p>贏：<%= report[:win] %></p>
-    <p>輸：<%= report[:lose] %></p>
-    <p>勝率：<%= report[:win_rate] %></p>
-    <%= link_to '個人歷史', liff_records_show_path(player_id: report[:id], source_id: params[:source_id])%>
-  </div>
-<% end %>
+<div class="wrapper">
+  <header>
+    <div class="nameTitle">統計表</div>
+  </header>
+  <table>
+    <tr>
+      <th>姓名</th>
+      <th>分數</th>
+      <th>場數</th>
+      <th>贏數</th>
+      <th>輸數</th>
+      <th>勝率</th>
+      <th>Other</th>
+    </tr>
+
+    <% @reports.each do |report| %>
+    <tr>
+      <th><%= report[:name] %></th>
+      <td><%= report[:total_score] %></td>
+      <td><%= report[:game_count] %></td>
+      <td><%= report[:win] %></td>
+      <td><%= report[:lose] %></td>
+      <td><%= report[:win_rate] %></td>
+      <td><%= link_to '紀錄', liff_records_show_path(player_id: report[:id], source_id: params[:source_id]), class: 'edit' %></th>
+    <tr>
+    <% end %>
+  </table>
+</div>

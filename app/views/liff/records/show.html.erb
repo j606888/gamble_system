@@ -1,6 +1,12 @@
-<h2>個人歷史紀錄</h2>
-<%= @player.name %>
-<table>
+<div class="wrapper">
+  <header class="nameTitle">
+    <div class="nameTitle"><%= @player.name %></div>
+  </header>
+<table class="table table-bordered">
+  <tr>
+    <td>日期</td>
+    <td>分數</td>
+  </tr>
   <% @reports.each do |report| %>
     <tr>
       <td><%= report[:date] %></td>
@@ -8,4 +14,6 @@
     </tr>
   <% end %>
 </table>
-<%= link_to '返回', liff_records_index_path(source_id: params[:source_id]) %>
+</div>
+
+<%= link_to '返回', liff_records_index_path(source_id: params[:source_id]), class: 'secondary' %>

@@ -5,9 +5,9 @@ class Player < ApplicationRecord
   before_create :nickname_check!
 
   scope :avaliable, -> { where(hidden: false).order(:id) }
-  scope :winner, -> { all.includes(:records).sort_by(&:total_score).reverse! }
-  scope :loser, -> { all.includes(:records).sort_by(&:total_score) }
-  scope :counter, -> { all.includes(:records).sort_by(&:game_times).reverse! }
+  scope :winner, -> { includes(:records).all.sort_by(&:total_score).reverse! }
+  scope :loser, -> { includes(:records).all.sort_by(&:total_score) }
+  scope :counter, -> { includes(:records).all.sort_by(&:game_times).reverse! }
 
   def total_score
     records.map(&:score).compact.sum

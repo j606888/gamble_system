@@ -14,7 +14,11 @@
         <th><%= player.nickname %></th>
         <th>
           <%= link_to '編輯', edit_liff_player_path(player.id, source_id: params[:source_id]), class: 'edit' %> &nbsp; &nbsp;   
-          <%= link_to '刪除', liff_player_path(player.id, source_id: params[:source_id]), class: 'delete', method: :delete %>
+          <% if player.hidden %>  
+            <%= link_to '顯示', trigger_hidden_liff_player_path(player.id, source_id: params[:source_id]), class: 'hidden', method: :post %>
+          <% else %>
+            <%= link_to '隱藏', trigger_hidden_liff_player_path(player.id, source_id: params[:source_id]), class: 'show', method: :post %>
+          <% end %>
         </th>
       </tr>
     <% end %>

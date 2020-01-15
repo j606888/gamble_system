@@ -1,9 +1,17 @@
-<%= form_tag(liff_rooms_update_path, method: 'put') do %>
-  房間名稱：<br>
-  <input type="text" name="name" value="<%= @room.name %>">
-  <input type="hidden" name="source_id" value="<%= params[:source_id] %>">
-  <input type="hidden" name="room_id" value="<%= params[:room_id] %>">
-  <input type="submit" value="go">
-<% end %>
-
+<div class="wrapper">
+  <header class="nameTitle">
+    <div class="nameTitle">更新房名</div>
+  </header>
+  <section>
+  <%= form_tag(liff_rooms_update_path, method: 'put') do %>
+    <div class="inputValue">
+      <div class="name1">房間名稱</div>
+      <div class="small_input"><input type="text" name="name" value="<%= @room.name %>"></div>
+      <input type="hidden" name="source_id" value="<%= params[:source_id] %>">
+      <input type="hidden" name="room_id" value="<%= params[:room_id] %>">
+    </div>
+    <%= submit_tag '更新', class: 'normal',  data: { disable_with: '更新' } %>
+  <% end %>
+  </section>
+</div>
 <%= render(partial: 'liff/init', locals: { liff_id: Setting.liff_ids.room_edit }) %>
