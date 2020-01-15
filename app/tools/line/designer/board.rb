@@ -15,7 +15,7 @@ module Line::Designer::Board
   end
 
   def score_board(line_source)
-    players = line_source.room.players.winner
+    players = line_source.room.players.avaliable.winner
     room_name = line_source.room.name
 
     return none_user_board if players.count == 0
