@@ -5,6 +5,7 @@
     <th>房名</th>
     <th>玩家</th>
     <th>局數</th>
+    <th>連結</th>
   </tr>
   <% @rooms.each do |room| %>
     <tr>
@@ -12,6 +13,7 @@
       <td><%= room.name %></td>
       <td><%= room.players.count %></td>
       <td><%= room.games.count %></td>
+      <td><%= link_to '連結', admin_room_path(room.id) %></td>
     </tr>
   <% end %>
 </table>
