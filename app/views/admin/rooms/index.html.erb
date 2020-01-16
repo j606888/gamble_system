@@ -1,0 +1,17 @@
+<h1>Welcome to Admin room</h1>
+<table>
+  <tr>
+    <th>id</th>
+    <th>房名</th>
+    <th>玩家</th>
+    <th>局數</th>
+  </tr>
+  <% @rooms.each do |room| %>
+    <tr>
+      <td><%= room.id %></td>
+      <td><%= room.name %></td>
+      <td><%= room.players.count %></td>
+      <td><%= room.games.count %></td>
+    </tr>
+  <% end %>
+</table>
