@@ -9,13 +9,14 @@
 <body>
   <h2>Web here</h2>
   <p><%= @message %></p>
+  <p>message: <%= params[:message] %></p>
+  <p>callboard: <%= params[:call_board] %></p>
   <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
   <script>
     function initApp() {
       let message = "<%= j(params['message']) %>";
-      let callBoard = <%= j(params['call_board']) %>;
-
-      console.log(callBoard);
+      let callBoard = <%= j(params['call_board']) %>
+      
       liff.sendMessages([
         {
           type: 'text',
