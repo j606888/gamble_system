@@ -11,16 +11,16 @@ class Line::Replyer
     record_not_zero
     player_not_found
   ]
+  MAHJOHN_MESSAGE = {
+    type: 'text',
+    text: '麻將'
+  }
 
   def initialize(reply_token)
     @reply_token = reply_token
   end
 
   def reply(action, options={})
-    @mahjohn_text = {
-      type: 'text',
-      text: '麻將'
-    }
     raise "not allow action" unless ALLOW_ACTION.include?(action)
     @message_object = line_designer.send(action, options) if options.present?
     @message_object ||= line_designer.send(action)
@@ -39,8 +39,9 @@ class Line::Replyer
       req.headers['Authorization'] = "Bearer #{ACCESS_TOKEN}"
       request_body = {
         replyToken: @reply_token,
-        messages: [@message_object, @mahjohn_text]
+        messages: [@message_object]
       }
+      request_body[:messages] << carousel_board(options) if @with_majonh_message = true
       req.body = request_body.to_json
     end
     

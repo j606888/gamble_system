@@ -102,7 +102,8 @@ class Line::Eventer < ServiceCaller
       @room.games.force_from_line(records)
       Rails.cache.delete("room:#{@room.id}:records")
       @line_source.normal_mode!
-      return line_replyer.reply(:record_is_zero, @room.games.last)
+      # return line_replyer.reply(:record_is_zero, @room.games.last)
+      return line_replyer.reply(:record_is_zero, @line_source)
     elsif @text == KEYWORDS[:force_cancel]
       Rails.cache.delete("room:#{@room.id}:records")
       @line_source.normal_mode!
@@ -119,7 +120,8 @@ class Line::Eventer < ServiceCaller
     
     result = @room.games.create_from_line(records)
     if result == :success
-      line_replyer.reply(:record_is_zero, @room.games.last)
+      # line_replyer.reply(:record_is_zero, @room.games.last)
+      line_replyer.reply(:record_is_zero, @line_source)
       Rails.cache.delete("room:#{@room.id}:records")
       @line_source.normal_mode!
     else

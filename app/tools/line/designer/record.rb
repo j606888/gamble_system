@@ -150,8 +150,9 @@ module Line::Designer::Record
     }
   end
 
-  def record_is_zero(game)
-    records = game.records
+  def record_is_zero(line_source)
+    @with_majonh_message = true
+    records = line_source.room.games.last.records
     {
       type: "flex",
       altText: "record_is_zero",
