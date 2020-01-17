@@ -21,6 +21,7 @@ class Line::Replyer
   end
 
   def reply(action, options={})
+    @options = options
     raise "not allow action" unless ALLOW_ACTION.include?(action)
     @message_object = line_designer.send(action, options) if options.present?
     @message_object ||= line_designer.send(action)
@@ -41,7 +42,7 @@ class Line::Replyer
         replyToken: @reply_token,
         messages: [@message_object]
       }
-      request_body[:messages] << carousel_board(options) if @with_majonh_message = true
+      request_body[:messages] << line_desingner.carousel_board(@options) if @with_majonh_message = true
       req.body = request_body.to_json
     end
     
