@@ -11,13 +11,10 @@ class Line::Replyer
     record_not_zero
     player_not_found
   ]
-  MAHJOHN_MESSAGE = {
-    type: 'text',
-    text: '麻將'
-  }
 
   def initialize(reply_token)
     @reply_token = reply_token
+    @with_majonh_message = false
   end
 
   def reply(action, options={})
@@ -42,7 +39,7 @@ class Line::Replyer
         replyToken: @reply_token,
         messages: [@message_object]
       }
-      request_body[:messages] << line_desingner.carousel_board(@options) if @with_majonh_message = true
+      request_body[:messages] << line_designer.carousel_board(@options) if @with_majonh_message = true
       req.body = request_body.to_json
     end
     
