@@ -165,13 +165,11 @@ module Line::Designer::Record
             {
               type: 'box',
               layout: 'vertical',
-              flex: 4,
               contents: [
-                text('儲存成功', { size: 'xl', align: 'start'}),
-                text('(已紀錄至Server)', { size: 'sm', margin: 'sm', align: 'start', color: '#ACA6A6'})
+                text('儲存成功', { size: 'xl', align: 'center'}),
+                text('(已紀錄至Server)', { size: 'sm', margin: 'sm', align: 'center', color: '#ACA6A6'})
               ]
-            },
-            button_message('主選單', '麻將', {flex: 3, color: '#E1A576', margin: 'xxl', height: 'sm', style: 'primary', gravity: 'center'})
+            }
           ]
         },
         body: {
