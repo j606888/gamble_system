@@ -38,8 +38,8 @@ class Line::Eventer < ServiceCaller
 
   def auto_create_room
     room = Room.create(name: "麻將小房間")
-    @line_source.room = room
-    @line_source.save
+    @line_source.update(room: room)
+    RoomMap.create(line_source_id: @line_source.id, room_id: room.id)
   end
 
   def setup_line_source!

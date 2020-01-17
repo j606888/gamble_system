@@ -13,16 +13,24 @@
   <script>
     function initApp() {
       let message = "<%= j(params['message']) %>";
+      let callBoard = <%= j(params['call_board']) %>;
+
+      console.log(callBoard);
       liff.sendMessages([
         {
           type: 'text',
           text: message
-        },
-        {
-          type: 'text',
-          text: '麻將'
         }
       ])
+      if (callBoard == 1) {
+        console.log('yes')
+        liff.sendMessages([
+          {
+            type: 'text',
+            text: '麻將'
+          }
+        ])
+      }
       liff.closeWindow();
     }
     let liff_id = "<%= j(params['liff_id']) %>";

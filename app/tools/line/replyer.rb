@@ -17,6 +17,10 @@ class Line::Replyer
   end
 
   def reply(action, options={})
+    @mahjohn_text = {
+      type: 'text',
+      text: '麻將'
+    }
     raise "not allow action" unless ALLOW_ACTION.include?(action)
     @message_object = line_designer.send(action, options) if options.present?
     @message_object ||= line_designer.send(action)
@@ -30,13 +34,12 @@ class Line::Replyer
 
   def post_it
     conn = Faraday.new(REPLY_URI)
-    # binding.pry
     conn.post do |req|
       req.headers['Content-Type'] = 'application/json'
       req.headers['Authorization'] = "Bearer #{ACCESS_TOKEN}"
       request_body = {
         replyToken: @reply_token,
-        messages: [@message_object]
+        messages: [@message_object, @mahjohn_text]
       }
       req.body = request_body.to_json
     end

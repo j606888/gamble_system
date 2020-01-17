@@ -14,7 +14,7 @@ class Liff::PlayersController < Liff::ApplicationController
     nickname = params[:nickname].upcase
     player = room.players.create(name: params[:name], nickname: nickname)
     message = "#{player.name}(#{player.nickname}) 建立成功！"
-    redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.player_new)
+    redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.player_new, call_board: 1)
   end
 
   def edit
@@ -26,7 +26,7 @@ class Liff::PlayersController < Liff::ApplicationController
     return render json: { status: 403 } unless player.room = @room
     player.update(player_params)
     message = "#{player.name}(#{player.nickname}) 更新成功！"
-    redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.player_edit)
+    redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.player_edit, call_board: 1)
   end
 
   def trigger_hidden
@@ -34,16 +34,8 @@ class Liff::PlayersController < Liff::ApplicationController
     player.update(hidden: !player.hidden)
     status = player.hidden ? '隱藏' : '顯示'
     message = "#{player.name} #{status} 成功！"
-    redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.player_edit)
+    redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.player_edit, call_board: 1)
   end
-
-  # def destroy
-  #   @player = Player.find(params[:id])
-  #   return render json: { status: 403 } unless @player.room = @room
-  #   @player.delete
-  #   message = "#{@player.name} 刪除成功！"
-  #   redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.player_edit)
-  # end
 
   private
   def check_source_ability    
