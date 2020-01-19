@@ -17,20 +17,10 @@
       let message = "<%= j(params['message']) %>";
       let callBoard = "<%= j(params['call_board']) %>";
   
-        liff.sendMessages([
-          {
-            type: 'text',
-            text: callBoard
-          }
-        ]);
       liff.sendMessages([
         {
           type: 'text',
           text: message
-        },
-        {
-          type: 'text',
-          text: callBoard
         }
       ]);
       if (callBoard == "1") {
