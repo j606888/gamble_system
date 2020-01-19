@@ -16,6 +16,6 @@
       <div class="container">
         <%= yield %>
       </div>
-      <%= render(partial: 'liff/init', locals: { liff_id: @liff_id }) if @liff_id.present? %>
+      <%= render(partial: 'layouts/liff_init', locals: { liff_id: @liff_id }) if @liff_id.present? %>
   </body>
 </html>

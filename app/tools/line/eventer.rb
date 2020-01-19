@@ -1,13 +1,9 @@
 class Line::Eventer < ServiceCaller
   ALLOW_MESSAGE_TYPE = "text"
   KEYWORDS = {
-    create_new_room: "建立",
-    add_player_done: "結束",
     mahjohn: "麻將",
-    left_room: "解除綁定",
-    add_player: "新增玩家",
     add_record: "新增紀錄",
-    force_save: "強迫儲存",
+    force_save: "儲存",
     force_cancel: "取消"
   }
 
@@ -24,31 +20,15 @@ class Line::Eventer < ServiceCaller
     setup_line_source!
     return unless message_is_text?
 
-    return unbind_detect! if @line_source.unbind_mode?
-    return player_detect! if @line_source.player_mode?
     return normal_detact! if @line_source.normal_mode?
     return record_detact! if @line_source.record_mode?
-  end
-
-  private
-
-  def line_replyer
-    @line_replyer ||= Line::Replyer.new(@reply_token)
-  end
-
-  def auto_create_room
-    room = Room.create(name: "麻將小房間")
-    @line_source.update(room: room)
-    RoomMap.create(line_source_id: @line_source.id, room_id: room.id)
   end
 
   def setup_line_source!
     source_type = @source['type']
     source_id = @source["#{source_type}Id"]
-    @line_source = LineSource.find_or_initialize_by(source_type: "is_#{source_type}", source_id: source_id)
-    auto_create_room if @line_source.new_record?
+    @line_source = LineSource.setup_up_from(source_type, source_id)
     @room = @line_source.room
-    @line_source
   end
 
   def message_is_text?
@@ -57,39 +37,11 @@ class Line::Eventer < ServiceCaller
     true
   end
 
-  def unbind_detect!
-    if @text == KEYWORDS[:create_new_room]
-      room = Room.create(name: "麻將小房間")
-      @line_source.update!(room_id: room.id)
-      @line_source.player_mode!
-      return line_replyer.reply(:add_player)
-    elsif room = Room.find_by(invite_code: @text)
-      @line_source.update!(room_id: room.id)
-      @line_source.normal_mode!
-      return line_replyer.reply(:carousel_board, @line_source)
-    end
-    
-    line_replyer.reply(:need_to_bind_room)
-  end
-
-  def player_detect!
-    if @text == KEYWORDS[:add_player_done]
-      @line_source.normal_mode!
-      return line_replyer.reply(:carousel_board, @line_source)
-    end
-
-    name, nickname = @text.split(" ")
-    @room.players.create(name: name, nickname: nickname)
-    line_replyer.reply(:add_player_success, name)
-  end
-
   def normal_detact!
-    return line_replyer.reply(:carousel_board, @line_source) if @text == KEYWORDS[:mahjohn]
-    return left_room if @text == KEYWORDS[:left_room]
-    if @text == KEYWORDS[:add_player]
-      @line_source.player_mode!
-      line_replyer.reply(:add_player)
-    elsif @text == KEYWORDS[:add_record]
+    case @text
+    when KEYWORDS[:mahjohn]
+      line_replyer.reply(:carousel_board, @line_source)
+    when KEYWORDS[:add_record]
       @line_source.record_mode!
       line_replyer.reply(:add_record, @line_source)
     end
@@ -98,41 +50,40 @@ class Line::Eventer < ServiceCaller
   def record_detact!
     records = Rails.cache.fetch("room:#{@room.id}:records") { {} }
 
-    if @text == KEYWORDS[:force_save]
+    case @text
+    when KEYWORDS[:force_save]
       @room.games.force_from_line(records)
       Rails.cache.delete("room:#{@room.id}:records")
       @line_source.normal_mode!
-      # return line_replyer.reply(:record_is_zero, @room.games.last)
-      return line_replyer.reply(:record_is_zero, @line_source)
-    elsif @text == KEYWORDS[:force_cancel]
-      Rails.cache.delete("room:#{@room.id}:records")
-      @line_source.normal_mode!
-      return line_replyer.reply(:carousel_board, @line_source)
-    end
-
-    str_records = @text.upcase.strip.split("\n")
-    str_records.each do |record|
-      nickname, score = record.split(" ")
-      player = @room.players.find_by(nickname: nickname) || @room.players.find_by(name: nickname)
-      return line_replyer.reply(:player_not_found, nickname) if player.nil?
-      records[player.id] = score.to_i
-    end
-    
-    result = @room.games.create_from_line(records)
-    if result == :success
-      # line_replyer.reply(:record_is_zero, @room.games.last)
       line_replyer.reply(:record_is_zero, @line_source)
+    when KEYWORDS[:force_cancel]
       Rails.cache.delete("room:#{@room.id}:records")
       @line_source.normal_mode!
+      line_replyer.reply(:carousel_board, @line_source)
     else
-      Rails.cache.write("room:#{@room.id}:records", records)
-      line_replyer.reply(:record_not_zero, records)
+      str_records = @text.upcase.strip.split("\n")
+      str_records.each do |record|
+        nickname, score = record.split(" ")
+        player = @room.players.find_by(nickname: nickname) || @room.players.find_by(name: nickname)
+        return line_replyer.reply(:player_not_found, nickname) if player.nil?
+        records[player.id] = score.to_i
+      end
+      
+      result = @room.games.create_from_line(records)
+      if result == :success
+        line_replyer.reply(:record_is_zero, @line_source)
+        Rails.cache.delete("room:#{@room.id}:records")
+        @line_source.normal_mode!
+      else
+        Rails.cache.write("room:#{@room.id}:records", records)
+        line_replyer.reply(:record_not_zero, records)
+      end      
     end
   end
 
-  def left_room
-    @line_source.update(room_id: nil)
-    @line_source.unbind_mode!
-    line_replyer.reply(:need_to_bind_room)
-  end  
+  private
+
+  def line_replyer
+    @line_replyer ||= Line::Replyer.new(@reply_token)
+  end
 end

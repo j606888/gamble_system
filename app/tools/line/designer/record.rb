@@ -96,7 +96,7 @@ module Line::Designer::Record
                 text('(尚未儲存）', {size: "sm", align: "start", color: "#ACA6A6"})
               ]
             },
-            button_message('儲存', '強迫儲存', {flex: 2, color: '#E1A576', margin: 'xxl', height: 'sm', style: 'primary'})
+            button_message('儲存', '儲存', {flex: 2, color: '#E1A576', margin: 'xxl', height: 'sm', style: 'primary'})
           ]
         },
         body: {

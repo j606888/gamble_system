@@ -8,6 +8,17 @@ class LineSource < ApplicationRecord
 
   before_create :setup_status
 
+  def self.setup_up_from(source_type, source_id)
+    line_source = self.find_or_create_by(source_type: "is_#{source_type}", source_id: source_id)
+    return line_source if line_source.room.present?
+
+    room = Room.create(name: "麻將小房間")
+    line_source.update(room_id: room.id)
+    RoomMap.create(line_source_id: line_source.id, room_id: line_source.room.id)
+    
+    line_source
+  end
+
   def other_rooms
     rooms - [room]
   end
