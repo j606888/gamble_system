@@ -8,6 +8,7 @@ class Liff::RoomsController < Liff::ApplicationController
   end
 
   def edit
+    @liff_id = Setting.liff_ids.room_edit
     @room = @source_room
   end
 
@@ -19,6 +20,7 @@ class Liff::RoomsController < Liff::ApplicationController
   end
 
   def show
+    @liff_id = Setting.liff_ids.room_show
     @room = @source_room
     @other_rooms = @line_source.other_rooms
   end

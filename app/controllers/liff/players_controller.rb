@@ -3,9 +3,11 @@ class Liff::PlayersController < Liff::ApplicationController
 
   def index
     @players = @room.players
+    @liff_id = Setting.liff_ids.player_edit
   end
 
   def new
+    @liff_id = Setting.liff_ids.player_new
   end
 
   def create
@@ -18,6 +20,7 @@ class Liff::PlayersController < Liff::ApplicationController
   end
 
   def edit
+    @liff_id = Setting.liff_ids.player_edit
     @player = Player.find(params[:id])
   end
 
