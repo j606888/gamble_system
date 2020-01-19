@@ -14,7 +14,7 @@ class Liff::PlayersController < Liff::ApplicationController
     nickname = params[:nickname].upcase
     player = room.players.create(name: params[:name], nickname: nickname)
     message = "#{player.name}(#{player.nickname}) 建立成功！"
-    redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.player_new, call_board: 1)
+    redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.player_new, call_board: "1")
   end
 
   def edit
