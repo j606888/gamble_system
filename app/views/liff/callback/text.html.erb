@@ -17,14 +17,12 @@
       let message = "<%= j(params['message']) %>";
       let callBoard = "<%= j(params['call_board']) %>";
   
-      liff.sendMessage([
-        type: 'text',
-        text: message
-      ]);
-      liff.sendMessage([
-        type: 'text',
-        text: callBoard
-      ]);
+        liff.sendMessages([
+          {
+            type: 'text',
+            text: callBoard
+          }
+        ]);
       liff.sendMessages([
         {
           type: 'text',
