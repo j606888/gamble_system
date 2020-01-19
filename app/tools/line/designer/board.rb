@@ -3,7 +3,7 @@ module Line::Designer::Board
   def carousel_board(line_source)
     {
       type: "flex",
-      altText: "麻將將",
+      altText: "麻將說話了",
       contents: {
         type: "carousel",
         contents: [
