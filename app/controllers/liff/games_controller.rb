@@ -1,6 +1,6 @@
 class Liff::GamesController < Liff::ApplicationController
   def new
-    @players = @source_room.players
+    @players = @source_room.players.avaliable
     @liff_id = Setting.liff_ids.game_new
   end
 
