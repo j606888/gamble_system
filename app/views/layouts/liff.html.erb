@@ -12,13 +12,10 @@
       @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC:400,500&display=swap');
     </style>
   </head>
-
   <body>
-      <%= render 'layouts/navbar' %>
       <div class="container">
         <%= yield %>
       </div>
-    </div>
-    
+      <%= render(partial: 'liff/init', locals: { liff_id: Setting.liff_ids.player_new }) %>
   </body>
 </html>

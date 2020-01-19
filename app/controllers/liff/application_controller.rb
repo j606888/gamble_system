@@ -4,6 +4,8 @@ class Liff::ApplicationController < ApplicationController
 
   before_action :set_line_source
 
+  layout "liff"
+
   private
   def set_line_source
     @line_source = LineSource.find_by(source_id: params[:source_id])

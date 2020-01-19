@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users, controllers: { registrations: 'registrations', omniauth_callbacks: 'users/omniauth_callbacks' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'home#index'
@@ -8,6 +7,10 @@ Rails.application.routes.draw do
   get '/welcome', to: 'home#welcome'
   get '/advise', to: 'home#advise'
   post '/advise', to: 'home#advise'
+
+  namespace :admin do
+    resources :rooms
+  end
 
   resources :rooms do
     collection do
