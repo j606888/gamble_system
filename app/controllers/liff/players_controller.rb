@@ -26,7 +26,7 @@ class Liff::PlayersController < Liff::ApplicationController
     return render json: { status: 403 } unless player.room = @room
     player.update(player_params)
     message = "#{player.name}(#{player.nickname}) 更新成功！"
-    redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.player_edit, call_board: 1)
+    redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.player_edit, call_board: "1")
   end
 
   def trigger_hidden
@@ -34,7 +34,7 @@ class Liff::PlayersController < Liff::ApplicationController
     player.update(hidden: !player.hidden)
     status = player.hidden ? '隱藏' : '顯示'
     message = "#{player.name} #{status} 成功！"
-    redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.player_edit, call_board: 1)
+    redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.player_edit, call_board: "1")
   end
 
   private

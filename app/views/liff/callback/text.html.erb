@@ -15,7 +15,7 @@
   <script>
     function initApp() {
       let message = "<%= j(params['message']) %>";
-      let callBoard = <%= j(params['call_board']) %>
+      let callBoard = "<%= j(params['call_board']) %>";
       
       liff.sendMessages([
         {
@@ -23,7 +23,7 @@
           text: message
         }
       ])
-      if (callBoard == 1 || callBoard == "1") {
+      if (callBoard == "1") {
         liff.sendMessages([
           {
             type: 'text',
