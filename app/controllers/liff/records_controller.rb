@@ -1,7 +1,7 @@
 class Liff::RecordsController < Liff::ApplicationController
   def analyse
     @liff_id = Setting.liff_ids.record_analyse
-    @players = @source_room.players
+    @players = @source_room.players.avaliable.winner
     @reports = @players.includes(:records).map(&:analyse)
   end
 
