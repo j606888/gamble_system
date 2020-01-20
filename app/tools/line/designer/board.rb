@@ -26,7 +26,7 @@ module Line::Designer::Board
         layout: "horizontal",
         contents: [
           text(room_name, {flex: 5, size: "xl", align: "start", gravity: "center", color: "#F2B94A", wrap: true} ),
-          button_message("紀錄", "新增紀錄", {flex: 2, color: "#E1A576", margin: 'none', height: 'sm', style: 'primary'} )
+          button_uri("紀錄", @line_source.liff_link(:game_new), {flex: 2, color: "#E1A576", margin: 'none', height: 'sm', style: 'primary'} )
         ]
       },
       body: {
