@@ -1,12 +1,12 @@
 class Liff::RecordsController < Liff::ApplicationController
-  def index
-    @liff_id = Setting.liff_ids.record_index
+  def analyse
+    @liff_id = Setting.liff_ids.record_analyse
     @players = @source_room.players
     @reports = @players.includes(:records).map(&:analyse)
   end
 
-  def show
-    @liff_id = Setting.liff_ids.record_index
+  def single
+    @liff_id = Setting.liff_ids.record_analyse
     @player = Player.find(params[:player_id])
     @reports = @player.date_report
   end

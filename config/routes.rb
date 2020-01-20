@@ -52,8 +52,8 @@ Rails.application.routes.draw do
     end
 
     namespace :records do
-      get 'index'
-      get 'show'
+      get 'analyse'
+      get 'single'
       get 'total'
     end
 

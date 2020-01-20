@@ -81,8 +81,8 @@ module Line::Designer::Board
             layout: 'horizontal',
             contents: [
               text('戰績表', {margin: 'md', size: 'lg', align: 'center', gravity: 'center'}),
-              button_uri('表格', @line_source.liff_link(:record_total), {margin: 'md', height: 'sm', style: 'secondary'}),
-              button_uri('個人', @line_source.liff_link(:record_index), {margin: 'md', height: 'sm', style: 'secondary'})
+              button_uri('數據', @line_source.liff_link(:record_analyse), {margin: 'md', height: 'sm', style: 'secondary'}),
+              button_uri('表格', @line_source.liff_link(:record_total), {margin: 'md', height: 'sm', style: 'secondary'})
             ]
           },{
             type: 'separator'

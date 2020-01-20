@@ -18,12 +18,12 @@
     <tr>
       <th><%= report[:name] %></th>
       <td><%= report[:total_score] %></td>
-      <td><%= report[:gian_count] %></td>
       <td><%= report[:game_count] %></td>
+      <td><%= report[:gian_count] %></td>
       <td><%= report[:win] %></td>
       <td><%= report[:lose] %></td>
       <td><%= report[:win_rate] %></td>
-      <td><%= link_to '紀錄', liff_records_show_path(player_id: report[:id], source_id: params[:source_id]), class: 'edit' %></th>
+      <td><%= link_to '紀錄', liff_records_single_path(player_id: report[:id], source_id: params[:source_id]), class: 'edit' %></th>
     <tr>
     <% end %>
   </table>
