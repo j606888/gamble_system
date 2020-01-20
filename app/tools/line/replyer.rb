@@ -4,9 +4,9 @@ class Line::Replyer
   ALLOW_ACTION = %i[
     carousel_board
     add_record
-    record_is_zero
     record_not_zero
     player_not_found
+    save_success
   ]
 
   def initialize(line_source, reply_token)
@@ -17,7 +17,7 @@ class Line::Replyer
 
   def reply(action, options={})
     @options = options
-    @with_majonh_message = true if action == :record_is_zero
+    @with_majonh_message = true if action == :save_success
     raise "not allow action" unless ALLOW_ACTION.include?(action)
     @message_object = line_designer.send(action)
     post_it

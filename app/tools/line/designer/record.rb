@@ -128,7 +128,7 @@ module Line::Designer::Record
     records = @line_source.room.games.last.records
     {
       type: "flex",
-      altText: "麻將：儲存成功！",
+      altText: "save_success",
       contents: {
         type: "bubble",
         direction: "ltr",
