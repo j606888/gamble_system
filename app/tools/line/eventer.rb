@@ -40,10 +40,10 @@ class Line::Eventer < ServiceCaller
   def normal_detact!
     case @text
     when KEYWORDS[:mahjohn]
-      line_replyer.reply(:carousel_board, @line_source)
+      line_replyer.reply(:carousel_board)
     when KEYWORDS[:add_record]
       @line_source.record_mode!
-      line_replyer.reply(:add_record, @line_source)
+      line_replyer.reply(:add_record)
     end
   end
 
@@ -55,28 +55,28 @@ class Line::Eventer < ServiceCaller
       @room.games.force_from_line(records)
       Rails.cache.delete("room:#{@room.id}:records")
       @line_source.normal_mode!
-      line_replyer.reply(:record_is_zero, @line_source)
+      line_replyer.reply(:record_is_zero)
     when KEYWORDS[:force_cancel]
       Rails.cache.delete("room:#{@room.id}:records")
       @line_source.normal_mode!
-      line_replyer.reply(:carousel_board, @line_source)
+      line_replyer.reply(:carousel_board)
     else
       str_records = @text.upcase.strip.split("\n")
       str_records.each do |record|
         nickname, score = record.split(" ")
         player = @room.players.find_by(nickname: nickname) || @room.players.find_by(name: nickname)
-        return line_replyer.reply(:player_not_found, nickname) if player.nil?
+        return line_replyer.reply(:player_not_found, {nickname: nickname}) if player.nil?
         records[player.id] = score.to_i
       end
       
       result = @room.games.create_from_line(records)
       if result == :success
-        line_replyer.reply(:record_is_zero, @line_source)
+        line_replyer.reply(:record_is_zero)
         Rails.cache.delete("room:#{@room.id}:records")
         @line_source.normal_mode!
       else
         Rails.cache.write("room:#{@room.id}:records", records)
-        line_replyer.reply(:record_not_zero, records)
+        line_replyer.reply(:record_not_zero, {records: records})
       end      
     end
   end
@@ -84,6 +84,6 @@ class Line::Eventer < ServiceCaller
   private
 
   def line_replyer
-    @line_replyer ||= Line::Replyer.new(@reply_token)
+    @line_replyer ||= Line::Replyer.new(@line_source, @reply_token)
   end
 end

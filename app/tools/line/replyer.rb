@@ -2,9 +2,6 @@ class Line::Replyer
   REPLY_URI = "https://api.line.me/v2/bot/message/reply"
   ACCESS_TOKEN = Secret.line_api[:access_token]
   ALLOW_ACTION = %i[
-    need_to_bind_room
-    add_player
-    add_player_success
     carousel_board
     add_record
     record_is_zero
@@ -12,7 +9,8 @@ class Line::Replyer
     player_not_found
   ]
 
-  def initialize(reply_token)
+  def initialize(line_source, reply_token)
+    @line_source = line_source
     @reply_token = reply_token
     @with_majonh_message = false
   end
@@ -21,14 +19,13 @@ class Line::Replyer
     @options = options
     @with_majonh_message = true if action == :record_is_zero
     raise "not allow action" unless ALLOW_ACTION.include?(action)
-    @message_object = line_designer.send(action, options) if options.present?
-    @message_object ||= line_designer.send(action)
+    @message_object = line_designer.send(action)
     post_it
   end
 
   private
   def line_designer
-    @line_designer ||= Line::Designer.new
+    @line_designer ||= Line::Designer.new(@line_source, @options)
   end
 
   def post_it
@@ -43,6 +40,5 @@ class Line::Replyer
       request_body[:messages] << line_designer.carousel_board(@options) if @with_majonh_message == true
       req.body = request_body.to_json
     end
-    
   end
 end

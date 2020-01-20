@@ -1,20 +1,19 @@
 module Line::Designer::Record
-  def add_record(line_source)
+  def add_record
     {
       type: "flex",
       altText: "新增紀錄",
       contents: {
         type: "carousel",
         contents: [
-          creating_record(line_source),
-          record_help
+          creating_record
         ]
       }
     }
   end
 
-  def creating_record(line_source)
-    players = line_source.room.players.avaliable.winner
+  def creating_record
+    players = @line_source.room.players.avaliable.winner
     {
       type: 'bubble',
       header: {
@@ -43,39 +42,14 @@ module Line::Designer::Record
         type: "box",
         layout: "vertical",
         contents: [
-          button_uri('小幫手', line_source.liff_link(:game_new), {color: '#E1A576', style: 'primary'})
+          button_uri('小幫手', @line_source.liff_link(:game_new), {color: '#E1A576', style: 'primary'})
         ]
       }
     }
   end 
 
-  def record_help
-   {
-      type: "bubble",
-      direction: "ltr",
-      header: {
-        type: "box",
-        layout: "vertical",
-        contents: [ text('教學', { size: 'xxl', align: 'center'}) ]
-      },
-      body: {
-        type: "box",
-        layout: "vertical",
-        contents: [
-          text('格式： 代號（空格）金額', { align: 'start' }),
-          text('備註：可以換行一次輸入多筆', { size: "xs", align: "start", color: "#AEA3A3" }),
-          { type: "separator", margin: "lg" },
-          text('範例', { align: 'start' }),
-          text('J 1200', { align: 'end' }),
-          text('L -300', { align: 'end' }),
-          text('BOB -300', { align: 'end' }),
-          text('BK -600', { align: 'end' })
-        ]
-      }
-    }
-  end
-
-  def record_not_zero(records_hash)
+  def record_not_zero
+    records_hash = @options[:records_hash]
     sum = 0
     {
       type: "flex",
@@ -150,8 +124,8 @@ module Line::Designer::Record
     }
   end
 
-  def record_is_zero(line_source)
-    records = line_source.room.games.last.records
+  def record_is_zero
+    records = @line_source.room.games.last.records
     {
       type: "flex",
       altText: "record_is_zero",
