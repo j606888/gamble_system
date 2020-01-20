@@ -37,10 +37,12 @@ class Game < ApplicationRecord
     :success
   end
 
-  def self.save_from_array(records_array)
+  def self.save_from_array(records_array, gian_count)
     game = create(recorder: 'line_bot')
     records_array.each do |hash|
       next if hash[:score].nil?
+      player = Player.find(hash[:id])
+      player.update(gian_count: player.gian_count + gian_count)
       game.records.create(player_id: hash[:id], score: hash[:score])
     end
     :success

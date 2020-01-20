@@ -10,7 +10,7 @@ class Liff::GamesController < Liff::ApplicationController
     records = Record.to_hash(permit_records[:records])
     
     if records[:sum] == 0 || params[:skip_check].present?
-      @source_room.games.save_from_array(records[:score_array])
+      @source_room.games.save_from_array(records[:score_array], params[:gian_count].to_i)
       message = "紀錄成功"
       redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.game_new)
     else

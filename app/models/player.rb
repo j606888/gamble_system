@@ -43,6 +43,7 @@ class Player < ApplicationRecord
       name: name,
       total_score: total_score,
       game_count: game_count,
+      gian_count: gian_count,
       win: win_count,
       lose: lose_count,
       win_rate: "#{(win_rate * 100).to_i}%",

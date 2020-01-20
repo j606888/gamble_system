@@ -37,7 +37,7 @@ class Line::Replyer
         replyToken: @reply_token,
         messages: [@message_object]
       }
-      request_body[:messages] << line_designer.carousel_board(@options) if @with_majonh_message == true
+      request_body[:messages] << line_designer.carousel_board if @with_majonh_message == true
       req.body = request_body.to_json
     end
   end
