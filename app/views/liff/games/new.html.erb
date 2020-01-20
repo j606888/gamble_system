@@ -8,12 +8,19 @@
         <div class="inputValue">
           <div class="name">姓名</div>
           <div class="point">分數</div>
-          <% @players.each do |player| %>
-            <div class="name1"><%= "#{player.name}(#{player.nickname})" %></div>
-            <div class="small_input"><%= text_field_tag "records[]score" %></div>
-            <%= hidden_field_tag "records[]player_id", player.id %>
+          <% @score_array.each do |player| %>
+            <div class="name1"><%= "#{player[:name]}" %></div>
+            <div class="small_input"><%= text_field_tag "records[]score", player[:score], type: :number %></div>
+            <%= hidden_field_tag "records[]player_id", player[:id] %>
           <% end %>
         </div>
+        <div class="name1">將數(選填)
+          <%= select_tag 'gian_count', options_for_select([0,1,2,3,4,5,6,7,8,9,10], @gian_count)%>
+        </div>
+        <div class="name1">跳過檢查 <input type="checkbox" name="skip_check"></div>
+        
+        <% if @sum.present? %><p style="color: red;"><%= "總和：#{@sum}" %></p><% end %>
+        
         <%= submit_tag '新增', class: 'normal', data: { disable_with: '新增' } %>
       <% end %>
     </section>   

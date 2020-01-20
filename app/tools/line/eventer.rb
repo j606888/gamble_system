@@ -5,6 +5,7 @@ class Line::Eventer < ServiceCaller
     add_record: "新增紀錄",
     force_save: "儲存",
     force_cancel: "取消"
+    save_success: "紀錄成功"
   }
 
   def initialize(event)
@@ -44,6 +45,8 @@ class Line::Eventer < ServiceCaller
     when KEYWORDS[:add_record]
       @line_source.record_mode!
       line_replyer.reply(:add_record)
+    when KEYWORDS[:save_success]
+      line_replyer.reply(:save_success)
     end
   end
 

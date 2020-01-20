@@ -37,6 +37,15 @@ class Game < ApplicationRecord
     :success
   end
 
+  def self.save_from_array(records_array)
+    game = create(recorder: 'line_bot')
+    records_array.each do |hash|
+      next if hash[:score].nil?
+      game.records.create(player_id: hash[:id], score: hash[:score])
+    end
+    :success
+  end
+
   def self.create_from_line(records_hash)
     sum = records_hash.values.sum
     return sum if sum != 0

@@ -124,11 +124,11 @@ module Line::Designer::Record
     }
   end
 
-  def record_is_zero
+  def save_success
     records = @line_source.room.games.last.records
     {
       type: "flex",
-      altText: "record_is_zero",
+      altText: "麻將：儲存成功！",
       contents: {
         type: "bubble",
         direction: "ltr",

@@ -9,6 +9,16 @@ class Player < ApplicationRecord
   scope :loser, -> { includes(:records).all.sort_by(&:total_score) }
   scope :counter, -> { includes(:records).all.sort_by(&:game_times).reverse! }
 
+  def self.score_array(players)
+    players.map do |player|
+      {
+        id: player.id,
+        score: nil,
+        name: "#{player.name}(#{player.nickname})"
+      }
+    end
+  end
+
   def total_score
     records.map(&:score).compact.sum
   end

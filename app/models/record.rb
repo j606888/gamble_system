@@ -5,13 +5,22 @@ class Record < ApplicationRecord
   scope :win, -> { where("score > 0") }
   scope :lose, -> { where("score < 0") }
 
-  def self.to_message(records)
-    message = records.map do |record|
+  def self.to_hash(records)
+    sum = 0
+    score_array = records.map do |record|
       score = record['score'].to_i
-      next if score == 0
       player = Player.find(record['player_id'])
-      "#{player.nickname} #{score}"
+      sum += score
+      score = nil if score == 0
+      {
+        id: player.id,
+        score: score,
+        name: "#{player.name}(#{player.nickname})"
+      }
     end
-    message.compact.join("\n")
+    {
+      sum: sum,
+      score_array: score_array
+    }
   end
 end
