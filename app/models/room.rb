@@ -7,6 +7,8 @@ class Room < ApplicationRecord
   has_many :room_maps
   has_one :line_group
 
+  scope :game_count_order, -> { includes(:games).all.sort_by(&:games_count).reverse! }
+
   before_save :set_invite_code
 
   ALLOW_REPORT_TYPE = %w[winner loser counter]
@@ -51,8 +53,8 @@ class Room < ApplicationRecord
     hash
   end
 
-  def web_link
-    "#{Setting.host}/rooms/verify?invite_code=#{invite_code}"
+  def games_count
+    games.count
   end
 
   private
