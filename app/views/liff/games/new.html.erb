@@ -13,13 +13,16 @@
             <div class="small_input"><%= text_field_tag "records[]score", player[:score] %></div>
             <%= hidden_field_tag "records[]player_id", player[:id] %>
           <% end %>
+          <div class="name1">將數(選填)</div>
+          <div class="small_input"><%= select_tag 'gian_count', options_for_select([0,1,2,3,4,5,6,7,8,9,10], @gian_count)%></div>
+          
+          <div class="name1">跳過檢查</div>
+          <div class="small_input"><input type="checkbox" name="skip_check"></div>
+          <% if @sum.present? %>
+          <div class="name1">總和</div>
+          <div class="small_input" style="color: red;"><%= "總和：#{@sum}" %></div>
+          <% end %>
         </div>
-        <div class="name1">將數(選填)
-          <%= select_tag 'gian_count', options_for_select([0,1,2,3,4,5,6,7,8,9,10], @gian_count)%>
-        </div>
-        <div class="name1">跳過檢查 <input type="checkbox" name="skip_check"></div>
-        
-        <% if @sum.present? %><p style="color: red;"><%= "總和：#{@sum}" %></p><% end %>
         
         <%= submit_tag '新增', class: 'normal', data: { disable_with: '新增' } %>
       <% end %>
