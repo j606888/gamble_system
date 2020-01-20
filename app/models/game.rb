@@ -3,16 +3,6 @@ class Game < ApplicationRecord
   has_many :records, dependent: :destroy
   before_create :set_recorded_at
 
-  # records = [
-  #   {
-  #     'id' => 3,
-  #     'score' => 200
-  #   },
-  #   {
-  #     'id' => 5,
-  #     'score' => 460
-  #   }
-  # ]
   def self.create_with_records(records, email)
     return error_message(:all_zero) if all_zero?(records)
     sum = records.map { |r| r['score'].to_i }.compact.sum
@@ -44,21 +34,6 @@ class Game < ApplicationRecord
       player = Player.find(hash[:id])
       player.update(gian_count: player.gian_count + gian_count)
       game.records.create(player_id: hash[:id], score: hash[:score])
-    end
-    :success
-  end
-
-  def self.create_from_line(records_hash)
-    sum = records_hash.values.sum
-    return sum if sum != 0
-
-    force_from_line(records_hash)
-  end
-
-  def self.force_from_line(records_hash)
-    game = create(recorder: 'line_bot')
-    records_hash.each do |player_id, score|
-      game.records.create(player_id: player_id, score: score)
     end
     :success
   end

@@ -3,9 +3,6 @@ class Line::Replyer
   ACCESS_TOKEN = Secret.line_api[:access_token]
   ALLOW_ACTION = %i[
     carousel_board
-    add_record
-    record_not_zero
-    player_not_found
     save_success
   ]
 
