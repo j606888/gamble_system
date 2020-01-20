@@ -4,7 +4,7 @@ class Line::Eventer < ServiceCaller
     mahjohn: "麻將",
     add_record: "新增紀錄",
     force_save: "儲存",
-    force_cancel: "取消"
+    force_cancel: "取消",
     save_success: "紀錄成功"
   }
 
