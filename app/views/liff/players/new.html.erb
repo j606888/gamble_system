@@ -6,9 +6,10 @@
     <%= form_tag(liff_players_path) do %>
       <div class="inputValue">
           <div class="name1">名稱</div>
-          <div class="small_input"><input type="text" name="name"></div>
+          <div class="small_input"><input type="text" name="name" value="<%= @player.name %>"></div>
           <input type="hidden" name="source_id" value="<%= params[:source_id] %>">
       </div>
+      <div class="name1" style="color: red;"><%= @text %></div>
       <%= submit_tag '新增', class: 'normal',  data: { disable_with: '新增' } %>
     <% end %>
   </section>

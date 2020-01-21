@@ -13,6 +13,11 @@ class Liff::PlayersController < Liff::ApplicationController
   def create
     line_source = LineSource.find_by(source_id: params[:source_id])
     room = line_source.room
+    @player = room.players.find_by(name: params[:name])
+    if @player.present?
+      @text = "名稱已被使用！"
+      render :new and return
+    end
     player = room.players.create(name: params[:name])
     message = "#{player.name} 建立成功！"
     redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.player_new, call_board: "1")

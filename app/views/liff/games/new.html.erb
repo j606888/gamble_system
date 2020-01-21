@@ -15,7 +15,6 @@
           <% end %>
           <div class="name1" style="margin-top: 12px;">將數(選填)</div>
           <div class="small_input"><%= select_tag 'gian_count', options_for_select([0,1,2,3,4,5,6,7,8,9,10], @gian_count)%></div>
-          
           <div class="name1">跳過檢查</div>
           <div class="small_input"><input type="checkbox" name="skip_check" style="margin-top: 12px;"></div>
           <% if @sum.present? %>
