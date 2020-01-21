@@ -2,7 +2,6 @@
 
 <%= simple_form_for(@player, url: room_player_path(@room, @player)) do |f| %>
   <%= f.input :name, label: '玩家名稱' %>
-  <%= f.input :nickname, label: '暱稱' %>
   <%= f.input :hidden, label: '隱藏'%>
   <%= f.button :submit, class: 'btn btn-secondary', label: '繼續' %>
 <% end %>

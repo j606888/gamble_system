@@ -7,15 +7,10 @@ development: &development
       name: "台灣總統大戰"
     players:
       - name: "蔡英文"
-        nickname: "V"
       - name: "柯文哲"
-        nickname: "P"
       - name: "韓國瑜"
-        nickname: "X"
       - name: "川普"
-        nickname: "US"
       - name: "東錢"
-        nickname: "$"
     games:
       - "2019-01-10"
       - "2019-02-12"

@@ -15,7 +15,7 @@ class Record < ApplicationRecord
       {
         id: player.id,
         score: score,
-        name: "#{player.name}(#{player.nickname})"
+        name: player.name
       }
     end
     {

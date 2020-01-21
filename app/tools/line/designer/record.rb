@@ -57,7 +57,7 @@ module Line::Designer::Record
       type: "box",
       layout: "horizontal",
       contents: [
-        text("#{player.name}(#{player.nickname})"),
+        text(player.name),
         text(record.score.to_s, { align: 'end' })
       ]
     }

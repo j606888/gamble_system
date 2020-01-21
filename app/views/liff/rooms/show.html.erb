@@ -1,12 +1,22 @@
-<h1>切換/新增房間</h1>
-<h2>目前房間:<%= @room.name %></h2>
-<ul>
-  <% @other_rooms.each do |o_room| %>
-    <li><%= o_room.name %><%= button_to '切換', liff_rooms_switch_path(target_id: o_room.id, source_id: params[:source_id]), data: {disable_with: 'Please wait...'} %> </li>
-  <% end %>
-</ul>
-<%= form_tag(liff_rooms_create_path) do %>
-  房名：<input type="text" name="name">
-  <input type="hidden" name="source_id" value="<%= params[:source_id] %>">
-  <input type="submit" value="go">
-<% end %>
+<div class="mobile">
+  <div class="wrapper">
+    <header class="nameTitle">
+      <div class="nameTitle"><%= @room.name %></div>
+    </header>
+    <section>
+    <%= form_tag(liff_rooms_create_path) do %>
+      <div class="inputValue">
+        <% @other_rooms.each do |o_room| %>
+          <div class="name1"><%= o_room.name %></div>
+          <div class="small_input"><%= button_to '切換', liff_rooms_switch_path(target_id: o_room.id, source_id: params[:source_id]), data: {disable_with: 'Please wait...'} %></div>
+        <% end %>
+      </div>
+      <hr>
+      <div style="text-align: center;">新房間</div>
+      <div class="small_input"><input type="text" name="name"></div>
+      <input type="hidden" name="source_id" value="<%= params[:source_id] %>">
+      <input type="submit" value="新增">
+    <% end %>  
+    </section>
+  </div>
+</div>

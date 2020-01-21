@@ -5,19 +5,18 @@
   <table>
     <tr>
       <td>名稱</td>
-      <td>暱稱</td>
       <td>動作</td>
     </tr>
     <% @players.each do |player| %>
       <tr>
-        <th><%= player.name %></th>
-        <th><%= player.nickname %></th>
+        <th><%= player.name %></th>  
         <th>
           <%= link_to '編輯', edit_liff_player_path(player.id, source_id: params[:source_id]), class: 'edit' %> &nbsp; &nbsp;   
-          <% if player.hidden %>  
-            <%= link_to '顯示', trigger_hidden_liff_player_path(player.id, source_id: params[:source_id]), class: 'hidden', method: :post %>
+          <%= link_to '切換', trigger_hidden_liff_player_path(player.id, source_id: params[:source_id]), method: :post %>
+          <% if player.hidden %>
+            <span class="show">顯示中</span>
           <% else %>
-            <%= link_to '隱藏', trigger_hidden_liff_player_path(player.id, source_id: params[:source_id]), class: 'show', method: :post %>
+            <span class="hidden">隱藏中</span>
           <% end %>
         </th>
       </tr>

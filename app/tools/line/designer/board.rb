@@ -108,7 +108,7 @@ module Line::Designer::Board
       flex: 1,
       spacing: "sm",
       contents: [
-        text("#{player.name}(#{player.nickname})", { margin: "md", flex: 4, align: "start", weight: "bold", wrap: false }),
+        text(player.name, { margin: "md", flex: 4, align: "start", weight: "bold", wrap: false }),
         text(report[:game_count].to_s, { margin: "sm", flex: 2, align: 'center' }),
         text(report[:total_score].to_s, { align: 'end', flex: 2 })
       ]

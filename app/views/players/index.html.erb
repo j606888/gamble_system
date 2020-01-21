@@ -4,7 +4,6 @@
   <thead class="thead-light">
     <tr>
       <th>名稱</th>
-      <th>暱稱(Line 使用)</th>
       <th>功能</th>
       <th>隱藏</th>
     </tr>
@@ -13,7 +12,6 @@
     <% @players.each do |player| %>
       <tr>
         <td><%= player.name %></td>
-        <td><%= player.nickname %></td>
         <td><%= link_to '編輯', edit_room_player_path(@room.id, player.id), class: "btn btn-success" %></td>
         <td>
           <div class="btn-group">

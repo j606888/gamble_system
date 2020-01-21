@@ -2,7 +2,7 @@ class Liff::PlayersController < Liff::ApplicationController
   before_action :check_source_ability, only: [:create, :index, :update, :destroy]
 
   def index
-    @players = @room.players
+    @players = @room.players.winner
     @liff_id = Setting.liff_ids.player_edit
   end
 
@@ -13,9 +13,8 @@ class Liff::PlayersController < Liff::ApplicationController
   def create
     line_source = LineSource.find_by(source_id: params[:source_id])
     room = line_source.room
-    nickname = params[:nickname].upcase
-    player = room.players.create(name: params[:name], nickname: nickname)
-    message = "#{player.name}(#{player.nickname}) 建立成功！"
+    player = room.players.create(name: params[:name])
+    message = "#{player.name} 建立成功！"
     redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.player_new, call_board: "1")
   end
 
@@ -28,7 +27,7 @@ class Liff::PlayersController < Liff::ApplicationController
     player = Player.find(params[:id])
     return render json: { status: 403 } unless player.room = @room
     player.update(player_params)
-    message = "#{player.name}(#{player.nickname}) 更新成功！"
+    message = "#{player.name} 更新成功！"
     redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.player_edit, call_board: "1")
   end
 
@@ -49,6 +48,6 @@ class Liff::PlayersController < Liff::ApplicationController
   end
 
   def player_params
-    params.require(:player).permit(:name, :nickname, :room_id, :hidden)
+    params.require(:player).permit(:name, :room_id, :hidden)
   end
 end
