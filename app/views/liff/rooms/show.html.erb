@@ -4,7 +4,7 @@
       <div class="nameTitle"><%= @room.name %></div>
     </header>
     <section>
-    <%= form_tag(liff_rooms_create_path) do %>
+    
       <div class="inputValue">
         <% @other_rooms.each do |o_room| %>
           <div class="name1"><%= o_room.name %></div>
@@ -13,10 +13,11 @@
       </div>
       <hr>
       <div style="text-align: center;">新房間</div>
-      <div class="small_input"><input type="text" name="name"></div>
-      <input type="hidden" name="source_id" value="<%= params[:source_id] %>">
-      <%= submit_tag '新增', class: 'normal', data: { disable_with: '新增' }%>
-    <% end %>  
+      <%= form_tag(liff_rooms_create_path) do %>
+        <div class="small_input"><input type="text" name="name" required></div>
+        <input type="hidden" name="source_id" value="<%= params[:source_id] %>">
+        <%= submit_tag '新增', class: 'normal', data: { disable_with: '新增' }%>
+      <% end %>  
     </section>
   </div>
 </div>
