@@ -100,6 +100,30 @@ module Line::Designer::Board
     }
   end
 
+  def none_user_board
+    {
+      type: "bubble",
+      direction: 'ltr',
+      header: {
+        type: "box",
+        layout: "vertical",
+        contents: [ text("歡迎使用十一萬", {size: "xl", align: 'center'} ) ]
+      },
+      body: {
+        type: "box",
+        layout: "vertical",
+        spacing: "lg",
+        contents: [
+          text('使用教學', { align: 'center', wrap: true} ),
+          { type: 'separator' },
+          text('1. 至右邊設定新增至少1名玩家', { align: 'start', wrap: true} ),
+          text('2. 再次輸入「麻將」', { align: 'start', wrap: true} ),
+          text('3. 開始新增紀錄吧！', { align: 'start', wrap: true} )
+        ]
+      }
+    }
+  end
+
   def player_info(player)
     report = player.analyse
     {

@@ -15,7 +15,7 @@ class Liff::RoomsController < Liff::ApplicationController
   def update
     @room = @source_room
     @room.update(name: params[:name])
-    message = "#{@room.name} 房間更名成功！"
+    message = "房間更名成功！"
     redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.room_edit, call_board: "1")
   end
 
