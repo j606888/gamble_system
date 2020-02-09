@@ -27,8 +27,8 @@ class LineSource < ApplicationRecord
     update(room_id: room_id)
   end
 
-  def liff_link(type)
-    "#{Setting.liff_link(type)}?source_id=#{source_id}"
+  def liff_link(target_path)
+    "line://app/#{Setting.liff_entry}?source_id=#{source_id}&target_path=#{target_path}"
   end
 
   private

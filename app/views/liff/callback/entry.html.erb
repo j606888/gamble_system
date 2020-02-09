@@ -1,0 +1,16 @@
+<script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+
+<script>
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const targetPath = urlParams.get('target_path');
+  const sourceId = urlParams.get('source_id');
+
+  liff.init({
+    liffId: "<%= Setting.liff_entry %>"
+  }).then(() => {
+      window.location.replace("/liff/" + targetPath + "?source_id=" + sourceId)
+  }).catch((err) => {
+    alert(err);
+  })
+</script>

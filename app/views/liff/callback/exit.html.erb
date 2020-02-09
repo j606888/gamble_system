@@ -1,0 +1,22 @@
+<script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+
+<script>
+
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const message = urlParams.get('message') || '更新成功';
+
+  liff.init({
+    liffId: "<%= Setting.liff_entry %>"
+  }).then(() => {
+    liff.sendMessages([
+        {
+          type: 'text',
+          text: message
+        }
+      ]);
+    liff.closeWindow();
+  }).catch((err) => {
+    alert(err);
+  })
+</script>

@@ -39,16 +39,13 @@ Rails.application.routes.draw do
 
     namespace :games do
       get 'new'
-      post 'output'
+      post 'create'
     end
-    # resources :games, only: [:new] do
-    #   collection do
-    #     post 'output'
-    #   end
-    # end
 
     namespace :callback do
       get 'text'
+      get 'entry'
+      get 'exit'
     end
   end
 end

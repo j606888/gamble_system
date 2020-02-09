@@ -26,7 +26,7 @@ module Line::Designer::Board
         layout: "horizontal",
         contents: [
           text(room_name, {flex: 5, size: "xl", align: "start", gravity: "center", color: "#F2B94A", wrap: true} ),
-          button_uri("紀錄", @line_source.liff_link(:game_new), {flex: 2, color: "#E1A576", margin: 'none', height: 'sm', style: 'primary'} )
+          button_uri("紀錄", @line_source.liff_link('games/new'), {flex: 2, color: "#E1A576", margin: 'none', height: 'sm', style: 'primary'} )
         ]
       },
       body: {
@@ -71,8 +71,8 @@ module Line::Designer::Board
             layout: 'horizontal',
             contents: [
               text('玩家', {margin: 'md', size: 'lg', align: 'center', gravity: 'center'}),
-              button_uri('新增', @line_source.liff_link(:player_new), {color: '#F28C8C', margin: 'md', height: 'sm', style: 'primary'}),
-              button_uri('編輯', @line_source.liff_link(:player_edit), {margin: 'md', height: 'sm', style: 'secondary'})
+              button_uri('新增', @line_source.liff_link('players/new'), {color: '#F28C8C', margin: 'md', height: 'sm', style: 'primary'}),
+              button_uri('編輯', @line_source.liff_link('players'), {margin: 'md', height: 'sm', style: 'secondary'})
             ]
           },{
             type: 'separator'
@@ -81,8 +81,8 @@ module Line::Designer::Board
             layout: 'horizontal',
             contents: [
               text('戰績表', {margin: 'md', size: 'lg', align: 'center', gravity: 'center'}),
-              button_uri('數據', @line_source.liff_link(:record_analyse), {margin: 'md', height: 'sm', style: 'secondary'}),
-              button_uri('表格', @line_source.liff_link(:record_total), {margin: 'md', height: 'sm', style: 'secondary'})
+              button_uri('數據', @line_source.liff_link('records/analyse'), {margin: 'md', height: 'sm', style: 'secondary'}),
+              button_uri('表格', @line_source.liff_link('records/total'), {margin: 'md', height: 'sm', style: 'secondary'})
             ]
           },{
             type: 'separator'
@@ -91,8 +91,8 @@ module Line::Designer::Board
             layout: 'horizontal',
             contents: [
               text('房間', {margin: 'md', size: 'lg', align: 'center', gravity: 'center'}),
-              button_uri('更名', @line_source.liff_link(:room_edit), {margin: 'md', height: 'sm', style: 'secondary'}),
-              button_uri('切換', @line_source.liff_link(:room_show), {margin: 'md', height: 'sm', style: 'secondary'})
+              button_uri('更名', @line_source.liff_link('rooms/edit'), {margin: 'md', height: 'sm', style: 'secondary'}),
+              button_uri('切換', @line_source.liff_link('rooms/show'), {margin: 'md', height: 'sm', style: 'secondary'})
             ]
           }
         ]

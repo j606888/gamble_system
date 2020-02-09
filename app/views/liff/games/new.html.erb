@@ -4,7 +4,7 @@
       <div class="nameTitle">新增紀錄</div>
     </header>
     <section>
-      <%= form_tag(liff_games_output_path(source_id: params[:source_id])) do %>
+      <%= form_tag(liff_games_create_path(source_id: params[:source_id])) do %>
         <div class="inputValue">
           <div class="name">姓名</div>
           <div class="point">分數</div>

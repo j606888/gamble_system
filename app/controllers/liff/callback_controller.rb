@@ -5,4 +5,10 @@ class Liff::CallbackController < Liff::ApplicationController
     @message = params[:message]
     render layout: false
   end
+
+  def entry
+  end
+
+  def exit
+  end
 end

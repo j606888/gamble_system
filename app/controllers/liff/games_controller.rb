@@ -2,17 +2,14 @@ class Liff::GamesController < Liff::ApplicationController
   def new
     @players = @source_room.players.avaliable.winner
     @score_array = Player.score_array(@players)
-    @liff_id = Setting.liff_ids.game_new
   end
 
-  def output
-    @liff_id = Setting.liff_ids.game_new
+  def create
     records = Record.to_hash(permit_records[:records])
     
     if records[:sum] == 0 || params[:skip_check].present?
       @source_room.games.save_from_array(records[:score_array], params[:gian_count].to_i)
-      message = "紀錄成功"
-      redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.game_new)
+      redirect_to liff_callback_exit_path(message: "紀錄成功")
     else
       @score_array = records[:score_array]
       @gian_count = params[:gian_count]

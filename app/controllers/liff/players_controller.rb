@@ -3,11 +3,9 @@ class Liff::PlayersController < Liff::ApplicationController
 
   def index
     @players = @room.players.winner
-    @liff_id = Setting.liff_ids.player_edit
   end
 
   def new
-    @liff_id = Setting.liff_ids.player_new
   end
 
   def create
@@ -19,12 +17,10 @@ class Liff::PlayersController < Liff::ApplicationController
       render :new and return
     end
     player = room.players.create(name: params[:name])
-    message = "#{player.name} 建立成功！"
-    redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.player_new, call_board: "1")
+    redirect_to liff_callback_exit_path(message: "#{player.name} 建立成功！")
   end
 
   def edit
-    @liff_id = Setting.liff_ids.player_edit
     @player = Player.find(params[:id])
   end
 
@@ -32,16 +28,14 @@ class Liff::PlayersController < Liff::ApplicationController
     player = Player.find(params[:id])
     return render json: { status: 403 } unless player.room = @room
     player.update(player_params)
-    message = "#{player.name} 更新成功！"
-    redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.player_edit, call_board: "1")
+    redirect_to liff_callback_exit_path(message: "#{player.name} 更新成功！")
   end
 
   def trigger_hidden
     player = Player.find(params[:id])
     player.update(hidden: !player.hidden)
     status = player.hidden ? '隱藏' : '顯示'
-    message = "#{player.name} #{status} 成功！"
-    redirect_to liff_callback_text_path(message: message, liff_id: Setting.liff_ids.player_edit, call_board: "1")
+    redirect_to liff_callback_exit_path(message: "#{player.name} #{status} 成功！")
   end
 
   private

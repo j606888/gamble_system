@@ -27,7 +27,7 @@ class Line::Replyer
 
   def post_it
     conn = Faraday.new(REPLY_URI)
-    conn.post do |req|
+    request = conn.post do |req|
       req.headers['Content-Type'] = 'application/json'
       req.headers['Authorization'] = "Bearer #{ACCESS_TOKEN}"
       request_body = {
@@ -37,5 +37,7 @@ class Line::Replyer
       request_body[:messages] << line_designer.carousel_board if @with_majonh_message == true
       req.body = request_body.to_json
     end
+
+    puts request unless request.status == 200
   end
 end
