@@ -1,13 +1,13 @@
 development: &development
-  liff_entry: '1653819226-dOlol0nB'
+  liff_entry: '1653880740-r34PQk4w'
 
 test:
   <<: *development
 
 preparing:
   <<: *development
-  liff_entry: '1653819226-1O4O47YV'
+  liff_entry: '1653880740-N3nkQznA'
 
 production:
   <<: *development
-  liff_entry: '1653819226-kZJmJaMd'
+  liff_entry: '1653880740-Y1JWZlJO'
