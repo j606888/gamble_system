@@ -8,6 +8,7 @@ module LineBot::Designer::Board
         type: "carousel",
         contents: [
           score_board,
+          last_game_board,
           setting_board
         ]
       }
@@ -46,6 +47,59 @@ module LineBot::Designer::Board
             ]
           }
         ] + players&.map { |p| player_info(p) }
+      }
+    }
+  end
+
+  def last_game_board
+    players = @line_source.room.players.avaliable.winner
+    room_name = @line_source.room.name
+
+    return none_user_board if players.count == 0
+
+    records = @line_source.room.games.last.records
+    {
+      type: "bubble",
+      direction: "ltr",
+      header: {
+        type: "box",
+        layout: 'horizontal',
+        contents: [
+          {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              text('上一戰紀錄', { size: 'xl', align: 'center'}),
+              text(@line_source.room.games.last.created_at.strftime("%F %T"), { size: 'sm', margin: 'sm', align: 'center', color: '#ACA6A6'})
+            ]
+          }
+        ]
+      },
+      body: {
+        type: 'box',
+        layout: 'horizontal',
+        contents: [
+          {
+            type: 'box',
+            layout: 'vertical',
+            flex: 1,
+            spacing: 'md',
+            contents: [{type: 'spacer'}]
+          },
+          {
+            type: 'box',
+            layout: 'vertical',
+            flex: 5,
+            contents: records.map { |r| record_info(r)}
+          },
+          {
+            type: 'box',
+            layout: 'vertical',
+            flex: 1,
+            spacing: 'md',
+            contents: [{type: 'spacer'}]
+          }
+        ]
       }
     }
   end
