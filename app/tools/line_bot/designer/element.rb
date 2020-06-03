@@ -1,4 +1,4 @@
-module Line::Designer::Element
+module LineBot::Designer::Element
   def button_message(label, text, options={})
     {
       type: 'button',

@@ -1,4 +1,4 @@
-module Line::Designer::Record
+module LineBot::Designer::Record
   def save_success
     records = @line_source.room.games.last.records
     {

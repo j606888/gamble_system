@@ -35,6 +35,16 @@ class Game < ApplicationRecord
       player.update(gian_count: player.gian_count + gian_count)
       game.records.create(player_id: hash[:id], score: hash[:score])
     end
+
+    line_source = game.room.line_sources.last
+    message = LineBot::Designer.new(line_source).save_success
+    client = Line::Bot::Client.new{ |config|
+      config.channel_id = Secret.line_api[:channel_id]
+      config.channel_secret = Secret.line_api[:channel_secret]
+      config.channel_token = Secret.line_api[:channel_access_token]
+    }
+    client.push_message(line_source.source_id, message)
+
     :success
   end
 

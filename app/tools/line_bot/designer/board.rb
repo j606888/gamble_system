@@ -1,4 +1,4 @@
-module Line::Designer::Board
+module LineBot::Designer::Board
 
   def carousel_board
     {

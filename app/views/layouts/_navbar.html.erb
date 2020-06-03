@@ -1,13 +1,5 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
   <div>
-    <% if @room&.id.present? %>
-      <ul class="navbar-nav flex-row float-left">
-        <li><%= link_to room_path(@room), class: "nav-link" do %><i class="big-icon fas fa-home"></i><% end %> </li>
-        <li><%= link_to room_games_path(@room), class: "nav-link" do %><i class="big-icon fas fa-chart-bar"></i><% end %> </li>
-        <li><%= link_to room_players_path(@room), class: "nav-link" do %><i class="big-icon fas fa-user-friends"></i><% end %> </li>
-        <li><%= link_to edit_room_path(@room), class: "nav-link" do %><i class="big-icon fas fa-cog"></i><% end %> </li>
-      </ul>
-    <% end %>
   </div>
   <div class="mx-auto order-0">
     <% if @room&.id.present? %>
@@ -24,25 +16,11 @@
     <ul class="navbar-nav ml-auto">
       <% if user_signed_in? %>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            所有群組
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <% @join_rooms.each do |room| %>
-              <%= link_to room.name, room_path(room), class: "dropdown-item" %>
-            <% end %>
-            <%= link_to new_room_path, class:"dropdown-item" do %><i class="fas fa-plus"></i> 群組<% end %>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="" id="userSetting" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
              <i class="fas fa-kiwi-bird"></i>  <%= current_user.name || current_user.email %>
           </a>
           <div class="dropdown-menu" aria-labelledby="userSetting">
-            <%= link_to '幫助', helps_path, class:"dropdown-item" %>
-            <%= link_to '給我點建議', advise_path, class:"dropdown-item" %>
-            <%= link_to '編輯帳號', edit_user_registration_path, class:"dropdown-item" %>
-            <%= link_to '登出', destroy_user_session_path, method: 'delete', class:"dropdown-item" %>
+            
           </div>
         </li>
       <% else %>
