@@ -37,7 +37,7 @@ class Game < ApplicationRecord
     end
 
     line_source = game.room.line_sources.last
-    message = LineBot::Designer.new(line_source).save_success
+    message = LineBot::Designer.new(line_source).success_saved_board
     client = Line::Bot::Client.new{ |config|
       config.channel_id = Secret.line_api[:channel_id]
       config.channel_secret = Secret.line_api[:channel_secret]

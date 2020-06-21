@@ -1,5 +1,19 @@
 module LineBot::Designer::Board
 
+  def success_saved_board
+    {
+      type: "flex",
+      altText: "記錄成功！",
+      contents: {
+        type: "carousel",
+        contents: [
+          last_game_board('儲存成功'),
+          score_board
+        ]
+      }
+    }
+  end
+
   def carousel_board
     {
       type: "flex",
@@ -8,7 +22,7 @@ module LineBot::Designer::Board
         type: "carousel",
         contents: [
           score_board,
-          last_game_board,
+          last_game_board('上一戰紀錄'),
           setting_board
         ]
       }
@@ -51,9 +65,8 @@ module LineBot::Designer::Board
     }
   end
 
-  def last_game_board
+  def last_game_board(title)
     players = @line_source.room.players.avaliable.winner
-    room_name = @line_source.room.name
 
     return none_user_board if players.count == 0
 
@@ -69,7 +82,7 @@ module LineBot::Designer::Board
             type: 'box',
             layout: 'vertical',
             contents: [
-              text('上一戰紀錄', { size: 'xl', align: 'center'}),
+              text(title, { size: 'xl', align: 'center'}),
               text(@line_source.room.games.last.created_at.strftime("%F %T"), { size: 'sm', margin: 'sm', align: 'center', color: '#ACA6A6'})
             ]
           }
