@@ -1,6 +1,4 @@
 class Liff::ApplicationController < ApplicationController
-  skip_before_action :authenticate_user!
-
   before_action :set_line_source
 
   layout "liff"
