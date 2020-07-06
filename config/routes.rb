@@ -1,20 +1,13 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { registrations: 'registrations', omniauth_callbacks: 'users/omniauth_callbacks' }
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root 'home#index'
-  
-  # get '/helps', to: "home#help"
-  # get '/welcome', to: 'home#welcome'
-  # get '/advise', to: 'home#advise'
-  # post '/advise', to: 'home#advise'
 
-  namespace :admin do
-    resources :rooms
+  # line api webhook
+  namespace :webhook do
+    post 'line'
   end
 
-  namespace :api do
-    post 'line_callback', to: 'line_callback#index'
-  end
+  resources :line_sources
+
+  resources :rooms
 
   namespace :liff do
     resources :players do
@@ -48,4 +41,6 @@ Rails.application.routes.draw do
       get 'exit'
     end
   end
+
+  root 'rooms#index'
 end

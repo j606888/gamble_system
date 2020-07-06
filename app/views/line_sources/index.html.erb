@@ -1,0 +1,15 @@
+<h1>Line Source</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>source_type</th>
+      <th>source_id</th>
+      <th>room_id</th>
+    </tr>
+  </thead>
+  <% @line_sources.each do |line_source| %>
+    <%= line_source.name %>
+  <% end %>
+</table>

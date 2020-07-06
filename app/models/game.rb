@@ -7,7 +7,7 @@ class Game < ApplicationRecord
     return error_message(:all_zero) if all_zero?(records)
     sum = records.map { |r| r['score'].to_i }.compact.sum
     return error_message(sum) if sum != 0
-    game = create(recorder: email)
+    game = self.create
     records.each do |r|
       next unless r['score'].present?
       game.records.create(r)
@@ -28,7 +28,7 @@ class Game < ApplicationRecord
   end
 
   def self.save_from_array(records_array, gian_count)
-    game = create(recorder: 'line_bot')
+    game = self.create
     records_array.each do |hash|
       next if hash[:score].nil?
       player = Player.find(hash[:id])
@@ -53,7 +53,7 @@ class Game < ApplicationRecord
   end
 
   def detail
-    hash = as_json(only:[:id, :recorder], methods: [:date])
+    hash = as_json(only:[:id], methods: [:date])
     records.each { |r| hash[r.player_id] = r.score }
     hash
   end

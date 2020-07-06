@@ -4,9 +4,6 @@ class LineSource < ApplicationRecord
   has_many :rooms, through: :room_maps
 
   enum source_type: [:is_user, :is_group, :is_room]
-  enum status: [:unbind_mode, :normal_mode, :player_mode, :record_mode]
-
-  before_create :setup_status
 
   def self.setup_up_from(source_type, source_id)
     line_source = self.find_or_create_by(source_type: "is_#{source_type}", source_id: source_id)
@@ -29,10 +26,5 @@ class LineSource < ApplicationRecord
 
   def liff_link(target_path)
     "line://app/#{Setting.liff_entry}?source_id=#{source_id}&target_path=#{target_path}"
-  end
-
-  private
-  def setup_status
-    self.status = 'normal_mode'
   end
 end

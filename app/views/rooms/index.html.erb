@@ -1,0 +1,21 @@
+<h1>Room</h1>
+
+我的最愛曲
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>name</th>
+      <th>players count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @rooms.each do |room| %>
+      <tr>
+        <td><%= room.id %></td>
+        <td><%= room.name %></td>
+        <td><%= room.players.length %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

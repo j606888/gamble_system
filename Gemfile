@@ -28,6 +28,7 @@ gem 'redis'
 gem 'active_link_to'
 gem 'omniauth'
 gem 'line-bot-api'
+gem 'service_caller'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

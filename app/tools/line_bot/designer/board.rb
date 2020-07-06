@@ -15,16 +15,16 @@ module LineBot::Designer::Board
   end
 
   def carousel_board
+    contents = []
+    contents << score_board
+    contents << last_game_board('上一戰紀錄') if @line_source.room.games.present?
+    contents << setting_board
     {
       type: "flex",
       altText: "麻將說話了",
       contents: {
         type: "carousel",
-        contents: [
-          score_board,
-          last_game_board('上一戰紀錄'),
-          setting_board
-        ]
+        contents: contents
       }
     }
   end

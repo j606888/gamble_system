@@ -1,5 +1,7 @@
-class Api::LineCallbackController < Api::ApplicationController
-  def index
+class WebhookController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
+  def line
     result = LineBot::Receiver.call(request)
     
     unless result.success?
@@ -10,4 +12,3 @@ class Api::LineCallbackController < Api::ApplicationController
     render json: {status: 200}
   end
 end
-  

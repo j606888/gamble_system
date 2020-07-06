@@ -1,9 +1,0 @@
-<h2>編輯玩家</h2>
-
-<%= simple_form_for(@player, url: room_player_path(@room, @player)) do |f| %>
-  <%= f.input :name, label: '玩家名稱' %>
-  <%= f.input :hidden, label: '隱藏'%>
-  <%= f.button :submit, class: 'btn btn-secondary', label: '繼續' %>
-<% end %>
-
-<%= link_to '返回', room_players_path(@player.room) %>
