@@ -7,6 +7,7 @@
       <th>id</th>
       <th>name</th>
       <th>players count</th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
@@ -15,6 +16,7 @@
         <td><%= room.id %></td>
         <td><%= room.name %></td>
         <td><%= room.players.length %></td>
+        <td><%= link_to '進入', room %></td>
       </tr>
     <% end %>
   </tbody>
