@@ -1,30 +1,56 @@
-<div class="mobile">
-  <div class="wrapper">
-    <header class="nameTitle">
-      <div class="nameTitle">新增紀錄</div>
-    </header>
-    <section>
-      <%= form_tag(liff_games_create_path(source_id: params[:source_id])) do %>
-        <div class="inputValue">
-          <div class="name">姓名</div>
-          <div class="point">分數</div>
-          <% @score_array.each do |player| %>
-            <div class="name1"><%= "#{player[:name]}" %></div>
-            <div class="small_input"><%= text_field_tag "records[]score", player[:score] %></div>
-            <%= hidden_field_tag "records[]player_id", player[:id] %>
+<div class="wrapper">
+<%= form_tag(liff_games_create_path(source_id: params[:source_id])) do %>
+  <div style="margin-top: 120px;">
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 40%;">姓名</th>
+            <th style="width: 40%;">分數</th>
+            <th style="wdith: 5%;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @score_array.each_with_index do |player, i| %>
+            <tr>
+              <td><%= "#{player[:name]}" %></td>
+              <td><%= text_field_tag "records[]score", player[:score], id: "score_#{i}", onKeyUp: "display();" %></td>
+              <td><%= hidden_field_tag "records[]player_id", player[:id] %></td>
+            </tr>
           <% end %>
-          <div class="name1" style="margin-top: 12px;">將數(選填)</div>
-          <div class="small_input"><%= select_tag 'gian_count', options_for_select([0,1,2,3,4,5,6,7,8,9,10], @gian_count)%></div>
-          <div class="name1">跳過檢查</div>
-          <div class="small_input"><input type="checkbox" name="skip_check" style="margin-top: 12px;"></div>
-          <% if @sum.present? %>
-          <div class="name1">總和</div>
-          <div class="small_input" style="color: red;"><%= "總和：#{@sum}" %></div>
-          <% end %>
-        </div>
-        
-        <%= submit_tag '新增', class: 'normal', data: { disable_with: '新增' } %>
-      <% end %>
-    </section>   
+            <tr>
+              <td>將數（選填）</td>
+              <td><%= select_tag 'gian_count', options_for_select([0,1,2,3,4,5,6,7,8,9,10], @gian_count)%></td>
+            </tr>
+            <tr>
+              <td>跳過檢查</td>
+              <td><input type="checkbox" name="skip_check" style="margin-top: 12px;"></td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
+  <div style="padding: 10px; position: fixed; top: 0; width: 90%; background-color: #fff; border: 1px solid #111;">
+    <h3 id="total">目前總和：0</h3>
+    <%= submit_tag '新增',disabled: true, data: { disable_with: '新增' }, class: 'btn btn-success', id: 'submit_tag' %>
+  </div>
+<% end %>
 </div>
+<script>
+  function display() {
+    var arr = document.getElementsByName('records[]score');
+    var display_h3 = document.getElementById('total');
+    var submit_tag = document.getElementById('submit_tag');
+    var total = 0;
+    for(var i=0; i < arr.length; i++) {
+      total += (parseInt(arr[i].value) || 0);
+    }
+    display_h3.innerText = "目前總和：" + total;
+
+    if(total === 0) {
+      submit_tag.disabled = false;
+    } else {
+      submit_tag.disabled = true;
+    }
+  }
+</script>
