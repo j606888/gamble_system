@@ -2,19 +2,19 @@
 <%= form_tag(liff_games_create_path(source_id: params[:source_id])) do %>
   <div style="margin-top: 120px;">
     <div>
-      <table class="table">
+      <table>
         <thead>
           <tr>
-            <th style="width: 40px;">姓名</th>
-            <th style="width: 40px;">分數</th>
-            <th style="wdith: 10px;"></th>
+            <th style="width: 40%;">姓名</th>
+            <th style="width: 40%;">分數</th>
+            <th style="wdith: 5%;"></th>
           </tr>
         </thead>
         <tbody>
           <% @score_array.each_with_index do |player, i| %>
             <tr>
-              <td ><%= "#{player[:name]}" %></td>
-              <td><%= number_field_tag "records[]score", player[:score], id: "score_#{i}", onKeyUp: "display();" %></td>
+              <td><%= "#{player[:name]}" %></td>
+              <td><%= text_field_tag "records[]score", player[:score], id: "score_#{i}", onKeyUp: "display();" %></td>
               <td><%= hidden_field_tag "records[]player_id", player[:id] %></td>
             </tr>
           <% end %>
