@@ -7,14 +7,7 @@ require 'capistrano/rails'
 require 'capistrano/bundler'
 require 'capistrano/rvm'
 require 'capistrano/puma'
-# Load the SCM plugin appropriate to your project:
-#
-# require "capistrano/scm/hg"
-# install_plugin Capistrano::SCM::Hg
-# or
-# require "capistrano/scm/svn"
-# install_plugin Capistrano::SCM::Svn
-# or
+require "whenever/capistrano"
 require "capistrano/scm/git"
 install_plugin Capistrano::SCM::Git
 install_plugin Capistrano::Puma
