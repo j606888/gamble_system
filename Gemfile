@@ -31,7 +31,6 @@ gem 'line-bot-api'
 gem 'service_caller'
 gem 'whenever', require: false
 gem 'aws-sdk-s3'
-gem 'service_caller'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
