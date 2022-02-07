@@ -32,12 +32,14 @@ gem 'service_caller'
 gem 'whenever', require: false
 gem 'aws-sdk-s3'
 gem 'nokogiri', '~> 1.11'
+gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dabd025dcbd36a8a60f'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry'
   gem 'pry-rails'
   gem 'pry-byebug'
+  gem 'dotenv-rails'
 end
 
 group :development do

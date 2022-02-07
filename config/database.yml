@@ -1,24 +1,24 @@
-development: &development
-  host: localhost
+default: &default
   adapter: postgresql
-  encoding: utf8  
-  database: gamble_system_development
+  encoding: utf8
+  host: <%= ENV['PG_HOST'] %>
+  username: <%= ENV['PG_USER'] || postgres %>
+  password: <%= ENV['PG_PASSWORD'] || '' %>
+  port: <%= ENV['PG_PORT'] || 5432 %>
   pool: 5
-  username: <%= Secret.database[:username] %>
-  password: <%= Secret.database[:password] %>
+
+development:
+  <<: *default
+  database: gamble_system_development
 
 test:
-  <<: *development
+  <<: *default
   database: gamble_system_test
 
 preparing:
-  <<: *development
+  <<: *default
   database: gamble_system_preparing
-  username: <%= Secret.database[:username] %>
-  password: <%= Secret.database[:password] %>
 
 production:
-  <<: *development
+  <<: *default
   database: gamble_system_production
-  username: <%= Secret.database[:username] %>
-  password: <%= Secret.database[:password] %>
