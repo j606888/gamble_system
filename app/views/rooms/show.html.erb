@@ -4,7 +4,6 @@
   <thead>
     <tr>
       <th>名稱</th>
-      <th>暱稱</th>
       <th>分數</th>
       <th>出戰數</th>
     </tr>
@@ -13,7 +12,6 @@
     <% @room.players.includes(:records).each do |player| %>
       <tr>
         <td><%= player.name %></td>
-        <td><%= player.nickname %></td>
         <td><%= player.analyse[:total_score] %></td>
         <td><%= player.analyse[:game_count] %></td>
       </tr>
