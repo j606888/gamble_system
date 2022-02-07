@@ -1,5 +1,4 @@
 class Room < ApplicationRecord
-  resourcify
 
   has_many :players, dependent: :destroy
   has_many :games, dependent: :destroy
