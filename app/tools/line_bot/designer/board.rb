@@ -70,7 +70,7 @@ module LineBot::Designer::Board
 
     return none_user_board if players.count == 0
 
-    records = @line_source.room.games.last.records
+    records = @line_source.room.games.last.records.join(:players)
     {
       type: "bubble",
       direction: "ltr",
