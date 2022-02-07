@@ -4,20 +4,20 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>id</th>
       <th>name</th>
       <th>players count</th>
-      <th>Action</th>
+      <th>games count</th>
+      <th>last game at</th>
     </tr>
   </thead>
   <tbody>
     <% @rooms.each do |room| %>
-      <tr>
-        <td><%= room.id %></td>
-        <td><%= room.name %></td>
-        <td><%= room.players.length %></td>
-        <td><%= link_to '進入', room %></td>
-      </tr>
+    <tr>
+      <td><%= link_to room.name, room %></td>
+      <td><%= room.players.size %></td>
+      <td><%= room.games.size %></td>
+      <td><%= room.games.last&.created_at&.strftime("%F") %></td>
+    </tr>
     <% end %>
   </tbody>
 </table>
