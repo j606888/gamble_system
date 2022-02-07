@@ -67,10 +67,10 @@ module LineBot::Designer::Board
 
   def last_game_board(title)
     players = @line_source.room.players.avaliable.winner
-
     return none_user_board if players.count == 0
 
-    records = @line_source.room.games.last.records.join(:players)
+    game = @line_source.room.games.last
+    records = game.includes([:records])
     {
       type: "bubble",
       direction: "ltr",

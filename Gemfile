@@ -32,6 +32,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'dotenv-rails'
+  gem 'bullet'
 end
 
 group :development do
