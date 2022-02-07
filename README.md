@@ -1,4 +1,5 @@
 ## Todo List
 
-* 週末提醒打牌
-* 每週一公告（前三名誰後三名誰，請多多加油）
+- 週末提醒打牌
+<!-- - Whenever 看要自己放還是透過 API -->
+- AWS S3 移除（透過 rds auto snapshot
