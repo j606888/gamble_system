@@ -11,9 +11,5 @@ class Secret
     def sendgrid
       Rails.application.credentials.send(Rails.env)[:sendgrid]
     end
-
-    def omniauth
-      Rails.application.credentials.send(Rails.env)[:omniauth]
-    end
   end
 end
