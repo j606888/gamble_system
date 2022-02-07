@@ -37,9 +37,9 @@ class LineBot::Eventer < ServiceCaller
 
   def client
     @client ||= Line::Bot::Client.new{ |config|
-      config.channel_id = Secret.line_api[:channel_id]
-      config.channel_secret = Secret.line_api[:channel_secret]
-      config.channel_token = Secret.line_api[:channel_access_token]
+      config.channel_id = ENV['GAMBLE_LINE_CHANNEL_ID']
+      config.channel_secret = ENV['GAMBLE_LINE_CHANNEL_SECRET']
+      config.channel_token = ENV['GAMBLE_LINE_ACCESS_TOKEN']
     }
   end
 end
