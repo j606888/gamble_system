@@ -1,0 +1,27 @@
+<h1>記錄新遊戲</h1>
+<table>
+  <tr>
+    <th>姓名</th>
+    <th>分數</th>
+  </tr>
+  <tr>
+    <td>James</td>
+    <td><input type="number" /></td>
+  </tr>
+  <tr>
+    <td>Steve</td>
+    <td><input type="number" /></td>
+  </tr>
+  <tr>
+    <td>Bob</td>
+    <td><input type="number" /></td>
+  </tr>
+</table>
+<p>總分: 300</p>
+<button onclick="checkSum()">送出</button>
+
+<script>
+  const checkSum = () => {
+    confirm("總分不為零，確認送出？")
+  }
+</script>

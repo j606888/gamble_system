@@ -1,5 +1,5 @@
 development: &development
-  liff_entry: "1653819226-983J3lAQ"
+  liff_entry: "1653880740-r34PQk4w"
 
 test:
   <<: *development

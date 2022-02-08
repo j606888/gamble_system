@@ -8,7 +8,6 @@ class Room < ApplicationRecord
 
   scope :game_count_order, -> { includes(:games).all.sort_by(&:games_count).reverse! }
 
-  before_save :set_invite_code
 
   ALLOW_REPORT_TYPE = %w[winner loser counter]
   CHART_TYPE = %w[score]
@@ -75,10 +74,5 @@ class Room < ApplicationRecord
     games.order(id: :desc).includes(:records).map(&:detail)
   end
 
-  def set_invite_code
-    loop do
-      self.invite_code = rand(100000..1000000)
-      break if Room.find_by_invite_code(invite_code).nil?
-    end
-  end
+
 end

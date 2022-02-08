@@ -18,8 +18,13 @@ class LineBot::Eventer < ServiceCaller
   def call
     setup_line_source
     if @text == '麻將'
-      client.reply_message(@event['replyToken'], designer.carousel_board)
+      binding.pry
+      flex_message = LineService::FlexMessage.new(room_id: @room.id).perform
+      res = client.reply_message(@event['replyToken'], flex_message)
+      puts res
     end
+  rescue => e
+    puts e.message
   end
 
   private
