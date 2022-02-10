@@ -26,7 +26,7 @@ class Room < ApplicationRecord
   private
 
   def header_maker(type='winner', need_recorder=false)
-    select_players = players.avaliable.send(type)
+    select_players = players.send(type)
     header = {
       name: ['遊戲時間'] + select_players.map(&:name),
       money: ['分數'] + select_players.map(&:total_score),

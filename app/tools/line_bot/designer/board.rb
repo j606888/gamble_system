@@ -30,7 +30,7 @@ module LineBot::Designer::Board
   end
 
   def score_board
-    players = @line_source.room.players.avaliable.winner
+    players = @line_source.room.players.winner
     room_name = @line_source.room.name
 
     return none_user_board if players.count == 0
@@ -66,7 +66,7 @@ module LineBot::Designer::Board
   end
 
   def last_game_board(title)
-    players = @line_source.room.players.avaliable.winner
+    players = @line_source.room.players.winner
     return none_user_board if players.count == 0
 
     game = @line_source.room.games.last
