@@ -6,18 +6,19 @@ class GameService::Save < Service
   end
 
   def perform
+    records = transform_records(@records)
     room = query_room!(@room_id)
-    sum = calculate_sum(@records)
-    if sum != 0 && !skip_check
+     
+    unless sum_is_zero?(records) || @skip_check
       raise Service::PerformFailed, "Sum not zero"
     end
 
     ActiveRecord::Base.transaction do
       game = Game.create!(room: room)
-      @records.each do |record|
-        next is record[:score].nil?
+      records.each do |record|
+        next if record[:score].nil?
         player = query_player!(record[:player_id])
-        player.update!(gian_count: player.gian_count + gian_count)
+        player.increment!(:gian_count)
         Record.create!(
           game: game,
           player: player,
@@ -28,6 +29,15 @@ class GameService::Save < Service
   end
 
   private
+  def transform_records records
+    records.map do |record|
+      {
+        score: record[:score].present? ? record[:score].to_i : nil,
+        player_id: record[:player_id].to_i
+      }
+    end
+  end
+
   def query_room! room_id
     room = Room.find_by(id: room_id)
     if room.nil?
@@ -37,11 +47,12 @@ class GameService::Save < Service
     room
   end
 
-  def calculate_sum records
-    records
+  def sum_is_zero? records
+    sum = records
       .map { |record| record[:score] }
       .compact
       .sum
+    sum == 0
   end
 
   def query_player! player_id

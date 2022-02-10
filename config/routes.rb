@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :rooms
 
   namespace :liff2 do
-    resources :games, only: [:new]
+    resources :games, only: [:new, :create]
     resources :players, only: [:new, :create]
   end
 
