@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_08_155952) do
+ActiveRecord::Schema.define(version: 2022_02_10_143416) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(version: 2022_02_08_155952) do
     t.datetime "recorded_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "recorder"
   end
 
   create_table "line_sources", force: :cascade do |t|
@@ -33,11 +32,9 @@ ActiveRecord::Schema.define(version: 2022_02_08_155952) do
 
   create_table "players", force: :cascade do |t|
     t.string "name"
-    t.string "nickname"
     t.integer "room_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "hidden", default: false
     t.integer "gian_count", default: 0
   end
 
