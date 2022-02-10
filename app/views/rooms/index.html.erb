@@ -14,7 +14,7 @@
     <% @rooms.each do |room| %>
     <tr>
       <td><%= link_to room.name, room %></td>
-      <td><%= room.players.size %></td>
+      <td><%= room.players_count %></td>
       <td><%= room.games.size %></td>
       <td><%= room.games.last&.created_at&.strftime("%F") %></td>
     </tr>
