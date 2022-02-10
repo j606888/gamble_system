@@ -4,10 +4,11 @@ class Liff2::GamesController < ApplicationController
   end
 
   def create
+
     GameService::Save.new({
-      room_id: permit_params[:room_id],
+      room_id: params.require(:room_id),
       records: permit_params[:records],
-      skip_check: permit_params[:skip_check]
+      skip_check: params[:skip_check].present?
     }.compact).perform
 
     redirect_to room_path(params[:room_id])
@@ -15,6 +16,6 @@ class Liff2::GamesController < ApplicationController
 
   private
   def permit_params
-    params.permit(:room_id, :skip_check, records: [:score, :player_id])
+    params.permit(records: [:score, :player_id])
   end
 end
