@@ -1,47 +1,52 @@
-<h1>記錄新遊戲</h1>
-<%= form_tag('/liff2/games') do %>
+<div class="new-game">
+  <%= form_tag('/liff2/games') do %>
+  <h1>記錄新遊戲</h1>
   <input type="hidden" name="room_id" value="<%= @room.id %>" />
-  <table>
-    <tr>
-      <th>姓名</th>
-      <th>分數</th>
-    </tr>
-    <% @room.players.each do |player| %>
-    <tr>
-      <td><%= player.name %></td>
-      <td><input type="number" name="records[][score]" onkeyup="sum_check()"/></td>
-      <input
-        type="hidden"
-        name="records[][player_id]"
-        value="<%= player.id %>"
-      />
-    </tr>
-    <% end %>
-  </table>
   <div>
-    <input type="checkbox" name="skip_check" id="skip_check" onclick="sum_check()">
-    <label for="skip_check">Skip check</label>
+    <% @players.each do |player| %>
+      <div class="score-group">
+        <div class="name-group">
+          <span class="left"><%= player.name %></span>
+          <span class="right"><%= player.score_sum %></span>
+        </div>
+        <input type="number" name="records[][score]" onkeyup="sum_check()"/>
+      </div>
+      <input
+      type="hidden"
+      name="records[][player_id]"
+      value="<%= player.id %>"
+      />
+    <% end %>
   </div>
-  <button type="submit">Send</button>
-<% end %>
-
+  <div class="skip-check-group">
+    <input type="checkbox" name="skip_check" id="skip_check" onclick="sum_check()">
+    <label for="skip_check">跳過檢查</label>
+  </div>
+  <button class="submit-group" type="submit">總和不為零</button>
+  <span id="current-sum">-</span>
+  <% end %>
+</div>
+  
   <script>
     function sum_check() {
       let sum = 0
       const inputs = document.querySelectorAll('input[type=number]')
+      const hint = document.querySelector('#current-sum')
 
       for (let i = 0; i < inputs.length; i++) {
         sum += +inputs[i].value
       }
 
       if (sum === 0) {
+        hint.innerHTML = 'ok';
         enable_button(true)
       } else {
-        enable_button(false)
+        hint.innerHTML = sum;
+        enable_button(false, sum)
       }
     }
 
-    function enable_button(enable=false) {
+    function enable_button(enable=false, sum) {
       const btn = document.querySelector('button')
       const skip_check = document.querySelector('input[type=checkbox]').checked
 
@@ -50,7 +55,11 @@
         btn.textContent = '儲存'
       } else {
         btn.disabled = true
-        btn.textContent = '總和不為零'
+        if (!!sum) {
+          btn.textContent = `總和不為零 (${sum})`
+        } else {
+          btn.textContent = `總和不為零`
+        }
       }
     }
 
