@@ -4,7 +4,6 @@ class Liff2::GamesController < ApplicationController
   end
 
   def create
-
     GameService::Save.new({
       room_id: params.require(:room_id),
       records: permit_params[:records],
