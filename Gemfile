@@ -13,7 +13,6 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'awesome_rails_console'
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'bootstrap', '~> 4.3.1'
 gem 'simple_form'
 gem 'jquery-rails'
 gem 'settingslogic'
