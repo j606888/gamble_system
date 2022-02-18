@@ -1,22 +1,24 @@
-<h1>Room</h1>
+<div class="room-index">
+  <h1>Room</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>name</th>
-      <th>players count</th>
-      <th>games count</th>
-      <th>last game at</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @rooms.each do |room| %>
-    <tr>
-      <td><%= link_to room.name, room %></td>
-      <td><%= room.players_count %></td>
-      <td><%= room.games.size %></td>
-      <td><%= room.games.last&.created_at&.strftime("%F") %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+  <table>
+    <thead>
+      <tr>
+        <th>name</th>
+        <th>players count</th>
+        <th>games count</th>
+        <th>last game at</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @rooms.each do |room| %>
+      <tr>
+        <td><%= link_to room.name, room %></td>
+        <td><%= room.players_count %></td>
+        <td><%= room.games.size %></td>
+        <td><%= room.games.last&.created_at&.strftime("%F") %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

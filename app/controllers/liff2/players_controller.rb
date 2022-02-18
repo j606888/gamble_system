@@ -1,7 +1,8 @@
 class Liff2::PlayersController < ApplicationController
-  def new
+  def index
     @room_id = params[:room_id]
     @room = Room.find_by(id: @room_id)
+    @players = @room.players.order(created_at: :desc)
   end
 
   def create
@@ -9,6 +10,6 @@ class Liff2::PlayersController < ApplicationController
       room_id: params[:room_id],
       name: params[:name]
     ).perform
-    redirect_to new_liff2_player_path(room_id: params[:room_id])
+    redirect_to liff2_players_path(room_id: params[:room_id])
   end
 end
