@@ -17,9 +17,9 @@ class Player < ApplicationRecord
     end
   end
 
-  def total_score
-    records.map(&:score).compact.sum
-  end
+  # def total_score
+  #   records.map(&:score).compact.sum
+  # end
 
   def game_times
     records.count

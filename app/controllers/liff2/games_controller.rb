@@ -14,6 +14,15 @@ class Liff2::GamesController < ApplicationController
     redirect_to room_path(params[:room_id])
   end
 
+  def index
+    res = GameService::GenerateTable.new(
+      room_id: params.require(:room_id)
+    ).perform
+
+    @players = res[:players]
+    @record_map = res[:record_map]
+  end
+
   private
   def permit_params
     params.permit(records: [:score, :player_id])

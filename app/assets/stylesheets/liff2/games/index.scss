@@ -1,0 +1,38 @@
+.index-game {
+  table,
+  tr,
+  td,
+  th {
+    border: 1px solid #ddd;
+  }
+
+  tr {
+    display: flex;
+  }
+
+  th,
+  td {
+    display: inline-block;
+    width: 60px;
+    text-align: end;
+  }
+
+  td:nth-child(odd) {
+    background-color: #f3f3f3;
+  }
+
+  .game_date {
+    font-size: 8px;
+    width: 80px;
+    text-align: center;
+  }
+
+  .total_score {
+    font-weight: bold;
+  }
+
+  tr.player th {
+    background-color: #d7ccc8;
+    text-align: center;
+  }
+}
