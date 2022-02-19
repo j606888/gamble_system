@@ -1,8 +1,8 @@
 class Room < ApplicationRecord
   has_many :players, dependent: :destroy
   has_many :games, dependent: :destroy
-  has_many :line_sources
   has_many :room_maps
+  has_many :line_sources, through: :room_maps
   has_one :line_group
 
   ALLOW_REPORT_TYPE = %w[winner loser counter]

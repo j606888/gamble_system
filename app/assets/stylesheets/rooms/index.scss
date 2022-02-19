@@ -17,4 +17,22 @@
   td {
     border: 1px solid #ccc;
   }
+
+  .change-room {
+    input[type="submit"] {
+      font-size: 12px;
+      min-width: 240px;
+      padding: 12px 24px;
+      margin: 8px auto;
+      display: block;
+      background-color: #a5d6a7;
+      color: #fff;
+      border: none;
+      border-radius: 16px;
+    }
+  }
+
+  hr {
+    margin-bottom: 24px;
+  }
 }

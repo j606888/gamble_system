@@ -1,0 +1,27 @@
+<div class="room-index">
+  <%= form_tag("/liff2/rooms/#{@room.id}", method: :put) do %>
+    <div class="input-group">
+      <%= text_field_tag 'name', nil, placeholder: @room.name %>
+      <%= submit_tag '更新房名' %>
+    </div>
+  <% end %>
+
+  <h2>切換房間</h2>
+  <div class="change-room">
+    <% @other_rooms.each do |room| %>
+      <%= form_tag("/liff2/rooms/#{@room.id}/change", method: :post) do %>
+        <%= hidden_field_tag 'change_id', room.id %>
+        <%= submit_tag room.name %>
+      <% end %>
+    <% end %>
+  </div>
+  <hr>
+
+  <%= form_tag("/liff2/rooms", method: :post) do %>
+    <div class="input-group">
+      <%= hidden_field_tag 'current_id', @room.id %>
+      <%= text_field_tag 'name', nil, placeholder: '輸入新房間名稱' %>
+      <%= submit_tag '新增房間' %>
+    </div>
+  <% end %>
+</div>

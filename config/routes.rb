@@ -12,6 +12,11 @@ Rails.application.routes.draw do
   namespace :liff2 do
     resources :games, only: [:index, :new, :create]
     resources :players, only: [:index, :create]
+    resources :rooms, only: [:index, :create, :update] do
+      member do
+        post 'change'
+      end
+    end
   end
 
   namespace :liff do
