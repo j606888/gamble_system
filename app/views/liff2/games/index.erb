@@ -1,0 +1,29 @@
+<div class="index-game">
+  <table>
+    <thead>
+      <tr class="player">
+        <th class="game_date">玩家</th>
+        <% @players.each do |player| %>
+        <th><%= player.name %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th class="game_date">分數</th>
+      <% @players.each do |player| %>
+        <td class="total_score"><%= player.total_score %></td>
+      <% end %>
+    </tr>
+    <% @record_map.each do |game_date, records| %>
+      <tr>
+        <th class="game_date"><%= game_date %></th>
+        <% @players.pluck(:id).each do |player_id| %>
+          <td><%= records[player_id.to_s] %></td>
+        <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+</div>

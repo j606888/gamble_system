@@ -1,0 +1,28 @@
+<div class="players-index">
+  <h1>玩家</h1>
+
+  <%= form_tag('/liff2/players', method: :post) do %>
+    <div class="input-group">
+      <%= text_field_tag 'name', nil, placeholder: '新玩家名稱' %>
+      <%= submit_tag '新增' %>
+    </div>
+    <%= hidden_field_tag 'room_id', @room_id %>
+  <% end %>
+
+  <table>
+    <thead>
+      <tr>
+        <th>姓名</th>
+        <th>功能</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @players.each do |player| %>
+      <tr>
+        <td><%= player.name %></td>
+        <td>施工中...</td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

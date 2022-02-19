@@ -1,6 +1,6 @@
 class Liff::GamesController < Liff::ApplicationController
   def new
-    @players = @source_room.players.avaliable.winner
+    @players = @source_room.players.winner
     @score_array = Player.score_array(@players)
   end
 

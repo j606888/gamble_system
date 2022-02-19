@@ -1,0 +1,38 @@
+.players-index {
+  color: #fff;
+  background-color: #15172b;
+  padding: 1px 24px 0;
+  min-height: 100vh;
+
+  h1 {
+    text-align: center;
+  }
+
+  form {
+    .input-group {
+      text-align: center;
+      margin: 0 auto 24px;
+    }
+    input[type="text"] {
+      padding: 6px;
+    }
+
+    input[type="submit"] {
+      border: none;
+      background-color: #2ecc71;
+      color: #fff;
+      border-radius: 12px;
+      margin-left: 12px;
+      padding: 6px 12px;
+    }
+  }
+
+  table {
+    margin: 0 auto;
+  }
+
+  th,
+  td {
+    padding: 4px 8px;
+  }
+}

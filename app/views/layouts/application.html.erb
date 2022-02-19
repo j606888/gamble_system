@@ -2,22 +2,20 @@
 <html>
   <head>
     <title>GambleSystem</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0"/>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= csrf_meta_tags %> <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <script src="https://kit.fontawesome.com/fd640b4d49.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/fd640b4d49.js"
+      crossorigin="anonymous"
+    ></script>
     <style>
-      @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC:400,500&display=swap');
+      @import url("https://fonts.googleapis.com/css?family=Noto+Sans+TC:400,500&display=swap");
     </style>
   </head>
 
   <body>
-      <div class="container">
-        <%= yield %>
-      </div>
-    </div>
-    
+    <%= yield %>
   </body>
 </html>

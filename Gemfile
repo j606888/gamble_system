@@ -13,31 +13,25 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'awesome_rails_console'
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'bootstrap', '~> 4.3.1'
 gem 'simple_form'
-gem 'devise'
 gem 'jquery-rails'
-gem 'rolify'
-gem 'cancancan'
-gem 'chart-js-rails'
 gem 'settingslogic'
 gem 'bootstrap-datepicker-rails'
-gem 'omniauth-google-oauth2'
 gem 'faraday'
 gem 'redis'
 gem 'active_link_to'
-gem 'omniauth'
 gem 'line-bot-api'
 gem 'service_caller'
-gem 'whenever', require: false
-gem 'aws-sdk-s3'
 gem 'nokogiri', '~> 1.11'
+gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dabd025dcbd36a8a60f'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry'
   gem 'pry-rails'
   gem 'pry-byebug'
+  gem 'dotenv-rails'
+  gem 'bullet'
 end
 
 group :development do
@@ -50,6 +44,7 @@ group :development do
   gem 'capistrano-bundler', '~> 1.6', require: false
   gem 'capistrano-rvm', require: false
   gem 'capistrano3-puma' , require: false
+  gem 'solargraph'
 end
 
 group :test do

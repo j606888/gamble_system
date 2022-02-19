@@ -1,23 +1,24 @@
-<h1>Room</h1>
+<div class="room-index">
+  <h1>Room</h1>
 
-我的最愛曲
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>id</th>
-      <th>name</th>
-      <th>players count</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @rooms.each do |room| %>
+  <table>
+    <thead>
       <tr>
-        <td><%= room.id %></td>
-        <td><%= room.name %></td>
-        <td><%= room.players.length %></td>
-        <td><%= link_to '進入', room %></td>
+        <th>name</th>
+        <th>players count</th>
+        <th>games count</th>
+        <th>last game at</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @rooms.each do |room| %>
+      <tr>
+        <td><%= link_to room.name, room %></td>
+        <td><%= room.players_count %></td>
+        <td><%= room.games.size %></td>
+        <td><%= room.games.last&.created_at&.strftime("%F") %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

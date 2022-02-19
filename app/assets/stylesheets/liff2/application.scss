@@ -1,0 +1,88 @@
+@import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+
+* {
+  font-family: "cwTeXYen", sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+p {
+  margin: 0;
+}
+
+.new-game {
+  color: #fff;
+  background-color: #15172b;
+  padding: 1px 24px 0;
+  min-height: 100vh;
+
+  h1 {
+    text-align: center;
+  }
+
+  .score-group {
+    position: relative;
+    width: 100%;
+    margin-bottom: 8px;
+
+    input {
+      font-size: 16px;
+      display: block;
+      background-color: #303245;
+      padding: 12px;
+      border: 0;
+      border-radius: 12px;
+      // margin: 2px 0 8px;
+      width: 100%;
+      margin-top: 2px;
+      color: #fff;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .name-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    .left {
+      font-size: 16px;
+    }
+
+    .right {
+      font-size: 8px;
+    }
+  }
+
+  .submit-group {
+    background: #1abc9c;
+    width: 100%;
+    padding: 16px;
+    border-radius: 12px;
+    border: none;
+    font-size: 24px;
+    margin: 32px 0 16px;
+
+    &:disabled {
+      background-color: #bdc3c7;
+    }
+  }
+
+  #current-sum {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 8px;
+    background-color: #ecf0f1;
+    color: #15172b;
+    border-bottom-left-radius: 12px;
+  }
+}

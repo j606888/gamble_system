@@ -1,1 +1,0 @@
-ENV['AWS_PROFILE'] = 'j606888' if Rails.env.development?

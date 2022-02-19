@@ -1,22 +1,21 @@
+<div class="room-index">
 <h1><%= @room.name %></h1>
 <%= link_to '返回', rooms_path, class: 'btn btn-secondary'%>
 <table class="table table-striped">
   <thead>
     <tr>
       <th>名稱</th>
-      <th>暱稱</th>
       <th>分數</th>
       <th>出戰數</th>
     </tr>
   </thead>
   <tbody>
     <% @room.players.includes(:records).each do |player| %>
-      <tr>
-        <td><%= player.name %></td>
-        <td><%= player.nickname %></td>
-        <td><%= player.analyse[:total_score] %></td>
-        <td><%= player.analyse[:game_count] %></td>
-      </tr>
+    <tr>
+      <td><%= player.name %></td>
+      <td><%= player.analyse[:total_score] %></td>
+      <td><%= player.analyse[:game_count] %></td>
+    </tr>
     <% end %>
   </tbody>
 </table>
@@ -24,29 +23,28 @@
 <table class="table table-bordered">
   <tr>
     <% @report[:header][:name].each do |name| %>
-      <th><%= name %></th>
+    <th><%= name %></th>
     <% end %>
   </tr>
   <tr>
     <% @report[:header][:money].each do |money| %>
-      <th><%= money %></th>
+    <th><%= money %></th>
     <% end %>
   </tr>
   <% @report[:body].each do |record| %>
-    <tr>
-      <td>
-        <%= record['date'] %>
-        <% if params[:edit].present? %>
-          <%= link_to '編輯', edit_room_game_path(@room.id, record['id'])%>
-          <%= link_to '刪除', room_game_path(@room.id, record['id']), method: :delete, data: {confirm: "Are you sure?"} %>
-        <% end %>
-      </td>
-      <% @report[:header][:id].each do |id| %>
-        <td><%= record[id] %></td>
-      <% end %>
-      <% if params[:edit].present? %>
-        <td><%= record['recorder'] %></td>
-      <% end %>
-    </tr>
+  <tr>
+    <td>
+      <%= record['date'] %> <% if params[:edit].present? %> <%= link_to '編輯',
+      edit_room_game_path(@room.id, record['id'])%> <%= link_to '刪除',
+      room_game_path(@room.id, record['id']), method: :delete, data: {confirm:
+      "Are you sure?"} %> <% end %>
+    </td>
+    <% @report[:header][:id].each do |id| %>
+    <td><%= record[id] %></td>
+    <% end %> <% if params[:edit].present? %>
+    <td><%= record['recorder'] %></td>
+    <% end %>
+  </tr>
   <% end %>
 </table>
+</div>
