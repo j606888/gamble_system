@@ -1,5 +1,5 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.11.0"
+lock "~> 3.16.0"
 
 set :application, "gamble_system"
 set :repo_url, "git@github.com:j606888/gamble_system.git"
@@ -8,9 +8,11 @@ set :repo_url, "git@github.com:j606888/gamble_system.git"
 ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, -> { "/home/deployer/#{fetch :rails_env}_servers/#{fetch(:application)}" }
+set :deploy_to, -> { "/home/j606888/servers/#{fetch(:application)}" }
 
-set :rvm_ruby_version, '2.6.3'
+set :rvm_ruby_version, "2.6.3@gamble_system"
+set :rvm_custom_path, "/usr/share/rvm"
+
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
 
@@ -23,7 +25,6 @@ set :rvm_ruby_version, '2.6.3'
 
 # Default value for :linked_files is []
 # append :linked_files, "config/database.yml"
-append :linked_files, "config/master.key"
 
 # Default value for linked_dirs is []
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"

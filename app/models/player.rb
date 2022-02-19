@@ -3,8 +3,6 @@ class Player < ApplicationRecord
   has_many :records, dependent: :destroy
 
   scope :avaliable, -> { where(hidden: false).order(:id) }
-  scope :winner, -> { includes(:records).all.sort_by(&:total_score).reverse! }
-  scope :loser, -> { includes(:records).all.sort_by(&:total_score) }
   scope :counter, -> { includes(:records).all.sort_by(&:game_times).reverse! }
 
   def self.score_array(players)
