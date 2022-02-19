@@ -11,6 +11,8 @@ ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 set :deploy_to, -> { "/home/j606888/servers/#{fetch(:application)}" }
 
 set :rvm_ruby_version, '2.6.3'
+set :rvm_custom_path, "/usr/share/rvm"
+
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
 
