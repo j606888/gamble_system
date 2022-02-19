@@ -22,7 +22,7 @@ gem 'redis'
 gem 'active_link_to'
 gem 'line-bot-api'
 gem 'service_caller'
-gem 'nokogiri', '~> 1.11'
+gem 'nokogiri', '~> 1.12'
 gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dabd025dcbd36a8a60f'
 
 group :development, :test do
