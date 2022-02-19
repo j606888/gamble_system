@@ -4,7 +4,7 @@ development: &development
 test:
   <<: *development
 
-preparing:
+staging:
   <<: *development
   liff_entry: "1653880740-N3nkQznA"
 

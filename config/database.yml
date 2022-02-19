@@ -15,9 +15,9 @@ test:
   <<: *default
   database: gamble_system_test
 
-preparing:
+staging:
   <<: *default
-  database: gamble_system_preparing
+  database: gamble_system_staging
 
 production:
   <<: *default
