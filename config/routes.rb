@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  # line api webhook
   namespace :webhook do
     post 'line'
   end
@@ -9,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :rooms
 
-  namespace :liff2 do
+  namespace :liff do
     resources :games, only: [:index, :new, :create]
     resources :players, only: [:index, :create]
     resources :rooms, only: [:index, :create, :update] do
@@ -19,38 +18,13 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :liff do
-    resources :players do
-      member do
-        post 'trigger_hidden'
-      end
-    end
-
-    namespace :rooms do
-      get 'edit'
-      put 'update'
-      get 'show'
-      post 'switch'
-      post 'create'
-    end
-
-    namespace :records do
-      get 'analyse'
-      get 'single'
-      get 'total'
-    end
-
-    namespace :games do
-      get 'new'
-      post 'create'
-    end
-
-    namespace :callback do
-      get 'text'
-      get 'entry'
-      get 'exit'
+  resources :liff, only: [:index] do
+    collection do
+      get :close_window
     end
   end
+  get 'liff/new_game', to: 'liff/games#new'
+  get 'liff/entry', to: 'liff#entry'
 
   root 'rooms#index'
 end

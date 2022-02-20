@@ -1,0 +1,20 @@
+<p id="the-p">closing....</p>
+<script>
+  item = document.querySelector('#the-p')
+  item.innerHTML = 'GOOG'
+  try {
+    liff.init({
+        liffId: "<%= ENV['LINE_LIFF_ID'] %>",
+      }).then(() => {
+        liff.closeWindow();
+      }).catch((err) => {
+      item.innerHTML = 'BAD'
+
+      });
+      item.innerHTML = 'END'
+
+  } catch(err) {
+    item.innerHTML = err
+  }
+  
+</script>

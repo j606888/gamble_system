@@ -5,8 +5,14 @@ class LineService::FlexMessage < Service
 
   def perform
     room = query_room!(@room_id)
-    contents = [FirstTimeWelcome.new(room).perform]
-
+    if room.players.empty?
+      contents = [FirstTimeWelcome.new(room).perform]
+    else
+      contents = [
+        Dashboard.new(room).perform,
+        Settings.new(room).perform
+      ]
+    end
     {
       type: "flex",
       altText: "麻將說話了",

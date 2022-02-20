@@ -1,25 +1,30 @@
-<div class="wrapper">
-  <header class="nameTitle">
-    <div class="nameTitle">管理玩家</div>
-  </header>
+<div class="players-index">
+  <h1>玩家</h1>
+
+  <%= form_tag('/liff/players', method: :post) do %>
+    <div class="input-group">
+      <%= text_field_tag 'name', nil, placeholder: '新玩家名稱' %>
+      <%= submit_tag '新增' %>
+    </div>
+    <%= hidden_field_tag 'room_id', @room_id %>
+  <% end %>
+
   <table>
-    <tr>
-      <td>名稱</td>
-      <td>動作</td>
-    </tr>
-    <% @players.each do |player| %>
+    <thead>
       <tr>
-        <th><%= player.name %></th>  
-        <th>
-          <%= link_to '編輯', edit_liff_player_path(player.id, source_id: params[:source_id]), class: 'edit' %> &nbsp; &nbsp;   
-          <%= link_to '切換', trigger_hidden_liff_player_path(player.id, source_id: params[:source_id]), method: :post %>
-          <% if player.hidden %>
-            <span class="hidden">隱藏中</span>
-          <% else %>
-            <span class="show">顯示中</span>
-          <% end %>
-        </th>
+        <th>姓名</th>
+        <th>功能</th>
       </tr>
-    <% end %>
+    </thead>
+    <tbody>
+      <% @players.each do |player| %>
+      <tr>
+        <td><%= player.name %></td>
+        <td>施工中...</td>
+      </tr>
+      <% end %>
+    </tbody>
   </table>
+
+  <a href="/liff/close_window">回主選單</a>
 </div>

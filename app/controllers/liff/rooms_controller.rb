@@ -1,28 +1,33 @@
-class Liff::RoomsController < Liff::ApplicationController
-  def create
-    room = Room.create(name: params[:name])
-    RoomMap.create(room_id: room.id, line_source_id: @line_source.id)
-    @line_source.update(room_id: room.id)
-    redirect_to liff_callback_exit_path(message: "#{room.name} 建立成功")
-  end
-
-  def edit
-    @room = @source_room
+class Liff::RoomsController < ApplicationController
+  def index
+    @room = Room.find_by(id: params.require(:room_id))
+    line_source = @room.line_sources.first
+    @other_rooms = line_source.rooms - [@room]
   end
 
   def update
-    @room = @source_room
-    @room.update(name: params[:name])
-    redirect_to liff_callback_exit_path(message: "房間更名成功！")
+    room = Room.find_by(id: params.require(:id))
+
+    room.update(name: params.require(:name))
+    redirect_to liff_rooms_path(room_id: room.id)
   end
 
-  def show
-    @room = @source_room
-    @other_rooms = @line_source.other_rooms
+  def change
+    room = Room.find_by(id: params.require(:id))
+    line_source = room.line_sources.first
+    line_source.update(room_id: params.require(:change_id))
+
+    redirect_to liff_rooms_path(room_id: params.require(:change_id))
   end
 
-  def switch
-    @line_source.update(room_id: params[:target_id])
-    redirect_to liff_callback_exit_path(message: "切換至 #{@line_source.room.name} 成功！")
+  def create
+    room = Room.find_by(id: params.require(:current_id))
+    line_source = room.line_sources.first
+
+    new_room = Room.create(name: params.require(:name))
+    line_source.rooms << [new_room]
+    line_source.update(room_id: new_room.id)
+
+    redirect_to liff_rooms_path(room_id: new_room.id)
   end
 end

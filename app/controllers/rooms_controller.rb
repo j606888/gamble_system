@@ -4,7 +4,12 @@ class RoomsController < ApplicationController
   end
 
   def show
-    @room = Room.find(params[:id])
-    @report = @room.report
+    @room = Room.find_by(id: params.require(:id))
+    res = GameService::GenerateTable.new(
+      room_id: @room.id
+    ).perform
+
+    @players = res[:players]
+    @record_map = res[:record_map]
   end
 end

@@ -7,7 +7,7 @@ class RoomService::QueryPlayersOrderByScore < Service
     room = Room.find_by(id: @room_id)
     room.
       players.
-      joins(:records).
+      left_joins(:records).
       select("players.*", 'SUM(records.score) AS score_sum').
       group("players.id").
       order('score_sum DESC')

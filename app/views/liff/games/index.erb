@@ -15,9 +15,9 @@
         <td class="total_score"><%= player.total_score %></td>
       <% end %>
     </tr>
-    <% @record_map.each do |game_date, records| %>
+    <% @record_map.each do |records| %>
       <tr>
-        <th class="game_date"><%= game_date %></th>
+        <th class="game_date"><%= records['date'] %></th>
         <% @players.pluck(:id).each do |player_id| %>
           <td><%= records[player_id.to_s] %></td>
         <% end %>
