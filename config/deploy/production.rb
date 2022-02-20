@@ -5,7 +5,7 @@
 
 # server "example.com", user: "deploy", roles: %w{app db web}, my_property: :my_value
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
-server "3.0.230.226", user: "deployer", roles: %w{app db web}
+server "production.j606888.com", user: "j606888", roles: %w{app db web}
 
 
 set :rails_env, 'production'
