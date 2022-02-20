@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :rooms
 
-  namespace :liff2 do
+  namespace :liff do
     resources :games, only: [:index, :new, :create]
     resources :players, only: [:index, :create]
     resources :rooms, only: [:index, :create, :update] do
@@ -17,6 +17,14 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  resources :liff, only: [:index] do
+    collection do
+      get :close_window
+    end
+  end
+
+  get 'liff/entry', to: 'liff#entry'
 
   root 'rooms#index'
 end

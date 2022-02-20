@@ -1,4 +1,4 @@
-class Liff2::GamesController < ApplicationController
+class Liff::GamesController < ApplicationController
   def new
     @room = Room.find_by(id: params[:room_id])
     @players = RoomService::QueryPlayersOrderByScore.new(room_id: @room.id).perform

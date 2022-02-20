@@ -4,7 +4,7 @@ class LineService::FlexMessage::FirstTimeWelcome < Service
   end
 
   def perform
-    next_url = "/liff2/players/new?room_id=#{@room.id}"
+    next_url = "/liff/players/new?room_id=#{@room.id}"
 
     {
       "type": "bubble",
@@ -39,7 +39,8 @@ class LineService::FlexMessage::FirstTimeWelcome < Service
             "action": {
               "type": "uri",
               "label": "新增玩家",
-              "uri": "https://liff.line.me/1653880740-r34PQk4w?next_url=#{next_url}"
+              # "uri": "https://liff.line.me/1653880740-r34PQk4w?next_url=#{next_url}"
+              "uri": "https://liff.line.me/1656907430-GzJdd9Ed/players/?room_id=#{@room.id}"
             },
             "style": "primary"
           }

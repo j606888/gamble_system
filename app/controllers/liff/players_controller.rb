@@ -1,4 +1,4 @@
-class Liff2::PlayersController < ApplicationController
+class Liff::PlayersController < LiffController
   def index
     @room_id = params[:room_id]
     @room = Room.find_by(id: @room_id)
@@ -10,6 +10,6 @@ class Liff2::PlayersController < ApplicationController
       room_id: params[:room_id],
       name: params[:name]
     ).perform
-    redirect_to liff2_players_path(room_id: params[:room_id])
+    redirect_to liff_players_path(room_id: params[:room_id])
   end
 end

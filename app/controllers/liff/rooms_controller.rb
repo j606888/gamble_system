@@ -1,4 +1,4 @@
-class Liff2::RoomsController < ApplicationController
+class Liff::RoomsController < ApplicationController
   def index
     @room = Room.find_by(id: params.require(:room_id))
     line_source = @room.line_sources.first
@@ -9,7 +9,7 @@ class Liff2::RoomsController < ApplicationController
     room = Room.find_by(id: params.require(:id))
 
     room.update(name: params.require(:name))
-    redirect_to liff2_rooms_path(room_id: room.id)
+    redirect_to liff_rooms_path(room_id: room.id)
   end
 
   def change
@@ -17,7 +17,7 @@ class Liff2::RoomsController < ApplicationController
     line_source = room.line_sources.first
     line_source.update(room_id: params.require(:change_id))
 
-    redirect_to liff2_rooms_path(room_id: params.require(:change_id))
+    redirect_to liff_rooms_path(room_id: params.require(:change_id))
   end
 
   def create
@@ -28,6 +28,6 @@ class Liff2::RoomsController < ApplicationController
     line_source.rooms << [new_room]
     line_source.update(room_id: new_room.id)
 
-    redirect_to liff2_rooms_path(room_id: new_room.id)
+    redirect_to liff_rooms_path(room_id: new_room.id)
   end
 end
