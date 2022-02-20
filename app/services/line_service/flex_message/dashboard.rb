@@ -15,7 +15,7 @@ class LineService::FlexMessage::Dashboard < Service
         layout: "horizontal",
         contents: [
           text(room_name, {flex: 5, size: "xl", align: "start", gravity: "center", color: "#F2B94A", wrap: true} ),
-          button_uri("紀錄", "https://liff.line.me/1656907430-GzJdd9Ed/new_game/?room_id=#{@room.id}", {flex: 2, color: "#E1A576", margin: 'none', height: 'sm', style: 'primary'} )
+          button_uri("紀錄", "https://liff.line.me/#{ENV['LINE_LIFF_ID']}/new_game/?room_id=#{@room.id}", {flex: 2, color: "#E1A576", margin: 'none', height: 'sm', style: 'primary'} )
         ]
       },
       body: {

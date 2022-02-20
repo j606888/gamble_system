@@ -40,7 +40,7 @@ class LineService::FlexMessage::FirstTimeWelcome < Service
               "type": "uri",
               "label": "新增玩家",
               # "uri": "https://liff.line.me/1653880740-r34PQk4w?next_url=#{next_url}"
-              "uri": "https://liff.line.me/1656907430-GzJdd9Ed/players/?room_id=#{@room.id}"
+              "uri": "https://liff.line.me/#{ENV["LINE_LIFF_ID"]}/players/?room_id=#{@room.id}"
             },
             "style": "primary"
           }

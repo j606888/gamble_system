@@ -4,7 +4,7 @@
   item.innerHTML = 'GOOG'
   try {
     liff.init({
-        liffId: '1656907430-GzJdd9Ed',
+        liffId: "<%= ENV['LINE_LIFF_ID'] %>",
       }).then(() => {
         liff.closeWindow();
       }).catch((err) => {
