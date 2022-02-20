@@ -4,15 +4,6 @@ class LineBot::Eventer < ServiceCaller
     @event = event
     @source = event['source']
     @text = event['message']['text']
-    # @source = {
-    #   "userId" => "U41341df97042681252c3abba7a9ea607",
-    #   "type" => "user"
-    # }
-    # @message = {
-    #   "type" => "text",
-    #     "id" => "12080951407824",
-    #   "text" => "看看去"
-    # }
   end
 
   def call
@@ -20,10 +11,7 @@ class LineBot::Eventer < ServiceCaller
     if @text == '麻將'
       flex_message = LineService::FlexMessage.new(room_id: @room.id).perform
       res = client.reply_message(@event['replyToken'], flex_message)
-      puts res
     end
-  rescue => e
-    puts e.message
   end
 
   private
@@ -31,7 +19,10 @@ class LineBot::Eventer < ServiceCaller
   def setup_line_source
     source_type = @source['type']
     source_id = @source["#{source_type}Id"]
-    @line_source = LineSource.setup_up_from(source_type, source_id)
+    @line_source = RoomService::SetupLineSource.new(
+      source_type: source_type,
+      source_id: source_id
+    ).perform
     @room = @line_source.room
   end
 
