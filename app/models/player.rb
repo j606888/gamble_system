@@ -2,27 +2,6 @@ class Player < ApplicationRecord
   belongs_to :room
   has_many :records, dependent: :destroy
 
-  scope :avaliable, -> { where(hidden: false).order(:id) }
-  scope :counter, -> { includes(:records).all.sort_by(&:game_times).reverse! }
-
-  def self.score_array(players)
-    players.map do |player|
-      {
-        id: player.id,
-        score: nil,
-        name: player.name
-      }
-    end
-  end
-
-  # def total_score
-  #   records.map(&:score).compact.sum
-  # end
-
-  def game_times
-    records.count
-  end
-
   def analyse
     game_count = win_count = lose_count = total_score = 0
     records.each do |record|
@@ -45,14 +24,5 @@ class Player < ApplicationRecord
       win_rate: "#{(win_rate * 100).to_i}%",
       average: (total_score.to_f / game_count).round(2)
     }
-  end
-
-  def date_report
-    records.includes(:game).map do |record|
-      {
-        date: record.game.date,
-        score: record.score
-      }
-    end
   end
 end

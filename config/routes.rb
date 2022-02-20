@@ -3,10 +3,7 @@ Rails.application.routes.draw do
   namespace :webhook do
     post 'line'
   end
-
-  resources :line_sources
-
-  resources :rooms
+  resources :rooms,  only: [:index, :show]
 
   namespace :liff do
     resources :games, only: [:index, :new, :create]
