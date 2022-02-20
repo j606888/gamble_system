@@ -1,4 +1,4 @@
-class LineService::FlexMessage::Dashboard < Service
+class LineService::FlexMessage::Settings < Service
   include LiffHelper
 
   def initialize(room)
@@ -6,37 +6,45 @@ class LineService::FlexMessage::Dashboard < Service
   end
 
   def perform
-    players = @room.players
-    room_name = @room.name
-
-    return none_user_board if players.count == 0
     {
-      type: "bubble",
+      type: 'bubble',
+      direction: 'ltr',
       header: {
-        type: "box",
-        layout: "horizontal",
+        type: 'box',
+        layout: 'horizontal',
         contents: [
-          text(room_name, {flex: 5, size: "xl", align: "start", gravity: "center", color: "#F2B94A", wrap: true} ),
-          button_uri("紀錄", liff_url('new_game', @room.id), {flex: 2, color: "#E1A576", margin: 'none', height: 'sm', style: 'primary'} )
+          text('設定', { size: 'xxl', align: 'center' })
         ]
       },
       body: {
-        type: "box",
-        layout: "vertical",
-        spacing: "md",
+        type: 'box',
+        layout: 'vertical',
+        spacing: 'sm',
         contents: [
           {
             type: 'box',
             layout: 'horizontal',
-            flex: 3,
-            spacing: 'xl',
             contents: [
-              text('名稱', { flex: 4, margin: 'md', align: 'start', weight: 'bold', color: '#FDCB6E', wrap: false} ),
-              text('出場數', { flex: 2, margin: 'sm', align: 'center', weight: 'bold', color: '#FDCB6E'}),
-              text('總分', { flex: 2, align: 'end', weight: 'bold', color: '#FDCB6E'})
+              button_uri('玩家', liff_url('players', @room.id), {color: '#F28C8C', margin: 'md', height: 'sm', style: 'primary'})
+            ]
+          },{
+            type: 'separator'
+          },{
+            type: 'box',
+            layout: 'horizontal',
+            contents: [
+              button_uri('戰績表', liff_url('games', @room.id), {margin: 'md', height: 'sm', style: 'secondary'})
+            ]
+          },{
+            type: 'separator'
+          },{
+            type: 'box',
+            layout: 'horizontal',
+            contents: [
+              button_uri('房間', liff_url('rooms', @room.id), {margin: 'md', height: 'sm', style: 'secondary'})
             ]
           }
-        ] + players&.map { |p| player_info(p) }
+        ]
       }
     }
   end

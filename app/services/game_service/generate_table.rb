@@ -21,16 +21,14 @@ class GameService::GenerateTable < Service
   end
 
   def fetch_record_map room
-    mapping = {}
-    room.games.includes(:records).order(:created_at => :desc).each do |game|
+    room.games.includes(:records).order(:created_at => :desc).map do |game|
       temp_map = {}
       game.records.each do |record|
         temp_map[record.player_id.to_s] = record.score
       end
-      
-      mapping[game.created_at.strftime("%F")] = temp_map
-    end
 
-    mapping
+      temp_map['date'] = game.created_at.strftime("%F ")
+      temp_map
+    end
   end
 end
