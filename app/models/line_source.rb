@@ -15,16 +15,4 @@ class LineSource < ApplicationRecord
     
     line_source
   end
-
-  def other_rooms
-    rooms - [room]
-  end
-
-  def switch_room(room_id)
-    update(room_id: room_id)
-  end
-
-  def liff_link(target_path)
-    "line://app/#{Setting.liff_entry}?source_id=#{source_id}&target_path=#{target_path}"
-  end
 end

@@ -35,10 +35,6 @@ class LineBot::Eventer < ServiceCaller
     @room = @line_source.room
   end
 
-  def designer
-    @designer ||= LineBot::Designer.new(@line_source)
-  end
-
   def client
     @client ||= Line::Bot::Client.new{ |config|
       config.channel_id = ENV['GAMBLE_LINE_CHANNEL_ID']

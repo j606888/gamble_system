@@ -15,7 +15,6 @@ gem 'awesome_rails_console'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'simple_form'
 gem 'jquery-rails'
-gem 'settingslogic'
 gem 'bootstrap-datepicker-rails'
 gem 'faraday'
 gem 'redis'
