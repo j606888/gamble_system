@@ -23,7 +23,7 @@ Rails.application.routes.draw do
       get :close_window
     end
   end
-
+  get 'liff/new_game', to: 'liff/games#new'
   get 'liff/entry', to: 'liff#entry'
 
   root 'rooms#index'

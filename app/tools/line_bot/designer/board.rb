@@ -21,7 +21,7 @@ module LineBot::Designer::Board
     contents << setting_board
     {
       type: "flex",
-      altText: "麻將說話了",
+      altText: "麻將說話了",
       contents: {
         type: "carousel",
         contents: contents

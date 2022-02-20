@@ -11,7 +11,7 @@ class Liff::GamesController < ApplicationController
       skip_check: params[:skip_check].present?
     }.compact).perform
 
-    redirect_to room_path(params[:room_id])
+    redirect_to close_window_liff_index_path
   end
 
   def index
