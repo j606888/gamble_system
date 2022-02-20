@@ -11,10 +11,7 @@ class LineBot::Eventer < ServiceCaller
     if @text == '麻將'
       flex_message = LineService::FlexMessage.new(room_id: @room.id).perform
       res = client.reply_message(@event['replyToken'], flex_message)
-      puts res
     end
-  rescue => e
-    puts e.message
   end
 
   private
