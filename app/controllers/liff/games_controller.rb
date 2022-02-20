@@ -5,11 +5,17 @@ class Liff::GamesController < ApplicationController
   end
 
   def create
+    room_id = params.require(:room_id)
+
     GameService::Save.new({
-      room_id: params.require(:room_id),
+      room_id: room_id,
       records: permit_params[:records],
       skip_check: params[:skip_check].present?
     }.compact).perform
+
+    LineService::PushMessage.new(
+      room_id: room_id
+    ).perform
 
     redirect_to close_window_liff_index_path
   end
