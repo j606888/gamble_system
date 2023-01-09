@@ -6,10 +6,11 @@ class LineService::FlexMessage::Dashboard < Service
   end
 
   def perform
-    players = @room.players
+    players = @room.players.includes(:records)
     room_name = @room.name
 
     return none_user_board if players.count == 0
+    players = players.sort_by { |player| -player.analyse[:total_score] }
     {
       type: "bubble",
       header: {

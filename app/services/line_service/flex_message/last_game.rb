@@ -8,7 +8,7 @@ class LineService::FlexMessage::LastGame < Service
   def perform
     room = Room.find(@room_id)
     game = room.games.last
-    records = game.records.includes([:player])
+    records = game.records.includes([:player]).order(score: :desc)
     {
       type: "bubble",
       direction: "ltr",
