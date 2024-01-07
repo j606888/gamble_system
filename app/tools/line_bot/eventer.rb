@@ -8,7 +8,7 @@ class LineBot::Eventer < ServiceCaller
 
   def call
     setup_line_source
-    if @text == '麻將'
+    if ['麻將', '德州', '撲克'].include?(@text)
       flex_message = LineService::FlexMessage.new(room_id: @room.id).perform
       res = client.reply_message(@event['replyToken'], flex_message)
     end
