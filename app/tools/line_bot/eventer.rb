@@ -11,6 +11,9 @@ class LineBot::Eventer < ServiceCaller
     if ['麻將', '德州', '撲克'].include?(@text)
       flex_message = LineService::FlexMessage.new(room_id: @room.id).perform
       res = client.reply_message(@event['replyToken'], flex_message)
+    elsif ['上一場', '最後一場'].include?(@text)
+      flex_message = LineService::FlexMessage::LastGame.new(room_id: @room.id).perform
+      res = client.reply_message(@event['replyToken'], flex_message)
     end
   end
 
